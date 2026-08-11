@@ -22,7 +22,7 @@ export const metadata = {
   description:
     "DFMHUB manufactures ARK Make lightning protection systems and structural earthing components — IS/IEC 62305 & IS 3043 design, supply, installation and testing across India.",
   alternates: {
-    canonical: "https://dfmhub.in",
+    canonical: "https://dfmhub.vercel.app",
   },
 };
 

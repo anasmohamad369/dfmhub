@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://dfmhub.in";
+  const baseUrl = "https://dfmhub.vercel.app";
 
   const cities = ["bengaluru", "chennai", "hyderabad", "pune"];
 

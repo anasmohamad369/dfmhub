@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/", "/_next/"],
     },
-    sitemap: "https://dfmhub.in/sitemap.xml",
+    sitemap: "https://dfmhub.vercel.app/sitemap.xml",
   };
 }

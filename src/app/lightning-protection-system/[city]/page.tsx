@@ -307,7 +307,7 @@ export async function generateMetadata({
     title: `Lightning Protection System in ${city.name}, ${city.state} | IS/IEC 62305`,
     description: `DFMHUB manufactures ARK Make lightning protection systems for ${city.sectors} across ${city.areas} in ${city.name}, ${city.state}. Free site survey & IS/IEC 62305 design consultation.`,
     alternates: {
-      canonical: `https://dfmhub.in/lightning-protection-system/${city.slug}`,
+      canonical: `https://dfmhub.vercel.app/lightning-protection-system/${city.slug}`,
     },
     openGraph: {
       title: `Lightning Protection System in ${city.name} | DFMHUB`,

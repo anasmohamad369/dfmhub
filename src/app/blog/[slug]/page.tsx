@@ -262,12 +262,12 @@ export default async function BlogPostPage({
       name: "DFMHUB Systems",
       logo: {
         "@type": "ImageObject",
-        url: "https://dfmhub.in/images/logo.png",
+        url: "https://dfmhub.vercel.app/images/logo.png",
       },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://dfmhub.in/blog/${post.slug}`,
+      "@id": `https://dfmhub.vercel.app/blog/${post.slug}`,
     },
   };
 

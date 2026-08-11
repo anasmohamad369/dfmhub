@@ -278,7 +278,7 @@ export async function generateMetadata({
     title: `Structural Earthing in ${city.name}, ${city.state} | IS 3043 & IEC 62305-3`,
     description: `DFMHUB manufactures ARK Make structural earthing components — copper bonded rods, rebar clamps, exothermic weld kits for ${city.sectors} across ${city.name}, ${city.state}.`,
     alternates: {
-      canonical: `https://dfmhub.in/structural-earthing/${city.slug}`,
+      canonical: `https://dfmhub.vercel.app/structural-earthing/${city.slug}`,
     },
     openGraph: {
       title: `Structural Earthing in ${city.name} | DFMHUB`,
