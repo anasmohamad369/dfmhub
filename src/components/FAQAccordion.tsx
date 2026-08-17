@@ -36,7 +36,7 @@ export default function FAQAccordion({ items }: FAQAccordionProps) {
     {
       question: "How do I get a lightning protection quote?",
       answer:
-        "Share your roof plan, structure height, occupancy type and soil data through the enquiry form or call +91 98860 00000. DFMHUB returns a risk assessment summary, layout drawing, bill of materials and a fixed-price proposal, usually within one working day.",
+        "Share your roof plan, structure height, occupancy type and soil data through the enquiry form or call +91 94835 64777. DFMHUB returns a risk assessment summary, layout drawing, bill of materials and a fixed-price proposal, usually within one working day.",
     },
   ];
 

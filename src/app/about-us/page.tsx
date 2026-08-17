@@ -1,161 +1,164 @@
 import React from "react";
 import Link from "next/link";
-import { Factory, ShieldCheck, Cpu, HardHat, FileText } from "lucide-react";
+import {
+  Factory,
+  ShieldCheck,
+  Award,
+  Truck,
+  Target,
+  ChevronRight,
+  MessageCircle,
+} from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 
 export const metadata = {
-  title: "About DFMHUB | ARK Make Lightning Protection Manufacturer",
+  title: "ARK Make Lightning Protection & Earthing Systems | DFMHUB",
   description:
-    "DFMHUB manufactures ARK Make lightning protection and structural earthing systems in India — in-house production, IEC 62561 type-tested components and certified installation teams.",
+    "DFMHUB is India's premier manufacturer of ARK Make Lightning Protection and Structural Earthing Systems in Bengaluru. Engineered to IS 3043 & IEC 62305 standards. Connect with our pan-India dealer network for reliable B2B procurement.",
+  keywords: [
+    "Lightning Protection System manufacturer in India",
+    "Structural Earthing System manufacturer",
+    "ARK Make earthing products",
+    "DFMHUB lightning protection",
+    "Copper bonded earth rods manufacturer",
+  ],
+  alternates: {
+    canonical: "https://dfmhub.vercel.app/about-us",
+  },
 };
 
 export default function AboutUsPage() {
-  const capabilities = [
+  const trustPillars = [
     {
       icon: Factory,
-      title: "Manufacturing",
-      desc: "ARK Make air terminals, conductors, clamps, electrodes and weld kits produced in-house with batch traceability and IEC 62561 type-test evidence.",
+      title: "Direct Manufacturing",
+      desc: "No middlemen. We produce ARK Make systems in our Bengaluru plant, ensuring cost-efficiency, strict quality control, and scalable production for large projects.",
     },
     {
-      icon: Cpu,
-      title: "Engineering",
-      desc: "In-house design cell running IS/IEC 62305-2 risk assessments, rolling sphere modeling and soil resistivity interpretation for every project.",
+      icon: ShieldCheck,
+      title: "Standard Compliance",
+      desc: "All ARK Make products are precision-engineered to align with the latest national (IS 3043) and international (IEC 62305) electrical safety codes.",
     },
     {
-      icon: HardHat,
-      title: "Execution",
-      desc: "Directly employed installation crews with height-safety certification, working across roofs, facades and live foundation pours.",
+      icon: Award,
+      title: "Technical Authority",
+      desc: "We provide high-level technical guidance on selecting the right structural earthing setups based on specific soil resistivities and structural designs.",
     },
     {
-      icon: FileText,
-      title: "Assurance",
-      desc: "Instrument-traceable earth resistance and continuity testing, as-built drawings and a compliance pack at handover.",
+      icon: Truck,
+      title: "National Availability",
+      desc: "Our widespread dealer network ensures that contractors have reliable, rapid access to our inventory anywhere in the country, preventing project delays.",
     },
   ];
 
   return (
-    <div className="w-full transition-colors duration-200">
-      {/* Section 1: Page Header / Hero Banner (DARK NAVY) */}
-      <section className="w-full bg-[#081021] text-white py-16 sm:py-24 border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+    <div className="w-full transition-colors duration-200 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+      {/* Section 1: Page Header / Hero Banner */}
+      <section className="w-full bg-[#081021] text-white py-16 sm:py-24 border-b border-slate-800 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 relative z-10">
           <div className="flex items-center space-x-2 text-xs font-semibold text-slate-400">
-            <Link href="/" className="hover:text-amber-400">
+            <Link href="/" className="hover:text-amber-400 transition-colors">
               Home
             </Link>
             <span>/</span>
             <span className="text-amber-400 font-bold">About Us</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight">
-            About DFMHUB
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight max-w-4xl">
+            Manufacturers of ARK Make Structural Earthing & Lightning Protection Systems
           </h1>
 
-          <p className="text-sm sm:text-base lg:text-lg text-slate-300 max-w-3xl leading-relaxed font-normal">
-            DFMHUB builds ARK Make lightning protection and structural earthing systems, then designs, installs and tests them — so a single team answers for compliance from first drawing to final test report.
+          <p className="text-sm sm:text-base lg:text-lg text-slate-300 max-w-4xl leading-relaxed font-normal">
+            DFMHUB is a premier Indian manufacturer and supplier of advanced electrical safety solutions, widely recognized by engineers and contractors for our flagship ARK Make product line. Headquartered with a state-of-the-art manufacturing facility in Bengaluru, we engineer, produce, and distribute industry-leading Lightning Protection Systems and Structural Earthing Systems.
           </p>
 
-          <div className="pt-2 flex flex-col sm:flex-row gap-4">
+          <p className="text-sm sm:text-base text-slate-300 max-w-4xl leading-relaxed font-normal">
+            Through a robust, pan-India dealer network, DFMHUB safeguards commercial, industrial, and residential infrastructure against electrical faults and direct lightning strikes, ensuring unwavering compliance with stringent national and international safety standards.
+          </p>
+
+          <div className="pt-4 flex flex-col sm:flex-row gap-4">
+            <a
+              href="https://wa.me/919483564777?text=Hello%20DFMHUB%20Team,%20I%20want%20to%20enquire%20about%20ARK%20Make%20products."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-4 rounded-md shadow-lg transition-all flex items-center justify-center space-x-2"
+            >
+              <MessageCircle className="w-5 h-5 fill-white/20" />
+              <span>Connect on WhatsApp</span>
+            </a>
             <Link
               href="/contact-us"
-              className="bg-[#d97706] hover:bg-[#b45309] text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-4 rounded-md shadow-lg transition-all flex items-center justify-center"
+              className="bg-slate-800/90 hover:bg-slate-700 text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-4 rounded-md border border-slate-700 transition-all flex items-center justify-center space-x-1"
             >
-              GET A FREE DESIGN CONSULTATION
-            </Link>
-            <Link
-              href="/installation-services"
-              className="bg-slate-800/90 hover:bg-slate-700 text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-4 rounded-md border border-slate-700 transition-all flex items-center justify-center"
-            >
-              INSTALLATION SERVICES
+              <span>Request Consultation</span>
+              <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Section 2: WHO WE ARE (WHITE) */}
-      <section className="w-full bg-white text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
+      {/* Section 2: Our Mission */}
+      <section className="w-full bg-white dark:bg-slate-900 py-12 sm:py-16 border-b border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-            {/* Left side text */}
-            <div className="lg:col-span-7 space-y-5">
-              <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
-                WHO WE ARE
-              </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
-                Closing the gap between engineering design, manufacturing quality, and site execution
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                On most Indian projects the LPS is split between a designer, a trader and a contractor. Nobody holds the full picture, and the failures show up years later as burnt equipment, failed audits and rejected insurance claims.
-              </p>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                DFMHUB was set up to close that gap. We manufacture the ARK Make product range, employ the engineers who size and model the system, and field our own installation and testing crews. When a client asks why a particular mesh size, electrode depth or SPD rating was chosen, the calculation is on file.
-              </p>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                That approach suits facilities where downtime is expensive — data centres, pharmaceutical plants, aerospace units, semiconductor and electronics manufacturing, telecom towers, solar parks, high-rise residential towers and public infrastructure.
-              </p>
-            </div>
-
-            {/* Right side Info Card */}
-            <div className="lg:col-span-5 bg-[#fffdf5] border border-amber-200/80 rounded-2xl p-6 sm:p-8 space-y-5 shadow-sm">
-              <div className="flex items-center space-x-3.5 border-b border-amber-200/60 pb-4">
-                <ShieldCheck className="w-8 h-8 text-amber-600 shrink-0" />
-                <div>
-                  <h3 className="font-bold text-slate-900 text-lg leading-tight">
-                    ARK Make Engineering
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-0.5 font-normal">
-                    Registered Office & Technical Center
-                  </p>
-                </div>
-              </div>
-
-              <div className="space-y-3.5 text-xs text-slate-700 leading-relaxed font-normal">
-                <p>
-                  <strong className="text-slate-900 font-bold block mb-0.5">Registered Office:</strong>
-                  Industrial Area, Peenya, Bengaluru, Karnataka 560058, India.
-                </p>
-                <p>
-                  <strong className="text-slate-900 font-bold block mb-0.5">Enquiries:</strong>
-                  sales@dfmhub.in · +91 98860 00000
-                </p>
-                <p>
-                  <strong className="text-slate-900 font-bold block mb-0.5">Coverage:</strong>
-                  Dedicated design & build engineering teams serving Bengaluru, Chennai, Hyderabad, Pune & Nationwide projects.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 3: CORE CAPABILITIES (LIGHT GRAY) */}
-      <section className="w-full bg-[#f8fafc] text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-10">
-            <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
-              CORE CAPABILITIES
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
-              End-to-end lightning & earthing infrastructure
+          <div className="bg-amber-500/10 dark:bg-amber-950/40 border border-amber-500/30 rounded-2xl p-8 sm:p-10 space-y-4">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center space-x-3">
+              <Target className="w-7 h-7 text-amber-600 dark:text-amber-400 shrink-0" />
+              <span>Our Mission</span>
             </h2>
+            <p className="text-sm sm:text-base lg:text-lg text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
+              To manufacture and supply world-class electrical safety systems that protect lives, secure infrastructure, and empower India&apos;s rapid development, all while maintaining the absolute highest standards of engineering integrity through our ARK Make product line.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 3: In house Manufacturing & Pan-India Reach */}
+      <section className="w-full bg-slate-100/70 dark:bg-slate-950 py-16 sm:py-20 border-b border-slate-200 dark:border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
+            In house Manufacturing & Pan-India Reach
+          </h2>
+
+          <div className="space-y-4 text-xs sm:text-sm lg:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-normal max-w-5xl">
+            <p>
+              Our operations are anchored by our primary manufacturing unit in Bengaluru, India&apos;s technological and industrial hub. Operating our own facility allows DFMHUB to maintain absolute control over the entire production lifecycle—from raw material sourcing and metallurgical testing to final quality assurance.
+            </p>
+            <p>
+              Because infrastructure development happens everywhere, safety cannot be restricted by geography. DFMHUB operates a vast and highly responsive dealer network across India. Whether your project is breaking ground in Mumbai, Pune, Chennai, Hyderabad or a remote industrial corridor, an authorized DFMHUB distributor is nearby to ensure timely delivery, on-the-ground support, and seamless procurement of ARK Make products.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 4: Why Indian Industries Trust DFMHUB */}
+      <section className="w-full bg-white dark:bg-slate-900 py-16 sm:py-24 border-b border-slate-200 dark:border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+          <div className="max-w-4xl space-y-3">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
+              Why Indian Industries Trust DFMHUB
+            </h2>
+            <p className="text-xs sm:text-sm lg:text-base text-slate-600 dark:text-slate-400">
+              When structural engineers, electrical contractors, and procurement managers evaluate earthing manufacturers, DFMHUB stands out for four critical reasons:
+            </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {capabilities.map((cap) => {
-              const Icon = cap.icon;
+            {trustPillars.map((pillar) => {
+              const Icon = pillar.icon;
               return (
                 <div
-                  key={cap.title}
-                  className="bg-white border border-slate-200/80 rounded-xl p-6 sm:p-8 space-y-4 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+                  key={pillar.title}
+                  className="bg-slate-50 dark:bg-slate-800/60 p-6 rounded-xl border border-slate-200 dark:border-slate-700/80 shadow-sm space-y-4 hover:border-amber-500/50 transition-all flex flex-col justify-between"
                 >
-                  <div className="space-y-4">
-                    <div className="w-10 h-10 rounded-lg bg-amber-50 border border-amber-200/80 text-amber-600 flex items-center justify-center">
+                  <div className="space-y-3">
+                    <div className="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <h3 className="text-lg font-bold text-slate-900">
-                      {cap.title}
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                      {pillar.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-                      {cap.desc}
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                      {pillar.desc}
                     </p>
                   </div>
                 </div>
@@ -165,8 +168,8 @@ export default function AboutUsPage() {
         </div>
       </section>
 
-      {/* Section 4: Talk to an Engineer / Form Section (LIGHT GRAY) */}
-      <section className="w-full bg-[#f1f5f9] text-slate-900 py-16 sm:py-24">
+      {/* Form Section */}
+      <section className="w-full bg-[#f1f5f9] dark:bg-slate-950 py-16 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ContactForm />
         </div>
@@ -174,4 +177,3 @@ export default function AboutUsPage() {
     </div>
   );
 }
-

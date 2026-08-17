@@ -10,24 +10,25 @@ import {
   Zap,
   ArrowRight,
   MapPin,
-  BookOpen,
   ChevronRight,
+  MessageCircle,
+  FileSpreadsheet,
+  CheckCircle2,
 } from "lucide-react";
 import StandardsTab from "@/components/StandardsTab";
 import FAQAccordion from "@/components/FAQAccordion";
 import ContactForm from "@/components/ContactForm";
 
 export const metadata = {
-  title: "DFMHUB (DFM HUB) | Lightning Protection System & Structural Earthing Manufacturer",
+  title: "ARK Make Lightning Protection & Earthing Systems | DFMHUB",
   description:
-    "Official website of DFMHUB (DFM HUB). We manufacture ARK Make lightning protection systems and structural earthing components — IS/IEC 62305 & IS 3043 design, supply, installation and testing across India.",
+    "DFMHUB is India's premier manufacturer of ARK Make Lightning Protection and Structural Earthing Systems in Bengaluru. Engineered to IS 3043 & IEC 62305 standards. Connect with our pan-India dealer network for reliable B2B procurement.",
   keywords: [
-    "DFMHUB",
-    "DFM HUB",
-    "DFM HUB Systems",
-    "DFMHUB Engineering",
-    "DFM HUB Lightning Protection",
-    "DFMHUB Earthing",
+    "Lightning Protection System manufacturer in India",
+    "Structural Earthing System manufacturer",
+    "ARK Make earthing products",
+    "DFMHUB lightning protection",
+    "Copper bonded earth rods manufacturer",
   ],
   alternates: {
     canonical: "https://dfmhub.vercel.app",
@@ -39,12 +40,12 @@ export default function HomePage() {
     {
       icon: ShieldCheck,
       title: "IS/IEC 62305 Risk Assessment",
-      desc: "Quantified risk study that fixes the protection level before a single component is priced.",
+      desc: "Evaluate the structure and determine the appropriate protection level through our ARK-Guard Tool.",
     },
     {
       icon: Compass,
-      title: "Rolling Sphere Design",
-      desc: "Air termination modelled on your actual roof geometry, not a generic rod-count rule of thumb.",
+      title: "System Design & Engineering",
+      desc: "Develop lightning protection and earthing solutions aligned with applicable standards and project requirements.",
     },
     {
       icon: Factory,
@@ -53,18 +54,18 @@ export default function HomePage() {
     },
     {
       icon: Wrench,
-      title: "Certified Installation",
-      desc: "Trained crews for facade, roof and foundation work, with height-safety compliance.",
+      title: "Installation & Commissioning",
+      desc: "Execute installation with coordinated site-level responsibility.",
     },
     {
       icon: FileCheck2,
-      title: "Documented Testing",
-      desc: "Fall-of-potential earth resistance and continuity records for every electrode and test link.",
+      title: "Testing & Verification",
+      desc: "Verify system performance through appropriate electrical continuity and mechanical checks.",
     },
     {
       icon: Zap,
-      title: "Coordinated Surge Protection",
-      desc: "Type 1, 2 and 3 SPD staging so transients never reach sensitive equipment.",
+      title: "Documentation & Test Reports",
+      desc: "Deliver drawings, test reports and project documentation required for CIEG/Equivalent Approvals.",
     },
   ];
 
@@ -123,6 +124,10 @@ export default function HomePage() {
     },
   ];
 
+  const whatsappQuoteUrl = `https://wa.me/919483564777?text=${encodeURIComponent(
+    "Hello DFMHUB Team, I would like to upload my quote/BOQ for a real rates price check."
+  )}`;
+
   return (
     <div className="w-full transition-colors duration-200">
       {/* Module 1: Hero Section (DARK NAVY) */}
@@ -131,7 +136,7 @@ export default function HomePage() {
         <div className="absolute inset-0 z-0 opacity-50">
           <Image
             src="/images/lps-hero.png"
-            alt="Lightning protection roof system"
+            alt="Lightning Protection Systems & Structural Earthing"
             fill
             className="object-cover object-center"
             priority
@@ -145,33 +150,34 @@ export default function HomePage() {
               <span>ARK MAKE · MANUFACTURED IN INDIA</span>
             </div>
 
-            <h1 className="text-2xl sm:text-4xl lg:text-4xl font-semibold text-white leading-[1.15] tracking-tight">
-             Complete Guide to Earthing <br/>
-              <span className="text-amber-500 underline-offset-8">
-                Maintenance and Testing
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white leading-[1.15] tracking-tight">
+              Lightning Protection Systems & Structural Earthing <br />
+              <span className="text-amber-400 underline decoration-amber-500/50 underline-offset-8">
+                Engineered to IS/IEC 62305.
               </span>
             </h1>
 
             <p className="text-sm sm:text-base lg:text-lg text-slate-300 leading-relaxed font-normal">
-               A properly designed earthing system is one of the most important safety components of an electrical installation. But installing an earthing system is only the beginning. Over time, corrosion, loose connections, soil conditions, mechanical damage, and changes to the electrical installation can affect its performance.
+              DFMHUB manufactures, designs, installs and tests complete ARK Make - lightning protection and Structural earthing systems for Data centres, Sub Stations, high-rise towers and manufacturing facilities across India.
             </p>
-              <p className="text-sm sm:text-base lg:text-lg text-slate-300 leading-relaxed font-normal">
-                Regular earthing maintenance and testing help ensure that the grounding system continues to provide a reliable path for fault current and supports the safe operation of electrical equipment.
 
-              </p>
-            <div className="pt-2 flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/contact-us"
-                className="bg-[#d97706] hover:bg-[#b45309] text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-4 rounded-md shadow-lg transition-all flex items-center justify-center space-x-2"
+            <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <a
+                href={whatsappQuoteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-14 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-lg hover:shadow-emerald-900/30 transition-all flex items-center justify-center space-x-2 border border-emerald-400/30 shrink-0"
               >
-                <span>REQUEST A FREE SITE ASSESSMENT</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+                <MessageCircle className="w-5 h-5 fill-white/20" />
+                <span>UPLOAD QUOTE & PRICE CHECK</span>
+              </a>
+
               <Link
                 href="/lightning-protection-system"
-                className="bg-slate-900/80 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-4 rounded-md border border-slate-700 transition-all flex items-center justify-center"
+                className="h-14 px-6 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm uppercase tracking-wider border border-slate-700 hover:border-amber-500/50 transition-all flex items-center justify-center space-x-2 shadow-lg shrink-0"
               >
-                EXPLORE SYSTEMS
+                <span>EXPLORE SYSTEMS</span>
+                <ChevronRight className="w-5 h-5 text-amber-400" />
               </Link>
             </div>
           </div>
@@ -183,16 +189,16 @@ export default function HomePage() {
               <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">STRUCTURES PROTECTED</span>
             </div>
             <div className="space-y-1">
-              <span className="text-3xl sm:text-4xl lg:text-4xl font-bold text-amber-500 block">24</span>
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">SYSTEM COMPONENTS MANUFACTURED</span>
+              <span className="text-3xl sm:text-4xl lg:text-4xl font-bold text-amber-500 block">24+</span>
+              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">ARK MAKE COMPONENTS</span>
             </div>
             <div className="space-y-1">
-              <span className="text-3xl sm:text-4xl lg:text-4xl font-bold text-amber-500 block">4</span>
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">METRO ENGINEERING TEAMS</span>
+              <span className="text-3xl sm:text-4xl lg:text-4xl font-bold text-amber-500 block">PAN-INDIA</span>
+              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">DEALER NETWORK</span>
             </div>
             <div className="space-y-1">
               <span className="text-3xl sm:text-4xl lg:text-4xl font-bold text-amber-500 block">100%</span>
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">DOCUMENTED TEST HANDOVER</span>
+              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">DOCUMENTED HANDOVER</span>
             </div>
           </div>
         </div>
@@ -201,15 +207,15 @@ export default function HomePage() {
       {/* Module 2: WHAT WE DO Section (WHITE) */}
       <section className="w-full bg-white text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-10 max-w-3xl">
+          <div className="mb-10 max-w-4xl">
             <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
               WHAT WE DO
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
-              One accountable partner from risk assessment to signed test report
+              From Lightning Risk to Protection —
             </h2>
             <p className="text-sm sm:text-base text-slate-600 mt-3 leading-relaxed font-normal">
-              Most lightning protection failures in India come from split responsibility — one party designs, another supplies, a third installs. DFMHUB owns the whole chain.
+              DFMHUB brings the entire chain under one roof from lightning risk assessment, system design and engineering to material supply, installation, testing and final documentation, we take end-to-end responsibility for the Earthing & Lightning protection system.
             </p>
           </div>
 
@@ -219,17 +225,19 @@ export default function HomePage() {
               return (
                 <div
                   key={feat.title}
-                  className="bg-slate-50 p-6 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-amber-400/60 transition-all space-y-3 group"
+                  className="bg-slate-50 p-6 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-amber-400/60 transition-all space-y-3 group flex flex-col justify-between"
                 >
-                  <div className="w-11 h-11 rounded-lg bg-amber-100/60 border border-amber-200 flex items-center justify-center text-amber-700 group-hover:bg-amber-500 group-hover:text-white transition-colors">
-                    <Icon className="w-5 h-5" />
+                  <div className="space-y-3">
+                    <div className="w-11 h-11 rounded-lg bg-amber-100/60 border border-amber-200 flex items-center justify-center text-amber-700 group-hover:bg-amber-500 group-hover:text-white transition-colors">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-amber-600 transition-colors">
+                      {feat.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                      {feat.desc}
+                    </p>
                   </div>
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-amber-600 transition-colors">
-                    {feat.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                    {feat.desc}
-                  </p>
                 </div>
               );
             })}
@@ -251,20 +259,24 @@ export default function HomePage() {
                   className="object-cover"
                 />
               </div>
-              <div className="p-6 sm:p-8 flex-grow flex flex-col justify-between space-y-4">
-                <div>
+              <div className="p-6 sm:p-8 space-y-4 flex-grow flex flex-col justify-between">
+                <div className="space-y-2">
+                  <span className="text-xs font-bold text-amber-600 uppercase tracking-widest block">
+                    IS/IEC 62305 COMPLIANT
+                  </span>
                   <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
-                    Lightning Protection System — ARK Make
+                    Lightning Protection Systems
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed font-normal">
-                    Air terminations, mesh and down conductors, test links, bonding and coordinated SPDs, designed by rolling sphere method to the protection level your risk assessment demands.
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    Air termination mesh, down conductors, test points, and coordinated surge protection devices manufactured in-house to protect infrastructure against direct lightning strikes.
                   </p>
                 </div>
                 <Link
                   href="/lightning-protection-system"
-                  className="inline-flex items-center text-xs font-bold text-amber-600 hover:text-amber-700 uppercase tracking-wider pt-2"
+                  className="inline-flex items-center text-xs font-bold text-amber-600 hover:text-amber-700 uppercase tracking-wider space-x-1"
                 >
-                  VIEW THE SYSTEM <ChevronRight className="w-4 h-4 ml-1" />
+                  <span>Explore LPS Range & Cities</span>
+                  <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
@@ -273,26 +285,30 @@ export default function HomePage() {
             <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-all flex flex-col">
               <div className="relative h-52 sm:h-64">
                 <Image
-                  src="/images/earthing-hero.png"
-                  alt="Structural Earthing ARK Make"
+                  src="/images/lps-hero.png"
+                  alt="Structural Earthing System ARK Make"
                   fill
                   className="object-cover"
                 />
               </div>
-              <div className="p-6 sm:p-8 flex-grow flex flex-col justify-between space-y-4">
-                <div>
+              <div className="p-6 sm:p-8 space-y-4 flex-grow flex flex-col justify-between">
+                <div className="space-y-2">
+                  <span className="text-xs font-bold text-amber-600 uppercase tracking-widest block">
+                    IS 3043 & IEC 62561
+                  </span>
                   <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
-                    Structural Earthing — ARK Make
+                    Structural Earthing Systems
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed font-normal">
-                    Foundation rebar bonding, copper bonded and chemical electrodes, earth bars and enhancement compound sized from a Wenner soil resistivity survey to IS 3043:2018.
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    Foundation rebar bonding, copper bonded rods, chemical earth electrodes, exothermic welding kits, and earth inspection chambers built for maximum longevity.
                   </p>
                 </div>
                 <Link
                   href="/structural-earthing"
-                  className="inline-flex items-center text-xs font-bold text-amber-600 hover:text-amber-700 uppercase tracking-wider pt-2"
+                  className="inline-flex items-center text-xs font-bold text-amber-600 hover:text-amber-700 uppercase tracking-wider space-x-1"
                 >
-                  VIEW THE SYSTEM <ChevronRight className="w-4 h-4 ml-1" />
+                  <span>Explore Earthing Solutions</span>
+                  <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
@@ -300,114 +316,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Module 4: Compliance & Standards Section (DARK NAVY) */}
-      <section className="w-full">
-        <StandardsTab />
-      </section>
-
-      {/* Module 5: City Locations Section (WHITE) */}
-      <section className="w-full bg-white text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
+      {/* Standards Tab */}
+      <section className="w-full bg-white text-slate-900 py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-10 max-w-3xl">
-            <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
-              LOCATIONS
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
-              City engineering teams across India
-            </h2>
-            <p className="text-sm sm:text-base text-slate-600 mt-2 font-normal">
-              Local survey, local installation crews and city-specific soil and storm data behind every design.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {cities.map((city) => (
-              <div
-                key={city.name}
-                className="bg-slate-50 p-6 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition-all space-y-4 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center space-x-2 text-amber-600 mb-1">
-                    <MapPin className="w-4 h-4" />
-                    <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                      {city.state}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-bold text-slate-900">
-                    {city.name}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed font-normal">
-                    {city.sectors}
-                  </p>
-                </div>
-
-                <div className="pt-4 border-t border-slate-200/80 space-y-2 text-xs font-medium">
-                  <Link
-                    href={city.lpsUrl}
-                    className="block text-amber-600 hover:text-amber-700 hover:underline"
-                  >
-                    Lightning protection in {city.name} →
-                  </Link>
-                  <Link
-                    href={city.earthingUrl}
-                    className="block text-amber-600 hover:text-amber-700 hover:underline"
-                  >
-                    Structural earthing in {city.name} →
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+          <StandardsTab />
         </div>
       </section>
 
-      {/* Module 6: Technical Blog Section (LIGHT GRAY) */}
-      <section className="w-full bg-[#f8fafc] text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-10">
-            <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
-              INSIGHTS
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
-              From the DFMHUB technical blog
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            {blogPosts.map((post) => (
-              <article
-                key={post.slug}
-                className="bg-white border border-slate-200/80 rounded-xl p-6 sm:p-8 shadow-sm hover:shadow-md hover:border-amber-400 transition-all flex flex-col justify-between group"
-              >
-                <div>
-                  <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
-                    {post.category}
-                  </span>
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-amber-600 transition-colors leading-snug mb-3">
-                    <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                    {post.excerpt}
-                  </p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Module 7: FAQ Section (WHITE) */}
-      <section className="w-full bg-white text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight mb-10">
-            Frequently asked questions
-          </h2>
-          <FAQAccordion />
-        </div>
-      </section>
-
-      {/* Module 8: Talk to an Engineer / Quote Form (LIGHT GRAY) */}
-      <section className="w-full bg-[#f1f5f9] text-slate-900 py-16 sm:py-20 lg:py-24">
+      {/* Form Section */}
+      <section className="w-full bg-[#f1f5f9] text-slate-900 py-16 sm:py-24 border-t border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ContactForm />
         </div>
@@ -415,4 +332,3 @@ export default function HomePage() {
     </div>
   );
 }
-

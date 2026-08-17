@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Send, CheckCircle2 } from "lucide-react";
+import { CheckCircle2, MessageCircle } from "lucide-react";
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -15,8 +15,25 @@ export default function ContactForm() {
     details: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleWhatsAppSend = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const text = `*New DFMHUB Project Consultation Enquiry* ⚡
+
+*Name:* ${formData.fullName || "Not provided"}
+*Company:* ${formData.company || "Not provided"}
+*Phone:* ${formData.phone || "Not provided"}
+*Email:* ${formData.email || "Not provided"}
+*Project City:* ${formData.city || "Not provided"}
+*Requirement:* ${formData.requirement}
+*Project Details:* ${formData.details || "None provided"}
+
+_Sent directly from DFMHUB Website_`;
+
+    const whatsappUrl = `https://wa.me/919483564777?text=${encodeURIComponent(text)}`;
+
+    // Directly open WhatsApp with formatted message
+    window.open(whatsappUrl, "_blank");
     setSubmitted(true);
   };
 
@@ -48,7 +65,7 @@ export default function ContactForm() {
           </li>
           <li className="flex items-center text-xs sm:text-sm font-semibold text-slate-700 space-x-2.5">
             <span className="w-2 h-2 rounded-full bg-amber-500 shrink-0" />
-            <span>Installation, testing and documented handover</span>
+            <span>Direct instant response on WhatsApp</span>
           </li>
         </ul>
       </div>
@@ -60,20 +77,29 @@ export default function ContactForm() {
             <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto text-emerald-600">
               <CheckCircle2 className="w-10 h-10" />
             </div>
-            <h3 className="text-2xl font-bold text-slate-900">Enquiry Submitted!</h3>
+            <h3 className="text-2xl font-bold text-slate-900">Enquiry Ready on WhatsApp!</h3>
             <p className="text-sm text-slate-600 max-w-md mx-auto">
-              Thank you for reaching out. Our engineering team will review your project requirements and get back to you within 1 working day.
+              Your details have been pre-filled. If WhatsApp did not open automatically, click the button below to send your enquiry.
             </p>
-            <button
-              onClick={() => setSubmitted(false)}
-              className="mt-4 bg-slate-900 text-white text-xs font-bold uppercase px-6 py-2.5 rounded hover:bg-slate-800 transition-colors"
-            >
-              Submit Another Request
-            </button>
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <button
+                onClick={handleWhatsAppSend}
+                className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold uppercase px-6 py-3 rounded-lg shadow transition-colors flex items-center space-x-2"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>Re-open WhatsApp Chat</span>
+              </button>
+              <button
+                onClick={() => setSubmitted(false)}
+                className="bg-slate-900 text-white text-xs font-bold uppercase px-6 py-3 rounded-lg hover:bg-slate-800 transition-colors"
+              >
+                Submit Another Request
+              </button>
+            </div>
           </div>
         ) : (
           <form
-            onSubmit={handleSubmit}
+            onSubmit={handleWhatsAppSend}
             className="bg-white p-6 sm:p-8 rounded-xl shadow-xl border border-slate-100 space-y-4"
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -180,13 +206,14 @@ export default function ContactForm() {
 
             <button
               type="submit"
-              className="w-full bg-[#d97706] hover:bg-[#b45309] text-white font-bold text-xs sm:text-sm uppercase py-3.5 px-6 rounded shadow-md hover:shadow-lg transition-all tracking-wider"
+              className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm uppercase py-3.5 px-6 rounded shadow-md hover:shadow-lg transition-all tracking-wider flex items-center justify-center space-x-2"
             >
-              REQUEST DESIGN CONSULTATION
+              <MessageCircle className="w-5 h-5 fill-white/20" />
+              <span>SEND ENQUIRY DIRECTLY VIA WHATSAPP</span>
             </button>
 
             <p className="text-[11px] text-slate-400 text-center pt-1">
-              Typical response within one working day. Your details are used only to respond to this enquiry.
+              Submitting pre-fills your enquiry in WhatsApp and opens a direct chat with our engineering team.
             </p>
           </form>
         )}
@@ -194,4 +221,3 @@ export default function ContactForm() {
     </div>
   );
 }
-

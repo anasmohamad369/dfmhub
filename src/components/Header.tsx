@@ -18,6 +18,7 @@ export default function Header() {
     { name: "Structural Earthing", href: "/structural-earthing" },
     { name: "Installation", href: "/installation-services" },
     { name: "Blog", href: "/blog" },
+    { name: "Contact Us", href: "/contact-us" },
   ];
 
   const isActive = (path: string) => {

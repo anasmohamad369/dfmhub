@@ -144,23 +144,23 @@ export default function Footer() {
               <li className="flex items-start space-x-3">
                 <Phone className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
                 <div>
-                  <a href="tel:+919886000000" className="hover:text-amber-400 font-semibold text-white">
-                    +91 98860 00000
+                  <a href="tel:+919483564777" className="hover:text-amber-400 font-semibold text-white">
+                    +91 94835 64777
                   </a>
                 </div>
               </li>
               <li className="flex items-start space-x-3">
                 <Mail className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
                 <div>
-                  <a href="mailto:sales@dfmhub.in" className="hover:text-amber-400">
-                    sales@dfmhub.in
+                  <a href="mailto:partner@dfmhub.com" className="hover:text-amber-400">
+                    partner@dfmhub.com
                   </a>
                 </div>
               </li>
               <li className="flex items-start space-x-3">
                 <MapPin className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
                 <span className="text-slate-400">
-                  Industrial Area, Peenya, Bengaluru, Karnataka 560058, India
+                  No 418, 3rd Main Pette chennapa Industrial area Kamakshi Palya Bengaluru -560079
                 </span>
               </li>
               <li className="flex items-start space-x-3">

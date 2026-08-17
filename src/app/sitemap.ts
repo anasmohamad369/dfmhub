@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
     "",
     "/about-us",
+    "/contact-us",
     "/lightning-protection-system",
     "/structural-earthing",
     "/installation-services",

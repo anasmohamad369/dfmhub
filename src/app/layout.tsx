@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,34 +19,21 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://dfmhub.vercel.app"),
   title: {
-    default: "DFMHUB (DFM HUB) | Lightning Protection System & Structural Earthing Manufacturer",
-    template: "%s | DFMHUB (DFM HUB)",
+    default: "ARK Make Lightning Protection & Earthing Systems | DFMHUB",
+    template: "%s | DFMHUB",
   },
   description:
-    "DFMHUB (DFM HUB) is a leading manufacturer of ARK Make lightning protection systems and structural earthing products — IS/IEC 62305 & IS 3043 design, supply, installation and testing across India.",
+    "DFMHUB is India's premier manufacturer of ARK Make Lightning Protection and Structural Earthing Systems in Bengaluru. Engineered to IS 3043 & IEC 62305 standards. Connect with our pan-India dealer network for reliable B2B procurement.",
   keywords: [
-    "DFMHUB",
-    "DFM HUB",
-    "DFM HUB Systems",
-    "DFMHUB Engineering",
-    "DFM HUB ARK Make",
-    "lightning protection system",
-    "structural earthing",
-    "ARK Make",
-    "IS/IEC 62305",
-    "IS 3043",
-    "earth resistance testing",
-    "surge protection device",
-    "copper bonded rods",
-    "exothermic welding",
-    "Bengaluru earthing",
-    "Chennai lightning protection",
-    "Hyderabad earthing",
-    "Pune lightning protection",
+    "Lightning Protection System manufacturer in India",
+    "Structural Earthing System manufacturer",
+    "ARK Make earthing products",
+    "DFMHUB lightning protection",
+    "Copper bonded earth rods manufacturer",
   ],
   authors: [{ name: "DFMHUB Technical Team", url: "https://dfmhub.vercel.app" }],
-  creator: "DFMHUB (DFM HUB) Systems",
-  publisher: "DFMHUB (DFM HUB) Engineering",
+  creator: "DFMHUB Systems",
+  publisher: "DFMHUB Engineering",
   formatDetection: {
     email: false,
     address: true,
@@ -66,24 +54,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: "https://dfmhub.vercel.app",
-    siteName: "DFMHUB (DFM HUB) Systems",
-    title: "DFMHUB (DFM HUB) | IS/IEC 62305 & IS 3043 Lightning Protection & Structural Earthing",
+    siteName: "DFMHUB Systems",
+    title: "ARK Make Lightning Protection & Earthing Systems | DFMHUB",
     description:
-      "Official website of DFMHUB (DFM HUB). ARK Make components, risk assessments, foundation rebar bonding, copper bonded rods, surge protection, and earth resistance testing.",
+      "DFMHUB is India's premier manufacturer of ARK Make Lightning Protection and Structural Earthing Systems in Bengaluru. Engineered to IS 3043 & IEC 62305 standards. Connect with our pan-India dealer network for reliable B2B procurement.",
     images: [
       {
         url: "/images/lps-hero.png",
         width: 1200,
         height: 630,
-        alt: "DFMHUB (DFM HUB) Lightning Protection & Structural Earthing Systems",
+        alt: "DFMHUB Lightning Protection & Structural Earthing Systems",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "DFMHUB (DFM HUB) | Lightning Protection & Structural Earthing Systems",
+    title: "ARK Make Lightning Protection & Earthing Systems | DFMHUB",
     description:
-      "Official site of DFMHUB (DFM HUB). IS/IEC 62305 & IS 3043 compliant lightning protection and earthing systems.",
+      "DFMHUB is India's premier manufacturer of ARK Make Lightning Protection and Structural Earthing Systems in Bengaluru.",
     images: ["/images/lps-hero.png"],
   },
   alternates: {
@@ -105,15 +93,15 @@ const jsonLdSchema = {
         "DFMHUB (DFM HUB) is a manufacturer of ARK Make lightning protection systems and structural earthing components compliant with IS/IEC 62305 and IS 3043.",
       address: {
         "@type": "PostalAddress",
-        streetAddress: "Peenya Industrial Area",
+        streetAddress: "No 418, 3rd Main Pette chennapa Industrial area Kamakshi Palya",
         addressLocality: "Bengaluru",
         addressRegion: "Karnataka",
-        postalCode: "560058",
+        postalCode: "560079",
         addressCountry: "IN",
       },
       contactPoint: {
         "@type": "ContactPoint",
-        telephone: "+91-98860-00000",
+        telephone: "+91-94835-64777",
         contactType: "customer service",
         areaServed: "IN",
         availableLanguage: ["English", "Hindi", "Kannada", "Tamil", "Telugu"],
@@ -125,14 +113,14 @@ const jsonLdSchema = {
       name: "DFMHUB (DFM HUB) Engineering",
       alternateName: ["DFM HUB", "DFMHUB"],
       url: "https://dfmhub.vercel.app",
-      telephone: "+91-98860-00000",
+      telephone: "+91-94835-64777",
       priceRange: "₹₹₹",
       address: {
         "@type": "PostalAddress",
-        streetAddress: "Peenya Industrial Area",
+        streetAddress: "No 418, 3rd Main Pette chennapa Industrial area Kamakshi Palya",
         addressLocality: "Bengaluru",
         addressRegion: "Karnataka",
-        postalCode: "560058",
+        postalCode: "560079",
         addressCountry: "IN",
       },
       geo: {
@@ -198,6 +186,7 @@ export default function RootLayout({
           <Header />
           <main className="flex-grow">{children}</main>
           <Footer />
+          <WhatsAppFloatingButton />
         </ThemeProvider>
       </body>
     </html>
