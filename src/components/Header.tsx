@@ -39,18 +39,18 @@ export default function Header() {
           </div>
           <div className="flex items-center space-x-6">
             <a
-              href="tel:+919886000000"
+              href="tel:+919483564777"
               className="flex items-center hover:text-amber-400 transition-colors font-semibold text-white"
             >
               <Phone className="w-3.5 h-3.5 mr-1.5 text-amber-500" />
-              +91 98860 00000
+              +91 94835 64777
             </a>
             <a
-              href="mailto:sales@dfmhub.in"
+              href="mailto:partner@dfmhub.com"
               className="hidden md:flex items-center hover:text-amber-400 transition-colors"
             >
               <Mail className="w-3.5 h-3.5 mr-1.5 text-amber-500" />
-              sales@dfmhub.in
+              partner@dfmhub.com
             </a>
           </div>
         </div>
