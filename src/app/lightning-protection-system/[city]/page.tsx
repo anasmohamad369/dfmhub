@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ChevronRight, MapPin, ShieldCheck, Zap } from "lucide-react";
 import FAQAccordion from "@/components/FAQAccordion";
-import CityContactForm from "@/components/CityContactForm";
+import ContactForm from "@/components/ContactForm";
 import { notFound } from "next/navigation";
 
 interface CityData {
@@ -764,7 +764,7 @@ export default async function LightningProtectionCityPage({
       {/* Section 6: TALK TO AN ENGINEER / FORM (LIGHT GRAY) */}
       <section className="w-full bg-[#f1f5f9] text-slate-900 py-16 sm:py-20 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <CityContactForm cityName={city.name} />
+          <ContactForm />
         </div>
       </section>
     </div>

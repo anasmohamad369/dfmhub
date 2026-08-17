@@ -43,31 +43,35 @@ _Sent directly from DFMHUB Website_`;
       <div className="lg:col-span-5 space-y-6">
         <div>
           <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
-            TALK TO AN ENGINEER
+            ARK MAKE BY DFMHUB — ENGINEERING-LED LIGHTNING PROTECTION
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
-            Need an LPS Design or Product Selection?
+            Send DFMHUB your:
           </h2>
         </div>
 
-        <div className="space-y-2">
-          <p className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wider">
-            Send DFMHUB your:
-          </p>
-          <div className="p-4 bg-amber-50 border border-amber-200/80 rounded-xl text-xs sm:text-sm font-semibold text-slate-800 leading-relaxed">
-            Project location + building dimensions + height + roof plan + electrical layout + project specification.
-          </div>
+        <div className="p-4 bg-amber-50 border border-amber-200/80 rounded-xl text-xs sm:text-sm font-semibold text-slate-800 leading-relaxed">
+          Project location + building dimensions + height + roof plan + electrical layout + project specification.
         </div>
 
         <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
           The engineering team can review the project requirements and recommend the appropriate LPS design, ARK components and BOQ.
         </p>
 
-        <div className="pt-2 border-t border-slate-200/80">
-          <span className="text-xs font-bold text-amber-700 uppercase tracking-wider block">
-            ARK Make by DFMHUB — Engineering-Led Lightning Protection.
-          </span>
-        </div>
+        <ul className="space-y-3 pt-2">
+          <li className="flex items-center text-xs sm:text-sm font-semibold text-slate-700 space-x-2.5">
+            <span className="w-2 h-2 rounded-full bg-amber-500 shrink-0" />
+            <span>Risk assessment to IS/IEC 62305-2</span>
+          </li>
+          <li className="flex items-center text-xs sm:text-sm font-semibold text-slate-700 space-x-2.5">
+            <span className="w-2 h-2 rounded-full bg-amber-500 shrink-0" />
+            <span>IEC 62561 type-tested ARK Make components</span>
+          </li>
+          <li className="flex items-center text-xs sm:text-sm font-semibold text-slate-700 space-x-2.5">
+            <span className="w-2 h-2 rounded-full bg-amber-500 shrink-0" />
+            <span>Direct instant response on WhatsApp</span>
+          </li>
+        </ul>
       </div>
 
       {/* Right Column: Form Card */}
