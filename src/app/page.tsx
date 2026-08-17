@@ -128,7 +128,7 @@ export default function HomePage() {
       {/* Module 1: Hero Section (DARK NAVY) */}
       <section className="relative bg-[#070d19] text-white overflow-hidden py-16 sm:py-20 lg:py-24 border-b border-slate-800">
         <div className="absolute inset-0 bg-gradient-to-r from-[#070d19] via-[#091325]/90 to-slate-900/60 z-10" />
-        <div className="absolute inset-0 z-0 opacity-30">
+        <div className="absolute inset-0 z-0 opacity-50">
           <Image
             src="/images/lps-hero.png"
             alt="Lightning protection roof system"
@@ -145,17 +145,20 @@ export default function HomePage() {
               <span>ARK MAKE · MANUFACTURED IN INDIA</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.15] tracking-tight">
-              Lightning Protection Systems & Structural Earthing, engineered to{" "}
-              <span className="text-amber-500 underline decoration-amber-500 underline-offset-8">
-                IS/IEC 62305.
+            <h1 className="text-2xl sm:text-4xl lg:text-4xl font-semibold text-white leading-[1.15] tracking-tight">
+             Complete Guide to Earthing <br/>
+              <span className="text-amber-500 underline-offset-8">
+                Maintenance and Testing
               </span>
             </h1>
 
             <p className="text-sm sm:text-base lg:text-lg text-slate-300 leading-relaxed font-normal">
-              DFMHUB manufactures, designs, installs and tests complete lightning protection and earthing systems for data centres, pharma plants, high-rise towers and manufacturing facilities across India.
+               A properly designed earthing system is one of the most important safety components of an electrical installation. But installing an earthing system is only the beginning. Over time, corrosion, loose connections, soil conditions, mechanical damage, and changes to the electrical installation can affect its performance.
             </p>
+              <p className="text-sm sm:text-base lg:text-lg text-slate-300 leading-relaxed font-normal">
+                Regular earthing maintenance and testing help ensure that the grounding system continues to provide a reliable path for fault current and supports the safe operation of electrical equipment.
 
+              </p>
             <div className="pt-2 flex flex-col sm:flex-row gap-4">
               <Link
                 href="/contact-us"
