@@ -18,12 +18,17 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://dfmhub.vercel.app"),
   title: {
-    default: "DFMHUB | IS/IEC 62305 & IS 3043 Lightning Protection & Structural Earthing Manufacturer",
-    template: "%s | DFMHUB",
+    default: "DFMHUB (DFM HUB) | Lightning Protection System & Structural Earthing Manufacturer",
+    template: "%s | DFMHUB (DFM HUB)",
   },
   description:
-    "DFMHUB is a leading manufacturer of ARK Make lightning protection systems and structural earthing products — IS/IEC 62305 and IS 3043 design, supply, installation and testing across Bengaluru, Chennai, Hyderabad, Pune and India.",
+    "DFMHUB (DFM HUB) is a leading manufacturer of ARK Make lightning protection systems and structural earthing products — IS/IEC 62305 & IS 3043 design, supply, installation and testing across India.",
   keywords: [
+    "DFMHUB",
+    "DFM HUB",
+    "DFM HUB Systems",
+    "DFMHUB Engineering",
+    "DFM HUB ARK Make",
     "lightning protection system",
     "structural earthing",
     "ARK Make",
@@ -37,13 +42,10 @@ export const metadata: Metadata = {
     "Chennai lightning protection",
     "Hyderabad earthing",
     "Pune lightning protection",
-    "rolling sphere method",
-    "fall of potential test",
-    "DFMHUB",
   ],
   authors: [{ name: "DFMHUB Technical Team", url: "https://dfmhub.vercel.app" }],
-  creator: "DFMHUB Systems",
-  publisher: "DFMHUB Engineering",
+  creator: "DFMHUB (DFM HUB) Systems",
+  publisher: "DFMHUB (DFM HUB) Engineering",
   formatDetection: {
     email: false,
     address: true,
@@ -64,24 +66,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: "https://dfmhub.vercel.app",
-    siteName: "DFMHUB Systems",
-    title: "DFMHUB | IS/IEC 62305 & IS 3043 Lightning Protection & Structural Earthing",
+    siteName: "DFMHUB (DFM HUB) Systems",
+    title: "DFMHUB (DFM HUB) | IS/IEC 62305 & IS 3043 Lightning Protection & Structural Earthing",
     description:
-      "ARK Make components, risk assessments, foundation rebar bonding, copper bonded rods, surge protection, and earth resistance testing for commercial and industrial facilities.",
+      "Official website of DFMHUB (DFM HUB). ARK Make components, risk assessments, foundation rebar bonding, copper bonded rods, surge protection, and earth resistance testing.",
     images: [
       {
         url: "/images/lps-hero.png",
         width: 1200,
         height: 630,
-        alt: "DFMHUB Lightning Protection & Structural Earthing Systems",
+        alt: "DFMHUB (DFM HUB) Lightning Protection & Structural Earthing Systems",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "DFMHUB | Lightning Protection & Structural Earthing Systems",
+    title: "DFMHUB (DFM HUB) | Lightning Protection & Structural Earthing Systems",
     description:
-      "IS/IEC 62305 & IS 3043 compliant lightning protection and earthing systems manufactured and installed across India.",
+      "Official site of DFMHUB (DFM HUB). IS/IEC 62305 & IS 3043 compliant lightning protection and earthing systems.",
     images: ["/images/lps-hero.png"],
   },
   alternates: {
@@ -96,10 +98,11 @@ const jsonLdSchema = {
       "@type": "Organization",
       "@id": "https://dfmhub.vercel.app/#organization",
       name: "DFMHUB Systems",
+      alternateName: ["DFM HUB", "DFMHUB", "DFM HUB Systems", "DFMHUB Engineering", "DFM HUB ARK Make"],
       url: "https://dfmhub.vercel.app",
       logo: "https://dfmhub.vercel.app/images/logo.png",
       description:
-        "Manufacturer of ARK Make lightning protection systems and structural earthing components compliant with IS/IEC 62305 and IS 3043.",
+        "DFMHUB (DFM HUB) is a manufacturer of ARK Make lightning protection systems and structural earthing components compliant with IS/IEC 62305 and IS 3043.",
       address: {
         "@type": "PostalAddress",
         streetAddress: "Peenya Industrial Area",
@@ -119,7 +122,8 @@ const jsonLdSchema = {
     {
       "@type": "LocalBusiness",
       "@id": "https://dfmhub.vercel.app/#localbusiness",
-      name: "DFMHUB Engineering",
+      name: "DFMHUB (DFM HUB) Engineering",
+      alternateName: ["DFM HUB", "DFMHUB"],
       url: "https://dfmhub.vercel.app",
       telephone: "+91-98860-00000",
       priceRange: "₹₹₹",
@@ -147,8 +151,9 @@ const jsonLdSchema = {
       "@type": "WebSite",
       "@id": "https://dfmhub.vercel.app/#website",
       url: "https://dfmhub.vercel.app",
-      name: "DFMHUB",
-      description: "IS/IEC 62305 & IS 3043 compliant lightning protection and structural earthing systems.",
+      name: "DFMHUB (DFM HUB)",
+      alternateName: ["DFM HUB", "DFMHUB"],
+      description: "Official site of DFMHUB (DFM HUB) — IS/IEC 62305 & IS 3043 compliant lightning protection and structural earthing systems.",
       publisher: {
         "@id": "https://dfmhub.vercel.app/#organization",
       },

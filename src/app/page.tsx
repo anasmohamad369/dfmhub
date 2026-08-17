@@ -18,9 +18,17 @@ import FAQAccordion from "@/components/FAQAccordion";
 import ContactForm from "@/components/ContactForm";
 
 export const metadata = {
-  title: "Lightning Protection System & Structural Earthing Manufacturer | DFMHUB",
+  title: "DFMHUB (DFM HUB) | Lightning Protection System & Structural Earthing Manufacturer",
   description:
-    "DFMHUB manufactures ARK Make lightning protection systems and structural earthing components — IS/IEC 62305 & IS 3043 design, supply, installation and testing across India.",
+    "Official website of DFMHUB (DFM HUB). We manufacture ARK Make lightning protection systems and structural earthing components — IS/IEC 62305 & IS 3043 design, supply, installation and testing across India.",
+  keywords: [
+    "DFMHUB",
+    "DFM HUB",
+    "DFM HUB Systems",
+    "DFMHUB Engineering",
+    "DFM HUB Lightning Protection",
+    "DFMHUB Earthing",
+  ],
   alternates: {
     canonical: "https://dfmhub.vercel.app",
   },
