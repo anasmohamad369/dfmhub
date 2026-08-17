@@ -15,6 +15,28 @@ interface CityData {
   sectors: string;
   soil: string;
   storm: string;
+  desc?: string;
+  heroSubtext?: string;
+  climateRiskHeading?: string;
+  climateRiskPara1?: string;
+  climateRiskPara2?: string;
+  soilHeading?: string;
+  soilPara1?: string;
+  soilPara2?: string;
+  productsHeading?: string;
+  productsList?: string[];
+  productsNote?: string;
+  riskAssessmentTitle?: string;
+  riskAssessmentText1?: string;
+  riskAssessmentText2?: string;
+  riskAssessmentSteps?: string;
+  supportTitle?: string;
+  supportServices?: string[];
+  supportLocationsText?: string;
+  ctaText?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  keywords?: string;
   lpsFaqs: { question: string; answer: string }[];
   earthingFaqs: { question: string; answer: string }[];
 }
@@ -25,74 +47,74 @@ const cityRegistry: Record<string, CityData> = {
     slug: "bengaluru",
     state: "Karnataka",
     region: "Bengaluru and greater Karnataka",
-    areas: "Peenya, Whitefield, Electronic City, Devanahalli / KIADB Aerospace Park, Bommasandra, Hebbal, Yeshwanthpur",
-    sectors: "IT campuses & data centres, aerospace and defence units, biotech labs, high-rise residential towers",
-    soil: "hard red laterite and granitic gneiss with high dry-season resistivity (typically 80-300 Ω·m)",
-    storm: "roughly 45-60 thunderstorm days a year, with intense pre-monsoon strikes in April-May",
+    areas: "Whitefield, Electronic City, Peenya, Bommasandra, Anekal, Devanahalli/KIADB Aerospace Park, Hebbal, Yeshwanthpur",
+    sectors: "Data centres, IT campuses, aerospace and defence facilities, biotech facilities, factories, warehouses, commercial buildings and high-rise developments",
+    soil: "areas of red/lateritic soil and granitic terrain",
+    storm: "around 45 thunder days annually, with higher thunderstorm activity during April and May",
+    desc: "Bengaluru's frequent thunderstorms, especially during the pre-monsoon months, make a properly designed Lightning Protection System important for data centres, IT campuses, aerospace facilities, industries and high-rise buildings.",
+    heroSubtext: "DFMHUB provides ARK Lightning Protection Systems in Bengaluru, covering Free Risk Assessment, IS/IEC 62305-based design, tested components, installation, testing and assistance for Consultant & CIEG approvals.",
+    climateRiskHeading: "Bengaluru Climate & Lightning Risk",
+    climateRiskPara1: "Bengaluru experiences around 45 thunder days annually, with higher thunderstorm activity during April and May.",
+    climateRiskPara2: "Lightning protection requirements depend on the building height, dimensions, occupancy, location, rooftop equipment and incoming electrical services. DFMHUB evaluates these factors through an IS/IEC 62305-2 based Lightning Risk Assessment before recommending the protection level and LPS design.",
+    soilHeading: "Bengaluru Soil Conditions",
+    soilPara1: "Bengaluru has areas of red/lateritic soil and granitic terrain, with ground conditions varying considerably between locations and seasons.",
+    soilPara2: "Where earth-termination design is required, DFMHUB recommends evaluating actual site conditions rather than adopting a standard earth-pit arrangement. Wenner four-pin soil resistivity testing can be used where necessary to establish reliable design inputs.",
+    productsHeading: "ARK Products for Bengaluru Projects",
+    productsList: [
+      "Air Terminal Rods",
+      "8 mm Aluminium Conductors",
+      "Roof & Parapet Holders",
+      "Standing Seam Clamps",
+      "Metal Roof Clamps",
+      "Cross & Straight Connectors",
+      "Down Conductor Holders",
+      "Test Joints",
+      "Equipotential Bonding Bars",
+      "Lightning Flash Counters"
+    ],
+    productsNote: "Products are supplied with relevant technical documentation and applicable IEC 62561 test evidence for consultant and project review.",
+    riskAssessmentTitle: "Free Lightning Risk Assessment",
+    riskAssessmentText1: "DFMHUB offers a Free Preliminary Lightning Risk Assessment in Bengaluru.",
+    riskAssessmentText2: "Simply share your project location, building dimensions, height, building use and available drawings. Our engineering team evaluates the project based on IS/IEC 62305-2 principles and helps identify the appropriate next steps for LPS design.",
+    riskAssessmentSteps: "Risk Assessment → Design → ARK Product Selection → Installation → Testing",
+    supportTitle: "Design, Installation & Approval Support",
+    supportServices: [
+      "Free Lightning Risk Assessment",
+      "IS/IEC 62305-based LPS Design",
+      "ARK Product Supply",
+      "Installation & Testing",
+      "Consultant Approval Assistance",
+      "CIEG Approval Assistance",
+      "Test Reports & As-Built Documentation"
+    ],
+    supportLocationsText: "DFMHUB supports data centres, IT campuses, aerospace and defence facilities, biotech facilities, factories, warehouses, commercial buildings and high-rise developments across Whitefield, Electronic City, Peenya, Bommasandra, Anekal, Devanahalli/KIADB Aerospace Park, Hebbal, Yeshwanthpur and other Bengaluru locations.",
+    ctaText: "Looking for a Lightning Protection System in Bengaluru? Start with a Free Lightning Risk Assessment by DFMHUB.",
+    metaTitle: "Lightning Protection System in Bengaluru | DFMHUB",
+    metaDescription: "Lightning Protection System in Bengaluru by DFMHUB. Get free risk assessment, IEC 62305-based design, ARK products, installation, testing and approval support.",
+    keywords: "Lightning Protection System in Bengaluru, Lightning Protection System Bengaluru, Lightning Protection System Manufacturer in Bengaluru, Lightning Protection System Supplier in Bengaluru, External Lightning Protection System Bengaluru, Lightning Protection System Design Bengaluru, Lightning Protection System Installation Bengaluru, Lightning Risk Assessment Bengaluru, IEC 62305 Lightning Protection, IEC 62561 LPS Components, ARK Lightning Protection System, Lightning Protection System for Data Centres Bengaluru, Industrial Lightning Protection Bengaluru, Lightning Protection Company Bengaluru",
     lpsFaqs: [
       {
-        question: "Who is the best lightning protection system manufacturer in Bengaluru?",
-        answer:
-          "DFMHUB manufactures and supplies ARK Make lightning protection systems across Bengaluru and greater Karnataka. We handle the full chain in-house — IS/IEC 62305-2 risk assessment, air termination design, IEC 62561 type-tested components, installation and documented earth resistance testing — for projects in Peenya, Whitefield, Electronic City, Devanahalli / KIADB Aerospace Park and surrounding industrial belts.",
+        question: "Who manufactures Lightning Protection System components in Bengaluru?",
+        answer: "DFMHUB manufactures ARK Make Lightning Protection System products from its Bengaluru manufacturing facility.",
       },
       {
-        question: "What does a lightning protection system cost in Bengaluru?",
-        answer:
-          "Cost depends on protection level, roof area and structure height. A typical LPL III installation for a mid-size commercial building in Bengaluru works out to a per-square-metre rate driven by conductor length, number of down conductors and earth electrode count. DFMHUB provides an itemised bill of materials with the design so you can compare like-for-like, and site surveys within Bengaluru are free.",
+        question: "Which standard is used for LPS design?",
+        answer: "IEC 62305 provides a principal framework for lightning risk assessment and LPS design. Project-specific Indian standards and specifications should also be considered.",
       },
       {
-        question: "Is lightning protection mandatory for buildings in Bengaluru?",
-        answer:
-          "The National Building Code 2016 (Part 8) and local Karnataka fire and electrical inspectorate approvals require lightning protection for tall, public and hazardous-occupancy buildings. In practice, plan sanction, factory licensing and fire NOC in Bengaluru all expect a compliant LPS with earth resistance test records, and insurers routinely ask for the same evidence.",
+        question: "Is soil resistivity the same throughout Bengaluru?",
+        answer: "No. Soil conditions can vary considerably between sites. Measurements should be carried out where earth-termination engineering requires soil-resistivity data.",
       },
       {
-        question: "How many thunderstorm days does Bengaluru get, and how does that affect design?",
-        answer:
-          "Bengaluru sees roughly 45-60 thunderstorm days a year, with intense pre-monsoon strikes in April-May. That strike density feeds directly into the IS/IEC 62305-2 risk calculation and usually pushes IT campuses & data centres and other critical facilities in the city to LPL I or II, which means a tighter mesh, more down conductors and coordinated surge protection.",
+        question: "Does DFMHUB provide LPS design support in Bengaluru?",
+        answer: "Yes. Engineering support can include risk assessment, LPS layout, product selection, BOQ and technical documentation.",
       },
       {
-        question: "What soil conditions affect earthing for lightning protection in Bengaluru?",
-        answer:
-          "Sites around Bengaluru typically have hard red laterite and granitic gneiss with high dry-season resistivity (typically 80-300 Ω·m). We run a Wenner four-pin soil resistivity survey before design, then select driven copper-bonded rods, deep-bore electrodes or chemical electrodes with enhancement compound so that the LPS earth stays within the target resistance year-round, not just in monsoon.",
-      },
-      {
-        question: "How long does lightning protection installation take in Bengaluru?",
-        answer:
-          "A standard commercial building in Bengaluru is completed in 5 to 12 working days after material dispatch, depending on facade access and roof complexity. Large industrial sheds in Peenya or Whitefield usually run two to four weeks with a phased handover so production is not interrupted.",
-      },
-      {
-        question: "Do you provide earth resistance testing and certification in Bengaluru?",
-        answer:
-          "Yes. Every Bengaluru installation is handed over with fall-of-potential earth resistance readings for each electrode, continuity readings across every test link, an as-built drawing set, IEC 62561 material test certificates and a compliance statement suitable for fire NOC, insurance and client audits. Annual re-testing contracts are available city-wide.",
-      },
-      {
-        question: "Which areas of Bengaluru do you serve?",
-        answer:
-          "We cover the whole Bengaluru metropolitan region including Peenya, Whitefield, Electronic City, Devanahalli / KIADB Aerospace Park, Bommasandra, Hebbal, Yeshwanthpur, with regular project work for IT campuses & data centres, aerospace and defence units, biotech labs, high-rise residential towers. Emergency inspection after a strike event is normally attended within 24 to 48 hours.",
+        question: "Can ARK LPS be used for data centres and industrial buildings?",
+        answer: "Yes, subject to project-specific engineering and consultant specifications.",
       },
     ],
-    earthingFaqs: [
-      {
-        question: "Why choose structural earthing over traditional earth pits in Bengaluru?",
-        answer:
-          "Bengaluru's rocky red soil has high resistivity during dry months. Structural earthing utilizes the building's massive foundation rebar grid as a permanent, low-impedance electrode compliant with IS 3043 and IEC 62305-3.",
-      },
-      {
-        question: "What earth resistance value can be achieved for Bengaluru facilities?",
-        answer:
-          "We engineer structural earthing grids in Bengaluru to reach below 1 Ω for substations and data centres, and below 5 Ω for commercial LPS installations, maintaining stability year-round.",
-      },
-      {
-        question: "Are exothermic welds required for foundation earthing in Bengaluru?",
-        answer:
-          "Yes, exothermic welds provide a permanent molecular bond that cannot corrode or loosen over the lifespan of the concrete structure in Bengaluru.",
-      },
-      {
-        question: "Which standards govern structural earthing in Karnataka?",
-        answer:
-          "All designs comply strictly with IS 3043:2018, IS/IEC 62305-3, and National Building Code 2016 Part 8.",
-      },
-    ],
+    earthingFaqs: [],
   },
   chennai: {
     name: "Chennai",
@@ -303,15 +325,29 @@ export async function generateMetadata({
   if (!city) {
     return { title: "Lightning Protection System | DFMHUB" };
   }
+  const pageTitle = city.metaTitle || `Lightning Protection System in ${city.name}, ${city.state} | DFMHUB`;
+  const pageDesc = city.metaDescription || `DFMHUB manufactures ARK Make lightning protection systems for ${city.sectors} across ${city.areas} in ${city.name}, ${city.state}. Free site survey & IS/IEC 62305 design consultation.`;
+  const pageKeywords = city.keywords || `Lightning Protection System in ${city.name}`;
+
   return {
-    title: `Lightning Protection System in ${city.name}, ${city.state} | IS/IEC 62305`,
-    description: `DFMHUB manufactures ARK Make lightning protection systems for ${city.sectors} across ${city.areas} in ${city.name}, ${city.state}. Free site survey & IS/IEC 62305 design consultation.`,
+    title: pageTitle,
+    description: pageDesc,
+    keywords: pageKeywords,
     alternates: {
       canonical: `https://dfmhub.vercel.app/lightning-protection-system/${city.slug}`,
     },
     openGraph: {
-      title: `Lightning Protection System in ${city.name} | DFMHUB`,
-      description: `ARK Make components, risk assessment, installation and testing in ${city.name}, ${city.state}.`,
+      title: pageTitle,
+      description: pageDesc,
+      url: `https://dfmhub.vercel.app/lightning-protection-system/${city.slug}`,
+      siteName: "DFMHUB - ARK Lightning Protection Systems",
+      locale: "en_IN",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: pageTitle,
+      description: pageDesc,
     },
   };
 }
@@ -366,8 +402,73 @@ export default async function LightningProtectionCityPage({
     },
   ];
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": city.lpsFaqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer,
+      },
+    })),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://dfmhub.vercel.app/",
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Lightning Protection System",
+        "item": "https://dfmhub.vercel.app/lightning-protection-system",
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": city.name,
+        "item": `https://dfmhub.vercel.app/lightning-protection-system/${city.slug}`,
+      },
+    ],
+  };
+
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": `DFMHUB - Lightning Protection System in ${city.name}`,
+    "description": city.metaDescription || city.desc,
+    "url": `https://dfmhub.vercel.app/lightning-protection-system/${city.slug}`,
+    "telephone": "+919483564777",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": city.name,
+      "addressRegion": city.state,
+      "addressCountry": "IN",
+    },
+  };
+
   return (
     <div className="w-full transition-colors duration-200">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
       {/* Section 1: Hero Section (DARK NAVY) */}
       <section className="relative bg-[#070d19] text-white overflow-hidden py-16 sm:py-20 lg:py-24 border-b border-slate-800">
         <div className="absolute inset-0 bg-gradient-to-r from-[#070d19] via-[#091325]/90 to-transparent z-10" />
@@ -400,8 +501,14 @@ export default async function LightningProtectionCityPage({
             </h1>
 
             <p className="text-sm sm:text-base lg:text-lg text-slate-300 leading-relaxed font-normal max-w-3xl">
-              DFMHUB manufactures ARK Make lightning protection systems and delivers full design, installation and testing across {city.region} — from {city.areas.split(", ")[0]} to {city.areas.split(", ").slice(-1)[0]}.
+              {city.desc || `DFMHUB manufactures ARK Make lightning protection systems and delivers full design, installation and testing across ${city.region} — from ${city.areas.split(", ")[0]} to ${city.areas.split(", ").slice(-1)[0]}.`}
             </p>
+
+            {city.heroSubtext && (
+              <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal max-w-3xl">
+                {city.heroSubtext}
+              </p>
+            )}
 
             <div className="pt-2 flex flex-col sm:flex-row gap-4">
               <Link
@@ -424,69 +531,144 @@ export default async function LightningProtectionCityPage({
 
       {/* Section 2: WHY CITY PROJECTS NEED A CITY-SPECIFIC DESIGN (WHITE) */}
       <section className="w-full bg-white text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-8">
-            <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
-              {city.name.toUpperCase()}, {city.state.toUpperCase()}
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight mb-4">
-              Why {city.name} projects need a city-specific design
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-            <div className="lg:col-span-7 space-y-4 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          <div className="max-w-4xl space-y-6 text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+            {/* Climate & Risk */}
+            {city.climateRiskHeading ? (
+              <div className="space-y-3">
+                <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+                  {city.climateRiskHeading}
+                </h2>
+                <p className="text-slate-700 leading-relaxed">{city.climateRiskPara1}</p>
+                <p className="text-slate-700 leading-relaxed">{city.climateRiskPara2}</p>
+              </div>
+            ) : (
               <p>
                 {city.name} sees {city.storm}. That strike density drives the IS/IEC 62305-2 risk calculation upward, and for {city.sectors} the result is usually Lightning Protection Level I or II — a tighter mesh, more down conductors and fully coordinated surge protection.
               </p>
+            )}
+
+            {/* Soil Conditions */}
+            {city.soilHeading ? (
+              <div className="space-y-3 pt-4">
+                <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+                  {city.soilHeading}
+                </h2>
+                <p className="text-slate-700 leading-relaxed">{city.soilPara1}</p>
+                <p className="text-slate-700 leading-relaxed">{city.soilPara2}</p>
+              </div>
+            ) : (
               <p>
                 Earthing is the other half of the problem. Ground around {city.name} is characterised by {city.soil}, so we run a Wenner four-pin soil resistivity survey before design and select copper bonded, deep-bore or chemical electrodes accordingly, rather than defaulting to standard three-metre pits that dry out.
               </p>
-              <p>
-                Our {city.name} team handles roof and facade installation on occupied buildings with permit-to-work and height-safety controls, then hands over fall-of-potential earth resistance readings for every electrode, continuity across every test link, as-built drawings and IEC 62561 material certificates for fire NOC, insurance and audit use.
-              </p>
-              <p>
-                Regular project work in the region covers {city.sectors}, with material supply to EPC and electrical contractors across {city.areas} and emergency post-strike inspection typically attended within 24 to 48 hours.
-              </p>
-            </div>
+            )}
 
-            {/* Coverage Summary Box */}
-            <div className="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
-              <h3 className="font-bold text-slate-900 text-lg border-b border-slate-200 pb-3">
-                {city.name} coverage
-              </h3>
-
-              <div className="space-y-4 text-xs text-slate-700 font-normal">
-                <div>
-                  <span className="text-amber-600 font-bold text-[11px] uppercase tracking-wider block mb-1">
-                    AREAS SERVED
-                  </span>
-                  <p className="leading-relaxed">{city.areas}</p>
-                </div>
-
-                <div>
-                  <span className="text-amber-600 font-bold text-[11px] uppercase tracking-wider block mb-1">
-                    SECTORS
-                  </span>
-                  <p className="leading-relaxed">{city.sectors}</p>
-                </div>
-
-                <div>
-                  <span className="text-amber-600 font-bold text-[11px] uppercase tracking-wider block mb-1">
-                    SOIL PROFILE
-                  </span>
-                  <p className="leading-relaxed">{city.soil}</p>
-                </div>
-
-                <div>
-                  <span className="text-amber-600 font-bold text-[11px] uppercase tracking-wider block mb-1">
-                    STORM EXPOSURE
-                  </span>
-                  <p className="leading-relaxed">{city.storm}</p>
-                </div>
-              </div>
-            </div>
+            {!city.climateRiskHeading && (
+              <>
+                <p>
+                  Our {city.name} team handles roof and facade installation on occupied buildings with permit-to-work and height-safety controls, then hands over fall-of-potential earth resistance readings for every electrode, continuity across every test link, as-built drawings and IEC 62561 material certificates for fire NOC, insurance and audit use.
+                </p>
+                <p>
+                  Regular project work in the region covers {city.sectors}, with material supply to EPC and electrical contractors across {city.areas} and emergency post-strike inspection typically attended within 24 to 48 hours.
+                </p>
+              </>
+            )}
           </div>
+
+          {/* Products List section for City */}
+          {city.productsList && (
+            <div className="border-t border-slate-200 pt-8 space-y-4">
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900">
+                {city.productsHeading}
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 font-medium">
+                ARK External Lightning Protection components include:
+              </p>
+              <div className="flex flex-wrap gap-2 pt-1">
+                {city.productsList.map((item) => (
+                  <span key={item} className="bg-amber-50 text-amber-900 border border-amber-200 text-xs px-3 py-1.5 rounded-lg font-medium">
+                    {item}
+                  </span>
+                ))}
+              </div>
+              {city.productsNote && (
+                <p className="text-xs sm:text-sm text-slate-500 italic pt-1">
+                  {city.productsNote}
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* Free Risk Assessment Banner */}
+          {city.riskAssessmentTitle && (
+            <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-6 sm:p-8 space-y-3 text-slate-900">
+              <h3 className="text-lg sm:text-xl font-bold text-amber-700 flex items-center gap-2">
+                <Zap className="w-5 h-5 text-amber-600" />
+                <span>{city.riskAssessmentTitle}</span>
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-700 font-normal leading-relaxed">
+                {city.riskAssessmentText1}
+              </p>
+              <p className="text-xs sm:text-sm text-slate-700 font-normal leading-relaxed">
+                {city.riskAssessmentText2}
+              </p>
+              {city.riskAssessmentSteps && (
+                <div className="pt-2 text-xs font-bold text-amber-800 tracking-wide uppercase">
+                  {city.riskAssessmentSteps}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Support Services list */}
+          {city.supportTitle && (
+            <div className="border-t border-slate-200 pt-8 space-y-6">
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
+                {city.supportTitle}
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600">
+                DFMHUB provides end-to-end support for Lightning Protection Systems in {city.name}, including:
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {city.supportServices?.map((service) => (
+                  <div key={service} className="flex items-center gap-2 text-xs sm:text-sm text-slate-800 bg-slate-50 border border-slate-200/80 p-3.5 rounded-xl font-medium">
+                    <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0" />
+                    <span>{service}</span>
+                  </div>
+                ))}
+              </div>
+
+              {city.supportLocationsText && (
+                <div className="pt-4 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal bg-slate-50/60 border border-slate-200/60 p-5 rounded-xl">
+                  <h4 className="font-bold text-slate-900 text-sm mb-2">
+                    Lightning Protection Support Across {city.name}
+                  </h4>
+                  <p>{city.supportLocationsText}</p>
+                </div>
+              )}
+
+              {city.ctaText && (
+                <div className="pt-2">
+                  <div className="bg-slate-900 text-white p-6 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                      <h4 className="font-bold text-base text-amber-400">
+                        {city.ctaText}
+                      </h4>
+                      <p className="text-xs text-slate-300 mt-1">
+                        Planning a {city.name} project? Send your roof plan, building height and project specification to DFMHUB for LPS engineering.
+                      </p>
+                    </div>
+                    <Link
+                      href="/contact-us"
+                      className="bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-lg whitespace-nowrap transition-all shrink-0"
+                    >
+                      GET FREE RISK ASSESSMENT
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
 

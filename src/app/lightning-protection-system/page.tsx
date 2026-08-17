@@ -11,6 +11,24 @@ export const metadata = {
     "ARK Make Lightning Protection System by DFMHUB offers engineered air terminals, conductors, clamps, connectors and LPS components for industrial, commercial and infrastructure projects in India.",
   keywords:
     "lightning protection system, lightning protection system manufacturer, lightning protection system India, ARK lightning protection system, external lightning protection system, conventional lightning protection system, IEC 62305 lightning protection, IEC 62561 components, lightning protection products, DFMHUB lightning protection",
+  alternates: {
+    canonical: "https://dfmhub.vercel.app/lightning-protection-system",
+  },
+  openGraph: {
+    title: "Lightning Protection System Manufacturer in India | ARK Make by DFMHUB",
+    description:
+      "ARK Make Lightning Protection System by DFMHUB offers engineered air terminals, conductors, clamps, connectors and LPS components for industrial, commercial and infrastructure projects in India.",
+    url: "https://dfmhub.vercel.app/lightning-protection-system",
+    siteName: "DFMHUB - ARK Lightning Protection Systems",
+    locale: "en_IN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Lightning Protection System Manufacturer in India | ARK Make by DFMHUB",
+    description:
+      "ARK Make Lightning Protection System by DFMHUB offers engineered air terminals, conductors, clamps, connectors and LPS components for industrial, commercial and infrastructure projects in India.",
+  },
 };
 
 export default function LightningProtectionPage() {
@@ -250,8 +268,66 @@ export default function LightningProtectionPage() {
     },
   ];
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": lpsFaqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer,
+      },
+    })),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://dfmhub.vercel.app/",
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Lightning Protection System",
+        "item": "https://dfmhub.vercel.app/lightning-protection-system",
+      },
+    ],
+  };
+
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "DFMHUB",
+    "url": "https://dfmhub.vercel.app/",
+    "description": "ARK Make Lightning Protection System by DFMHUB offers engineered air terminals, conductors, clamps, connectors and LPS components.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Bengaluru",
+      "addressRegion": "Karnataka",
+      "addressCountry": "IN",
+    },
+  };
+
   return (
     <div className="w-full transition-colors duration-200">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
       {/* Section 1: Hero Section (DARK NAVY) */}
       <section className="relative bg-[#081021] text-white overflow-hidden py-16 sm:py-20 lg:py-24 border-b border-slate-800">
         <div className="absolute inset-0 z-0 opacity-30">

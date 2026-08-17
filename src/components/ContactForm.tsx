@@ -43,15 +43,19 @@ _Sent directly from DFMHUB Website_`;
       <div className="lg:col-span-5 space-y-6">
         <div>
           <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
-            TALK TO AN ENGINEER
+            ARK MAKE BY DFMHUB — ENGINEERING-LED LIGHTNING PROTECTION
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
-            Send your drawings. Get a compliant system design back.
+            Send DFMHUB your:
           </h2>
         </div>
 
-        <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-          Share roof plans, structure height and soil data — our team returns a risk assessment summary, air termination or earthing layout, bill of materials and a fixed-price proposal.
+        <div className="p-4 bg-amber-50 border border-amber-200/80 rounded-xl text-xs sm:text-sm font-semibold text-slate-800 leading-relaxed">
+          Project location + building dimensions + height + roof plan + electrical layout + project specification.
+        </div>
+
+        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+          The engineering team can review the project requirements and recommend the appropriate LPS design, ARK components and BOQ.
         </p>
 
         <ul className="space-y-3 pt-2">
