@@ -6,9 +6,11 @@ import ContactForm from "@/components/ContactForm";
 import FAQAccordion from "@/components/FAQAccordion";
 
 export const metadata = {
-  title: "Lightning Protection Systems (IS/IEC 62305) | DFMHUB",
+  title: "Lightning Protection System Manufacturer in India | ARK Make by DFMHUB",
   description:
-    "ARK Make air terminations, mesh and down conductors, test links, bonding and coordinated SPDs, designed by rolling sphere method to IS/IEC 62305.",
+    "ARK Make Lightning Protection System by DFMHUB offers engineered air terminals, conductors, clamps, connectors and LPS components for industrial, commercial and infrastructure projects in India.",
+  keywords:
+    "lightning protection system, lightning protection system manufacturer, lightning protection system India, ARK lightning protection system, external lightning protection system, conventional lightning protection system, IEC 62305 lightning protection, IEC 62561 components, lightning protection products, DFMHUB lightning protection",
 };
 
 export default function LightningProtectionPage() {
@@ -317,76 +319,21 @@ export default function LightningProtectionPage() {
             </p>
           </div>
 
-          {/* System Component Flow Banner */}
-          <div className="mb-12 bg-slate-50 border border-slate-200/80 rounded-2xl p-6 lg:p-8 shadow-sm">
-            <div className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-amber-700 mb-4 flex items-center gap-2">
-              <Zap className="w-4 h-4 text-amber-600" />
-              <span>ARK – Lightning Protection System by DFMHUB consists of</span>
-            </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 items-center">
-              <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm text-center font-medium text-slate-900 text-sm flex items-center justify-between sm:justify-center gap-2">
-                <span>Air-Termination System</span>
-                <ChevronRight className="w-4 h-4 text-amber-500 sm:hidden" />
-              </div>
-              <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm text-center font-medium text-slate-900 text-sm flex items-center justify-between sm:justify-center gap-2">
-                <span>Down-Conductor System</span>
-                <ChevronRight className="w-4 h-4 text-amber-500 sm:hidden" />
-              </div>
-              <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm text-center font-medium text-slate-900 text-sm flex items-center justify-between sm:justify-center gap-2">
-                <span>Connection & Fixing Components</span>
-                <ChevronRight className="w-4 h-4 text-amber-500 sm:hidden" />
-              </div>
-              <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm text-center font-medium text-slate-900 text-sm">
-                <span>Earth-Termination System</span>
-              </div>
-            </div>
-          </div>
-
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-            {/* Detailed Content Points */}
-            <div className="lg:col-span-6 space-y-6 text-sm text-slate-600 leading-relaxed">
-              <div className="flex gap-4 items-start">
-                <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center shrink-0 mt-0.5">
-                  <ShieldCheck className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-slate-900 text-base mb-1">
-                    System Failure & Surge Protection
-                  </h3>
-                  <p className="text-slate-600 leading-relaxed">
-                    Protection against electrical and electronic system failures caused by lightning electromagnetic effects requires additional measures, including appropriate bonding, separation and surge protective measures.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-4 items-start">
-                <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center shrink-0 mt-0.5">
-                  <Layers className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-slate-900 text-base mb-1">
-                    Engineered LPS Solution
-                  </h3>
-                  <p className="text-slate-600 leading-relaxed">
-                    ARK is not positioned as simply a collection of clamps and conductors. The objective is to provide an engineered LPS solution—from risk assessment and design to component selection, installation support, inspection and testing.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-4 items-start">
-                <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center shrink-0 mt-0.5">
-                  <CheckCircle2 className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-slate-900 text-base mb-1">
-                    IEC Standards Compliance
-                  </h3>
-                  <p className="text-slate-600 leading-relaxed">
-                    The system is designed around the principles of <strong className="text-slate-900 font-semibold">IEC 62305</strong> and uses lightning protection components selected and tested with reference to applicable parts of the <strong className="text-slate-900 font-semibold">IEC 62561</strong> series.
-                  </p>
-                </div>
-              </div>
+            {/* Detailed Content Paragraphs */}
+            <div className="lg:col-span-6 space-y-4 text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+              <p>
+                ARK – Lightning Protection System by DFMHUB consists of: <strong className="text-slate-900 font-semibold">Air-Termination System</strong> → <strong className="text-slate-900 font-semibold">Down-Conductor System</strong> → <strong className="text-slate-900 font-semibold">Connection & Fixing Components</strong> → <strong className="text-slate-900 font-semibold">Earth-Termination System</strong>
+              </p>
+              <p>
+                Protection against electrical and electronic system failures caused by lightning electromagnetic effects requires additional measures, including appropriate bonding, separation and surge protective measures.
+              </p>
+              <p>
+                ARK is not positioned as simply a collection of clamps and conductors. The objective is to provide an engineered LPS solution—from risk assessment and design to component selection, installation support, inspection and testing.
+              </p>
+              <p>
+                The system is designed around the principles of <strong className="font-bold text-slate-900">IEC 62305</strong> and uses lightning protection components selected and tested with reference to applicable parts of the <strong className="font-bold text-slate-900">IEC 62561</strong> series.
+              </p>
             </div>
 
             {/* Image Column */}
