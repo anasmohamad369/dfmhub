@@ -3,14 +3,18 @@
 import React, { useState } from "react";
 import { CheckCircle2, MessageCircle } from "lucide-react";
 
-export default function ContactForm() {
+interface CityContactFormProps {
+  cityName: string;
+}
+
+export default function CityContactForm({ cityName }: CityContactFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     phone: "",
     company: "",
-    city: "",
+    city: cityName || "",
     requirement: "Lightning Protection System",
     details: "",
   });
@@ -18,13 +22,13 @@ export default function ContactForm() {
   const handleWhatsAppSend = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const text = `*New DFMHUB Project Consultation Enquiry* ⚡
+    const text = `*New DFMHUB Project Consultation Enquiry (${cityName})* ⚡
 
 *Name:* ${formData.fullName || "Not provided"}
 *Company:* ${formData.company || "Not provided"}
 *Phone:* ${formData.phone || "Not provided"}
 *Email:* ${formData.email || "Not provided"}
-*Project City:* ${formData.city || "Not provided"}
+*Project City:* ${formData.city || cityName}
 *Requirement:* ${formData.requirement}
 *Project Details:* ${formData.details || "None provided"}
 
@@ -32,7 +36,6 @@ _Sent directly from DFMHUB Website_`;
 
     const whatsappUrl = `https://wa.me/919483564777?text=${encodeURIComponent(text)}`;
 
-    // Directly open WhatsApp with formatted message
     window.open(whatsappUrl, "_blank");
     setSubmitted(true);
   };
@@ -46,12 +49,15 @@ _Sent directly from DFMHUB Website_`;
             TALK TO AN ENGINEER
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
-            Need an LPS Design or Product Selection?
+            Planning a {cityName} project?
           </h2>
+          <p className="text-sm sm:text-base text-slate-700 mt-3 leading-relaxed font-semibold">
+            Send your roof plan, building height and project specification to DFMHUB for LPS engineering and ARK product selection.
+          </p>
         </div>
 
         <div className="space-y-2">
-          <p className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wider">
+          <p className="text-xs font-bold text-slate-900 uppercase tracking-wider">
             Send DFMHUB your:
           </p>
           <div className="p-4 bg-amber-50 border border-amber-200/80 rounded-xl text-xs sm:text-sm font-semibold text-slate-800 leading-relaxed">
