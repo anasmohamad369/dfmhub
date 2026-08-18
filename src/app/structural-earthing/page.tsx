@@ -26,10 +26,30 @@ export const metadata = {
 
 export default function StructuralEarthingPage() {
   const lplMatrix = [
-    { level: "LPL I", roman: "I", detail: "Highest level of protection for critical and high-risk structures." },
-    { level: "LPL II", roman: "II", detail: "High level of protection for commercial and industrial buildings." },
-    { level: "LPL III", roman: "III", detail: "Standard level of protection for common structures with moderate risk." },
-    { level: "LPL IV", roman: "IV", detail: "Basic level of protection for structures with low lightning risk exposure." },
+    {
+      level: "LPL I",
+      roman: "I",
+      detail:
+        "Highest level of protection for critical and high-risk structures.",
+    },
+    {
+      level: "LPL II",
+      roman: "II",
+      detail:
+        "High level of protection for commercial and industrial buildings.",
+    },
+    {
+      level: "LPL III",
+      roman: "III",
+      detail:
+        "Standard level of protection for common structures with moderate risk.",
+    },
+    {
+      level: "LPL IV",
+      roman: "IV",
+      detail:
+        "Basic level of protection for structures with low lightning risk exposure.",
+    },
   ];
 
   const components = [
@@ -149,10 +169,26 @@ export default function StructuralEarthingPage() {
   ];
 
   const cities = [
-    { name: "Bengaluru", state: "Karnataka · South India", url: "/structural-earthing/bengaluru" },
-    { name: "Chennai", state: "Tamil Nadu · South India", url: "/structural-earthing/chennai" },
-    { name: "Hyderabad", state: "Telangana · South India", url: "/structural-earthing/hyderabad" },
-    { name: "Pune", state: "Maharashtra · West India", url: "/structural-earthing/pune" },
+    {
+      name: "Bengaluru",
+      state: "Karnataka · South India",
+      url: "/structural-earthing/bengaluru",
+    },
+    {
+      name: "Chennai",
+      state: "Tamil Nadu · South India",
+      url: "/structural-earthing/chennai",
+    },
+    {
+      name: "Hyderabad",
+      state: "Telangana · South India",
+      url: "/structural-earthing/hyderabad",
+    },
+    {
+      name: "Pune",
+      state: "Maharashtra · West India",
+      url: "/structural-earthing/pune",
+    },
   ];
 
   const earthingFaqs = [
@@ -162,7 +198,8 @@ export default function StructuralEarthingPage() {
         "Structural earthing is an engineered method of integrating suitable reinforcement, dedicated earthing conductors and bonding points into a building's earthing network.",
     },
     {
-      question: "Is structural earthing the same as conventional earth pit earthing?",
+      question:
+        "Is structural earthing the same as conventional earth pit earthing?",
       answer:
         "No. Structural earthing uses the building foundation and structural network as part of the earthing arrangement. Conventional earthing generally relies primarily on dedicated electrodes installed in the surrounding soil. The final project may use a coordinated combination of earthing methods.",
     },
@@ -226,9 +263,13 @@ export default function StructuralEarthingPage() {
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-6">
             <div className="flex items-center space-x-2 text-xs font-semibold text-slate-400">
-              <Link href="/" className="hover:text-amber-400 transition-colors">Home</Link>
+              <Link href="/" className="hover:text-amber-400 transition-colors">
+                Home
+              </Link>
               <span>&gt;</span>
-              <span className="text-amber-400 font-bold">Structural Earthing</span>
+              <span className="text-amber-400 font-bold">
+                Structural Earthing
+              </span>
             </div>
 
             <span className="text-amber-500 font-bold text-xs uppercase tracking-widest block">
@@ -240,7 +281,8 @@ export default function StructuralEarthingPage() {
             </h1>
 
             <p className="text-base sm:text-lg lg:text-xl text-slate-300 leading-relaxed font-normal">
-              Engineered rebar bonding, foundation earthing, and equipotential protection networks for modern RCC structures.
+              Engineered rebar bonding, foundation earthing, and equipotential
+              protection networks for modern RCC structures.
             </p>
 
             <div className="pt-4 flex flex-col sm:flex-row gap-4">
@@ -263,7 +305,7 @@ export default function StructuralEarthingPage() {
       </section>
 
       {/* Section 1.5: WHAT IS A STRUCTURAL EARTHING SYSTEM? (CLEAN PLAIN TEXT) */}
-      <section className="w-full bg-white text-slate-900 py-12 sm:py-16 lg:py-20 border-b border-slate-200">
+      {/* <section className="w-full bg-white text-slate-900 py-12 sm:py-16 lg:py-20 border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
             What is a Structural Earthing System?
@@ -271,13 +313,20 @@ export default function StructuralEarthingPage() {
 
           <div className="space-y-4 text-slate-700 text-base sm:text-lg leading-relaxed">
             <p>
-              A Structural Earthing System uses the reinforcement and foundation of an RCC structure as part of a coordinated earthing and lightning protection network.
+              A Structural Earthing System uses the reinforcement and foundation
+              of an RCC structure as part of a coordinated earthing and
+              lightning protection network.
             </p>
             <p>
-              Instead of treating earthing as an activity carried out only after construction, the required conductors, rebar connections, earth termination points and bonding connections are planned during the structural stage itself.
+              Instead of treating earthing as an activity carried out only after
+              construction, the required conductors, rebar connections, earth
+              termination points and bonding connections are planned during the
+              structural stage itself.
             </p>
             <p>
-              The ARK Structural Earthing System by DFMHUB provides engineered components for creating reliable electrical continuity through foundations, columns, slabs and designated bonding points.
+              The ARK Structural Earthing System by DFMHUB provides engineered
+              components for creating reliable electrical continuity through
+              foundations, columns, slabs and designated bonding points.
             </p>
           </div>
 
@@ -304,7 +353,7 @@ export default function StructuralEarthingPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Section 2: INTRODUCTION & COMPLIANCE (WHITE) */}
       <section className="w-full bg-white text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
@@ -313,29 +362,86 @@ export default function StructuralEarthingPage() {
             <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
               INTRODUCTION & COMPLIANCE
             </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight mb-4">
-              How a Structural Earthing Network is Built
-            </h2>
-            <p className="text-sm sm:text-base text-slate-600 max-w-4xl leading-relaxed font-normal">
-              A structural earthing network is created progressively as the RCC structure is built.
-            </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center pt-4">
             <div className="lg:col-span-6 space-y-4 text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-              <p className="font-medium  text-slate-800">
-                Foundation Network &rarr; Rebar Connections &rarr; Vertical Earthing Routes &rarr; Floor-Level Connections &rarr; Equipotential Bonding &rarr; Lightning Protection Interface
-              </p>
-              <p>
-                Selected reinforcement bars and dedicated conductors are interconnected to create electrically continuous paths through the structure.
-              </p>
-              <p>
-                The final arrangement depends on the building design, electrical system, lightning protection design, fault-current requirements and consultant specifications.
-              </p>
+              <div>
+                <div>
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
+                    What is a Structural Earthing System?
+                  </h2>
+                  <br />
+                  <p>
+                    A Structural Earthing System uses the reinforcement and
+                    foundation of an RCC structure as part of a coordinated
+                    earthing and lightning protection network.
+                  </p>
+                  <p>
+                    Instead of treating earthing as an activity carried out only
+                    after construction, the required conductors, rebar
+                    connections, earth termination points and bonding
+                    connections are planned during the structural stage itself.
+                  </p>
+                  <p>
+                    The ARK Structural Earthing System by DFMHUB provides
+                    engineered components for creating reliable electrical
+                    continuity through foundations, columns, slabs and
+                    designated bonding points.
+                  </p>
+                  <div className="pt-4">
+                    <span className="text-xs sm:text-sm font-semibold text-slate-900 uppercase tracking-wider block mb-3">
+                      It is suitable for:
+                    </span>
+                    <div className="flex flex-wrap gap-2.5">
+                      {[
+                        "High-rise buildings",
+                        "Data centres",
+                        "Hospitals",
+                        "Commercial buildings",
+                        "Industrial facilities",
+                        "Metro and infrastructure projects",
+                      ].map((item) => (
+                        <span
+                          key={item}
+                          className="bg-slate-100 text-slate-800 border border-slate-300 px-3.5 py-1.5 rounded-md text-xs sm:text-sm font-medium"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <div>
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight mb-4">
+                    How a Structural Earthing Network is Built
+                  </h2>
+                  <p className="text-sm sm:text-base text-slate-600 max-w-4xl leading-relaxed font-normal">
+                    A structural earthing network is created progressively as
+                    the RCC structure is built.
+                  </p>
+                  <p className="font-medium  text-slate-800">
+                    Foundation Network &rarr; Rebar Connections &rarr; Vertical
+                    Earthing Routes &rarr; Floor-Level Connections &rarr;
+                    Equipotential Bonding &rarr; Lightning Protection Interface
+                  </p>
+                  <p>
+                    Selected reinforcement bars and dedicated conductors are
+                    interconnected to create electrically continuous paths
+                    through the structure.
+                  </p>
+                  <p>
+                    The final arrangement depends on the building design,
+                    electrical system, lightning protection design,
+                    fault-current requirements and consultant specifications.
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div className="lg:col-span-6">
-              <div className="relative w-full h-[320px] sm:h-[400px] rounded-xl overflow-hidden shadow-xl border border-slate-200">
+              <div className="relative w-full h-[420px] sm:h-[800px] rounded-xl overflow-hidden shadow-xl border border-slate-200">
                 <Image
                   src="/images/earthing-hero.png"
                   alt="ARK Make Structural Earthing foundation clamp and copper rod"
@@ -349,7 +455,7 @@ export default function StructuralEarthingPage() {
       </section>
 
       {/* Section 2.5: PRODUCT COMPARISON TABLE (LIGHT GRAY) */}
-      <section className="w-full bg-[#f8fafc] text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
+      {/* <section className="w-full bg-[#f8fafc] text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div>
             <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
@@ -402,11 +508,10 @@ export default function StructuralEarthingPage() {
             </p>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* section 3 */}
       <Testing matrix={lplMatrix} />
-       
 
       {/* Section 4: 12 ARK MAKE COMPONENTS (WHITE) */}
       <section className="w-full bg-white text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
@@ -419,7 +524,8 @@ export default function StructuralEarthingPage() {
               ARK Structural Earthing System Components
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 font-normal">
-              ARK provides a coordinated range of components for structural earthing and structural lightning protection applications.
+              ARK provides a coordinated range of components for structural
+              earthing and structural lightning protection applications.
             </p>
           </div>
 
@@ -446,6 +552,65 @@ export default function StructuralEarthingPage() {
         </div>
       </section>
 
+      {/* product comparision */}
+      <section className="w-full bg-[#f8fafc] text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          <div>
+            <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
+              PRODUCT COMPARISON
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
+              ARK Structural Earthing vs Generic Products
+            </h2>
+          </div>
+
+          <div className="overflow-x-auto rounded-xl border border-slate-200 shadow-sm bg-white">
+            <table className="w-full text-left border-collapse min-w-[640px]">
+              <thead>
+                <tr className="bg-[#09101f] text-white">
+                  <th className="py-4 px-6 text-xs sm:text-sm font-bold uppercase tracking-wider w-1/3">
+                    Parameter
+                  </th>
+                  <th className="py-4 px-6 text-xs sm:text-sm font-bold uppercase tracking-wider text-amber-400 w-1/3">
+                    ARK Make by DFMHUB
+                  </th>
+                  <th className="py-4 px-6 text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-300 w-1/3">
+                    Generic / Unverified Products
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200 text-xs sm:text-sm">
+                {comparisonData.map((row, idx) => (
+                  <tr
+                    key={row.param}
+                    className={idx % 2 === 0 ? "bg-white" : "bg-slate-50/70"}
+                  >
+                    <td className="py-3.5 px-6 font-semibold text-slate-900">
+                      {row.param}
+                    </td>
+                    <td className="py-3.5 px-6 font-medium text-amber-700 bg-amber-50/30">
+                      {row.ark}
+                    </td>
+                    <td className="py-3.5 px-6 text-slate-600">
+                      {row.generic}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="bg-slate-100/80 border-l-4 border-amber-500 p-4 sm:p-5 rounded-r-xl">
+            <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
+              The correct comparison is not simply ARK versus another brand.
+              Consultants and EPC contractors should compare material
+              specifications, applicable test evidence, installation
+              requirements, traceability and engineering support before
+              approving any structural earthing component.
+            </p>
+          </div>
+        </div>
+      </section>
       {/* Section 5: LOCATIONS (LIGHT GRAY) */}
       <section className="w-full bg-[#f8fafc] text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -457,7 +622,8 @@ export default function StructuralEarthingPage() {
               Structural earthing by city
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 font-normal">
-              Soil conditions differ sharply between metros — so do our electrode designs.
+              Soil conditions differ sharply between metros — so do our
+              electrode designs.
             </p>
           </div>
 
@@ -499,4 +665,3 @@ export default function StructuralEarthingPage() {
     </div>
   );
 }
-

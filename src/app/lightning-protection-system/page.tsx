@@ -428,7 +428,124 @@ export default function LightningProtectionPage() {
         </div>
       </section>
 
-      {/* Section 2.5: COMPARISON EVALUATION (LIGHT GRAY) */}
+      {/* Section 2.5: COMPARISON EVALUATION (LIGHT GRAY)
+      <section className="w-full bg-slate-50 text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-10 max-w-4xl">
+            <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
+              COMPARISON EVALUATION
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight mb-4">
+              ARK Lightning Protection System vs Generic Lightning Protection Components
+            </h2>
+            <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-normal">
+              Instead of comparing products only on price, EPCs and consultants should evaluate whether the components support the engineering requirements of the complete LPS.
+            </p>
+          </div>
+
+          {/* Responsive Comparison Table */}
+          {/* <div className="w-full overflow-hidden rounded-2xl border border-slate-200 shadow-lg bg-white mb-10">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse min-w-[700px]">
+                <thead>
+                  <tr className="border-b border-slate-200">
+                    <th className="py-4 px-6 bg-slate-100/90 text-slate-900 font-bold text-xs sm:text-sm uppercase tracking-wider w-1/3">
+                      Evaluation Factor
+                    </th>
+                    <th className="py-4 px-6 bg-amber-500 text-white font-bold text-xs sm:text-sm uppercase tracking-wider w-1/3">
+                      <div className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-white" />
+                        <span>ARK Approach</span>
+                      </div>
+                    </th>
+                    <th className="py-4 px-6 bg-slate-800 text-slate-200 font-bold text-xs sm:text-sm uppercase tracking-wider w-1/3">
+                      Typical Unspecified/Generic Product
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 text-xs sm:text-sm">
+                  {comparisonData.map((row, idx) => (
+                    <tr
+                      key={row.factor}
+                      className={idx % 2 === 0 ? "bg-white hover:bg-slate-50/80 transition-colors" : "bg-slate-50/40 hover:bg-slate-50 transition-colors"}
+                    >
+                      <td className="py-4 px-6 font-semibold text-slate-900 border-r border-slate-100">
+                        {row.factor}
+                      </td>
+                      <td className="py-4 px-6 text-amber-900 font-medium bg-amber-50/30 border-r border-slate-100">
+                        <span className="inline-flex items-center gap-1.5 text-amber-700 font-semibold">
+                          <Check className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                          {row.ark}
+                        </span>
+                      </td>
+                      <td className="py-4 px-6 text-slate-600">
+                        {row.generic}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div> */}
+
+          {/* Important Callout Alert Box */}
+          {/* <div className="bg-amber-50/90 border border-amber-200 rounded-xl p-5 sm:p-6 shadow-sm flex items-start gap-4">
+            <div className="w-9 h-9 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
+              <Info className="w-5 h-5 text-amber-600" />
+            </div>
+            <div className="text-xs sm:text-sm leading-relaxed text-slate-700">
+              <span className="font-bold text-slate-900 block mb-1">Important Note:</span>
+              This comparison does not imply that every competing product is non-compliant. Consultants and buyers should compare manufacturers using the same criteria: material specification, applicable test reports, dimensional consistency, standards, traceability, installation requirements and engineering support.
+            </div>
+          </div>
+        </div>
+      </section>  */}
+
+
+
+      <Testing matrix={lplMatrix} />
+
+      
+
+      {/* Section 4: 12 ARK MAKE COMPONENTS (WHITE) */}
+      <section className="w-full bg-white text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-10">
+            <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
+              SYSTEM COMPONENTS
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight mb-2">
+              ARK - External Lightning Protection Components
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 font-normal">
+              Every item is manufactured or sourced against IEC 62561 type-test evidence and supplied with batch traceability.
+            </p>
+           
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {components.map((comp) => (
+              <div
+                key={comp.title}
+                className="bg-white rounded-xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-all flex flex-col"
+              >
+                <div className="bg-[#09101f] text-white p-4">
+                  <h3 className="font-bold text-sm sm:text-base text-white">
+                    {comp.title}
+                  </h3>
+                  <span className="text-[10px] sm:text-xs font-bold text-amber-400 uppercase tracking-wider block mt-1">
+                    {comp.spec}
+                  </span>
+                </div>
+                <div className="p-5 text-slate-600 text-xs sm:text-sm leading-relaxed font-normal flex-grow bg-white">
+                  {comp.desc}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="w-full bg-slate-50 text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-10 max-w-4xl">
@@ -501,50 +618,6 @@ export default function LightningProtectionPage() {
         </div>
       </section>
 
-
-
-      <Testing matrix={lplMatrix} />
-
-      
-
-      {/* Section 4: 12 ARK MAKE COMPONENTS (WHITE) */}
-      <section className="w-full bg-white text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-10">
-            <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
-              SYSTEM COMPONENTS
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight mb-2">
-              ARK - External Lightning Protection Components
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-600 font-normal">
-              Every item is manufactured or sourced against IEC 62561 type-test evidence and supplied with batch traceability.
-            </p>
-           
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {components.map((comp) => (
-              <div
-                key={comp.title}
-                className="bg-white rounded-xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-all flex flex-col"
-              >
-                <div className="bg-[#09101f] text-white p-4">
-                  <h3 className="font-bold text-sm sm:text-base text-white">
-                    {comp.title}
-                  </h3>
-                  <span className="text-[10px] sm:text-xs font-bold text-amber-400 uppercase tracking-wider block mt-1">
-                    {comp.spec}
-                  </span>
-                </div>
-                <div className="p-5 text-slate-600 text-xs sm:text-sm leading-relaxed font-normal flex-grow bg-white">
-                  {comp.desc}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Section 5: LOCATIONS (LIGHT GRAY) */}
       <section className="w-full bg-[#f8fafc] text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
