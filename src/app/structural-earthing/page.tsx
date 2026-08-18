@@ -1,7 +1,19 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  Building2,
+  Server,
+  Hospital,
+  Building,
+  Factory,
+  Train,
+  ShieldCheck,
+  CheckCircle2,
+  Zap,
+  Layers,
+} from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import FAQAccordion from "@/components/FAQAccordion";
 import { Testing } from "@/components/Testing";
@@ -19,8 +31,6 @@ export default function StructuralEarthingPage() {
     { level: "LPL III", roman: "III", detail: "Standard level of protection for common structures with moderate risk." },
     { level: "LPL IV", roman: "IV", detail: "Basic level of protection for structures with low lightning risk exposure." },
   ];
-
-
 
   const components = [
     {
@@ -200,9 +210,9 @@ export default function StructuralEarthingPage() {
 
   return (
     <div className="w-full transition-colors duration-200">
-      {/* Section 1: Hero Section (DARK NAVY) */}
+      {/* Section 1: Hero Section (DARK NAVY - CONCISE HERO TEXT) */}
       <section className="relative bg-[#081021] text-white overflow-hidden py-16 sm:py-20 lg:py-24 border-b border-slate-800">
-        <div className="absolute inset-0 z-0 opacity-30">
+        <div className="absolute inset-0 z-0 opacity-80">
           <Image
             src="/images/earthing-hero.png"
             alt="Structural Earthing foundation rod installation"
@@ -211,12 +221,12 @@ export default function StructuralEarthingPage() {
             priority
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#081021] via-[#081021]/90 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#081021] via-[#081021]/95 to-[#081021]/80 z-10" />
 
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl space-y-6">
+          <div className="max-w-3xl space-y-6">
             <div className="flex items-center space-x-2 text-xs font-semibold text-slate-400">
-              <Link href="/" className="hover:text-amber-400">Home</Link>
+              <Link href="/" className="hover:text-amber-400 transition-colors">Home</Link>
               <span>&gt;</span>
               <span className="text-amber-400 font-bold">Structural Earthing</span>
             </div>
@@ -225,44 +235,13 @@ export default function StructuralEarthingPage() {
               ARK MAKE · STRUCTURAL EARTHING
             </span>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight">
-              What is a Structural Earthing System?
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white leading-tight tracking-tight">
+              Structural Earthing Systems
             </h1>
 
-            <div className="space-y-4 text-sm sm:text-base lg:text-lg text-slate-300 leading-relaxed font-normal max-w-3xl">
-              <p>
-                A Structural Earthing System uses the reinforcement and foundation of an RCC structure as part of a coordinated earthing and lightning protection network.
-              </p>
-              <p className="text-sm sm:text-base text-slate-300">
-                Instead of treating earthing as an activity carried out only after construction, the required conductors, rebar connections, earth termination points and bonding connections are planned during the structural stage itself.
-              </p>
-              <p className="text-sm sm:text-base text-slate-300">
-                The ARK Structural Earthing System by DFMHUB provides engineered components for creating reliable electrical continuity through foundations, columns, slabs and designated bonding points.
-              </p>
-            </div>
-
-            <div className="pt-2">
-              <span className="text-xs font-semibold text-amber-400 uppercase tracking-wider block mb-2">
-                It is suitable for:
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "High-rise buildings",
-                  "Data centres",
-                  "Hospitals",
-                  "Commercial buildings",
-                  "Industrial facilities",
-                  "Metro and infrastructure projects",
-                ].map((item) => (
-                  <span
-                    key={item}
-                    className="bg-slate-800/80 text-slate-200 border border-slate-700/80 px-3 py-1 rounded-full text-xs font-medium"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
+            <p className="text-base sm:text-lg lg:text-xl text-slate-300 leading-relaxed font-normal">
+              Engineered rebar bonding, foundation earthing, and equipotential protection networks for modern RCC structures.
+            </p>
 
             <div className="pt-4 flex flex-col sm:flex-row gap-4">
               <Link
@@ -278,6 +257,50 @@ export default function StructuralEarthingPage() {
               >
                 INSTALLATION SERVICES
               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 1.5: WHAT IS A STRUCTURAL EARTHING SYSTEM? (CLEAN PLAIN TEXT) */}
+      <section className="w-full bg-white text-slate-900 py-12 sm:py-16 lg:py-20 border-b border-slate-200">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
+            What is a Structural Earthing System?
+          </h2>
+
+          <div className="space-y-4 text-slate-700 text-base sm:text-lg leading-relaxed">
+            <p>
+              A Structural Earthing System uses the reinforcement and foundation of an RCC structure as part of a coordinated earthing and lightning protection network.
+            </p>
+            <p>
+              Instead of treating earthing as an activity carried out only after construction, the required conductors, rebar connections, earth termination points and bonding connections are planned during the structural stage itself.
+            </p>
+            <p>
+              The ARK Structural Earthing System by DFMHUB provides engineered components for creating reliable electrical continuity through foundations, columns, slabs and designated bonding points.
+            </p>
+          </div>
+
+          <div className="pt-4">
+            <span className="text-xs sm:text-sm font-semibold text-slate-900 uppercase tracking-wider block mb-3">
+              It is suitable for:
+            </span>
+            <div className="flex flex-wrap gap-2.5">
+              {[
+                "High-rise buildings",
+                "Data centres",
+                "Hospitals",
+                "Commercial buildings",
+                "Industrial facilities",
+                "Metro and infrastructure projects",
+              ].map((item) => (
+                <span
+                  key={item}
+                  className="bg-slate-100 text-slate-800 border border-slate-300 px-3.5 py-1.5 rounded-md text-xs sm:text-sm font-medium"
+                >
+                  {item}
+                </span>
+              ))}
             </div>
           </div>
         </div>
