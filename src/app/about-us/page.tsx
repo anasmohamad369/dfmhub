@@ -92,11 +92,11 @@ export default function AboutUsPage() {
       {/* Section 2: Our Mission */}
       <section className="w-full bg-white dark:bg-slate-900 py-12 sm:py-16 border-b border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-           <p className="text-md sm:text-base lg:text-md text-slate-300 max-w-7xl leading-relaxed font-normal">
+           <p className="text-md sm:text-base lg:text-md text-slate-700 dark:text-slate-300 max-w-7xl leading-relaxed font-normal">
             DFMHUB is a premier Indian manufacturer and supplier of advanced electrical safety solutions, widely recognized by engineers and contractors for our flagship ARK Make product line. Headquartered with a state-of-the-art manufacturing facility in Bengaluru, we engineer, produce, and distribute industry-leading Lightning Protection Systems and Structural Earthing Systems.
           </p>
     <br />
-          <p className="text-md sm:text-base text-slate-300 max-w-7xl leading-relaxed font-normal">
+          <p className="text-md sm:text-base text-slate-700 dark:text-slate-300 max-w-7xl leading-relaxed font-normal">
             Through a robust, pan-India dealer network, DFMHUB safeguards commercial, industrial, and residential infrastructure against electrical faults and direct lightning strikes, ensuring unwavering compliance with stringent national and international safety standards.
           </p>
           <br />

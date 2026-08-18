@@ -273,6 +273,8 @@ export default function EarthLineApp() {
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');`}</style>
       <style>{css}</style>
 
+
+
       <aside id="el-sidebar">
         <div className="el-brand">
           <div className="eyebrow">IEC 62305 · IS 3043 aligned</div>
