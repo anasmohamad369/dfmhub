@@ -3,7 +3,17 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Phone, Mail, Zap, Menu, X, Shield, ChevronRight, Sun, Moon } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  Zap,
+  Menu,
+  X,
+  Shield,
+  ChevronRight,
+  Sun,
+  Moon,
+} from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
 
 export default function Header() {
@@ -14,8 +24,58 @@ export default function Header() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about-us" },
-    { name: "Lightning Protection", href: "/lightning-protection-system" },
-    { name: "Structural Earthing", href: "/structural-earthing" },
+    {
+      name: "Lightning Protection",
+      href: "/lightning-protection-system",
+      dropdown: [
+        {
+          name: "Bengaluru",
+          state: "Karnataka · South India",
+          url: "/lightning-protection-system/bengaluru",
+        },
+        {
+          name: "Chennai",
+          state: "Tamil Nadu · South India",
+          url: "/lightning-protection-system/chennai",
+        },
+        {
+          name: "Hyderabad",
+          state: "Telangana · South India",
+          url: "/lightning-protection-system/hyderabad",
+        },
+        {
+          name: "Pune",
+          state: "Maharashtra · West India",
+          url: "/lightning-protection-system/pune",
+        },
+      ],
+    },
+    { 
+      name: "Structural Earthing", 
+      href: "/structural-earthing",
+      dropdown: [
+        {
+          name: "Bengaluru",
+          state: "Karnataka · South India",
+          url: "/structural-earthing/bengaluru",
+        },
+        {
+          name: "Chennai",
+          state: "Tamil Nadu · South India",
+          url: "/structural-earthing/chennai",
+        },
+        {
+          name: "Hyderabad",
+          state: "Telangana · South India",
+          url: "/structural-earthing/hyderabad",
+        },
+        {
+          name: "Pune",
+          state: "Maharashtra · West India",
+          url: "/structural-earthing/pune",
+        },
+      ],
+    },
     { name: "Installation", href: "/installation-services" },
     { name: "Blog", href: "/blog" },
     { name: "Contact Us", href: "/contact-us" },
@@ -78,17 +138,38 @@ export default function Header() {
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2">
             {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  isActive(link.href)
-                    ? "text-amber-600 dark:text-amber-400 bg-amber-50/80 dark:bg-amber-950/40 font-semibold"
-                    : "text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800"
-                }`}
-              >
-                {link.name}
-              </Link>
+              <div key={link.name} className="relative group">
+                <Link
+                  href={link.href}
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors inline-block ${
+                    isActive(link.href)
+                      ? "text-amber-600 dark:text-amber-400 bg-amber-50/80 dark:bg-amber-950/40 font-semibold"
+                      : "text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+                {link.dropdown && (
+                  <div className="absolute left-0 top-full mt-1 w-64 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div className="py-2">
+                      {link.dropdown.map((dropItem) => (
+                        <Link
+                          key={dropItem.name}
+                          href={dropItem.url}
+                          className="block px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                        >
+                          <span className="block text-sm font-semibold text-slate-800 dark:text-slate-200">
+                            {dropItem.name}
+                          </span>
+                          <span className="block text-xs text-slate-500 dark:text-slate-400">
+                            {dropItem.state}
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             ))}
           </nav>
 
@@ -99,7 +180,11 @@ export default function Header() {
               onClick={toggleTheme}
               aria-label="Toggle White/Black Theme"
               className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex items-center gap-1.5 text-xs font-semibold"
-              title={theme === "light" ? "Switch to Dark (Black) Theme" : "Switch to Light (White) Theme"}
+              title={
+                theme === "light"
+                  ? "Switch to Dark (Black) Theme"
+                  : "Switch to Light (White) Theme"
+              }
             >
               {theme === "light" ? (
                 <>
@@ -130,7 +215,11 @@ export default function Header() {
               aria-label="Toggle White/Black Theme"
               className="p-2 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
             >
-              {theme === "light" ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+              {theme === "light" ? (
+                <Moon className="w-5 h-5" />
+              ) : (
+                <Sun className="w-5 h-5" />
+              )}
             </button>
 
             <button
@@ -152,18 +241,38 @@ export default function Header() {
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-2 pb-6 space-y-1 shadow-lg">
           {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className={`block px-3 py-2.5 rounded-md text-base font-medium ${
-                isActive(link.href)
-                  ? "text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 font-semibold"
-                  : "text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-50 dark:hover:bg-slate-800"
-              }`}
-            >
-              {link.name}
-            </Link>
+            <div key={link.name}>
+              <Link
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block px-3 py-2.5 rounded-md text-base font-medium ${
+                  isActive(link.href)
+                    ? "text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 font-semibold"
+                    : "text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-50 dark:hover:bg-slate-800"
+                }`}
+              >
+                {link.name}
+              </Link>
+              {link.dropdown && (
+                <div className="pl-6 space-y-1 mt-1 mb-2">
+                  {link.dropdown.map((dropItem) => (
+                    <Link
+                      key={dropItem.name}
+                      href={dropItem.url}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block px-3 py-2 rounded-md text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                    >
+                      <span className="block font-medium text-slate-700 dark:text-slate-300">
+                        {dropItem.name}
+                      </span>
+                      <span className="block text-xs text-slate-500 dark:text-slate-400">
+                        {dropItem.state}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
           <div className="pt-4 flex flex-col gap-2">
             <button

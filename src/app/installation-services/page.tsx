@@ -77,34 +77,91 @@ export default function InstallationServicesPage() {
 
   const installationFaqs = [
     {
-      question: "What is included in a DFMHUB installation package?",
+      question:
+        "What is structural earthing and lightning protection system installation?",
       answer:
-        "Site survey and soil resistivity testing, IS/IEC 62305-2 risk assessment, system design drawings, supply of ARK Make components, mechanical installation, bonding and SPD wiring, earth resistance and continuity testing, as-built drawings and a compliance handover pack.",
+        "Structural earthing and lightning protection installation involves creating a coordinated electrical path through the building's earthing, bonding and lightning protection network. The installation follows approved drawings and includes site coordination, inspection, testing and final documentation.",
     },
     {
-      question: "How long does a lightning protection installation take?",
+      question:
+        "Does DFMHUB provide structural earthing and lightning protection installation?",
       answer:
-        "A typical commercial building takes 5 to 12 working days after material dispatch. Industrial sheds and multi-block campuses run two to six weeks, phased so plant operations continue.",
+        "Yes. DFMHUB provides integrated structural earthing and lightning protection installation and testing support based on approved project drawings, BOQ, technical specifications and consultant requirements.",
     },
     {
-      question: "Can installation be done on an occupied or operating facility?",
+      question: "Can DFMHUB install a system designed by another consultant?",
       answer:
-        "Yes. Roof and facade work is planned around shifts, with permit-to-work, height-safety harness systems and hot-work controls. Only the final bonding and SPD connections need a brief planned shutdown.",
+        "Yes. DFMHUB can execute an approved structural earthing and lightning protection design prepared by the project's consultant, designer or EPC team.",
     },
     {
-      question: "Do you retrofit or repair existing lightning protection systems?",
+      question: "What testing is carried out after installation?",
       answer:
-        "We audit existing installations against IS/IEC 62305, report on missing down conductors, broken bonds, corroded electrodes and uncoordinated SPDs, then quote a remediation scope with re-testing.",
+        "Depending on project requirements, testing can include electrical continuity testing, earth resistance testing, visual inspection, test-joint inspection, connection verification and installation quality checks.",
     },
     {
-      question: "Do you provide annual maintenance contracts?",
+      question: "Why is continuity testing important in structural earthing?",
       answer:
-        "Yes. AMC covers visual inspection, continuity testing across every test link, earth resistance measurement at each electrode, SPD status verification, strike counter logging and an updated compliance report.",
+        "Continuity testing helps confirm that designated earthing, bonding and lightning-current paths are electrically interconnected and that there are no unintended breaks in the installed network.",
     },
     {
-      question: "What documentation do we receive at handover?",
+      question:
+        "What is checked during a lightning protection system inspection?",
       answer:
-        "As-built drawings, earth resistance and continuity test reports, IEC 62561 material test certificates, SPD datasheets, the risk assessment record and a signed compliance statement for fire NOC, insurance and client audits.",
+        "An inspection typically checks conductor routing, connections, fixing quality, mechanical damage, corrosion, bonding points, test joints, accessibility and overall compliance with the approved installation drawings.",
+    },
+    {
+      question: "What is a test joint inspection?",
+      answer:
+        "A test joint inspection checks whether the test joint is correctly installed, accessible, mechanically secure and suitable for disconnecting the conductor during periodic inspection and testing.",
+    },
+    {
+      question:
+        "Why should concealed earthing connections be inspected before concreting?",
+      answer:
+        "Once concrete is poured, many structural earthing connections become inaccessible. Pre-concreting inspection allows connection quality, conductor routing and continuity to be checked before the work is permanently concealed.",
+    },
+    {
+      question: "Does DFMHUB provide earth resistance testing?",
+      answer:
+        "Yes. Where required by the project scope, DFMHUB can carry out earth resistance testing using suitable test methods and calibrated instruments.",
+    },
+    {
+      question: "What quality checks are carried out during installation?",
+      answer:
+        "Quality checks can include conductor routing, connection tightness, fixing quality, material compatibility, bonding continuity, mechanical protection, test-point accessibility and general workmanship.",
+    },
+    {
+      question: "What documents are provided after installation and testing?",
+      answer:
+        "Depending on the agreed scope, handover documentation can include continuity test results, earth resistance readings, inspection records, installation photographs, marked-up drawings, as-built information and site quality checklists.",
+    },
+    {
+      question:
+        "Is structural earthing and lightning protection treated as one integrated system?",
+      answer:
+        "They perform different functions, but their interfaces should be coordinated. DFMHUB executes them as an integrated site installation to maintain continuity, bonding and proper connection with the earth-termination system.",
+    },
+    {
+      question:
+        "Which projects require structural earthing and lightning protection installation?",
+      answer:
+        "These systems are commonly used in data centres, industrial plants, high-rise buildings, factories, warehouses, commercial buildings, hospitals, IT campuses, PEB structures and infrastructure projects, subject to the approved engineering design.",
+    },
+    {
+      question: "When should structural earthing installation start?",
+      answer:
+        "Structural earthing installation should ideally begin during the foundation and RCC construction stages so that concealed connections can be installed and inspected before concreting.",
+    },
+    {
+      question:
+        "Can DFMHUB inspect an existing earthing and lightning protection system?",
+      answer:
+        "Yes. Existing systems can be inspected for visible damage, corrosion, loose connections, continuity issues, test-joint condition and other installation concerns.",
+    },
+    {
+      question: "How can I get an installation quotation from DFMHUB?",
+      answer:
+        "Share the approved drawings, BOQ, project location, technical specifications, building type and current construction stage. DFMHUB can review the scope and provide an installation and testing proposal.",
     },
   ];
 
@@ -126,9 +183,13 @@ export default function InstallationServicesPage() {
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl space-y-6">
             <div className="flex items-center space-x-2 text-xs font-semibold text-slate-400">
-              <Link href="/" className="hover:text-amber-400">Home</Link>
+              <Link href="/" className="hover:text-amber-400">
+                Home
+              </Link>
               <span>&gt;</span>
-              <span className="text-amber-400 font-bold">Installation Services</span>
+              <span className="text-amber-400 font-bold">
+                Installation Services
+              </span>
             </div>
 
             <span className="text-amber-500 font-bold text-xs uppercase tracking-widest block">
@@ -136,11 +197,14 @@ export default function InstallationServicesPage() {
             </span>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight">
-              Installation, testing and certification for LPS and structural earthing
+              Structural Earthing and Lightning Protection Installation &amp;
+              Testing By DFMHUB
             </h1>
 
             <p className="text-sm sm:text-base lg:text-lg text-slate-300 leading-relaxed font-normal max-w-3xl">
-              Directly employed crews, method statements, height-safety compliance and instrument-traceable test records — delivered as one accountable scope alongside our manufacturing.
+              Directly employed crews, method statements, height-safety
+              compliance and instrument-traceable test records — delivered as
+              one accountable scope alongside our manufacturing.
             </p>
 
             <div className="pt-2 flex flex-col sm:flex-row gap-4">
@@ -158,6 +222,90 @@ export default function InstallationServicesPage() {
                 INSTALLATION SERVICES
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Overview Section */}
+      <section className="w-full bg-white text-slate-900 py-12 sm:py-16 lg:py-20 border-b border-slate-200/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 text-left">
+          <p className="text-base sm:text-lg lg:text-xl text-slate-800 leading-relaxed font-medium">
+            DFMHUB provides integrated Structural Earthing and Lightning
+            Protection System installation and testing support for commercial
+            buildings, industrial facilities, data centres, high-rise
+            developments, factories, warehouses, PEB structures and
+            infrastructure projects.
+          </p>
+          <p className="text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed">
+            Our scope is focused on executing the approved design correctly at
+            site and ensuring that the complete earthing and lightning
+            protection network works as one coordinated system. Installation is
+            carried out with attention to conductor routing, structural bonding,
+            test points, earth-termination connections, material compatibility,
+            fixing quality and coordination with civil, electrical, MEP, roofing
+            and structural teams.
+          </p>
+          <p className="text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed font-medium">
+            Approved Drawings → Site Coordination → Installation → Inspection →
+            Testing → Documentation
+          </p>
+        </div>
+      </section>
+
+      {/* Why Choose DFMHUB Section */}
+      <section className="w-full bg-white text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          <div className="max-w-7xl mx-auto space-y-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
+              Why Choose DFMHUB?
+            </h2>
+            <p className="text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed">
+              DFMHUB supports projects where installation quality, coordination and documented testing are critical.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200/80 p-8 sm:p-10 text-center space-y-8">
+            <h3 className="text-lg sm:text-xl font-bold text-slate-800">
+              Our installation and testing support includes:
+            </h3>
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 text-sm sm:text-base text-slate-700 font-medium">
+              {[
+                "Integrated Site Execution",
+                "Civil & MEP Coordination",
+                "Pre-Concreting Inspection",
+                "Continuity Testing",
+                "Earth Resistance Testing",
+                "Test Joint Inspection",
+                "Installation Quality Checks",
+                "Final Verification",
+                "Handover Documentation",
+              ].map((item, index) => (
+                <span key={index} className="bg-slate-100 px-4 py-2 rounded-full border border-slate-200">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-[#081021] rounded-xl text-white p-8 sm:p-12 text-center space-y-6 relative overflow-hidden">
+             <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 to-transparent z-0" />
+             <div className="relative z-10 space-y-4">
+               <h3 className="text-xl sm:text-2xl font-bold text-white">
+                 Need Installation &amp; Testing Support?
+               </h3>
+               <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
+                 If your project already has an approved Structural Earthing and Lightning Protection System design, share the BOQ.
+               </p>
+               <div className="pt-4">
+                 <Link
+                   href="/contact-us"
+                   className="inline-flex items-center space-x-2 bg-[#d97706] hover:bg-[#b45309] text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-md transition-all shadow-lg"
+                 >
+                   <span>Request Installation Quote</span>
+                   <ArrowRight className="w-4 h-4" />
+                 </Link>
+               </div>
+             </div>
           </div>
         </div>
       </section>
@@ -236,7 +384,10 @@ export default function InstallationServicesPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
             {controls.map((ctrl, i) => (
-              <div key={i} className="flex items-start space-x-3 text-xs sm:text-sm text-slate-300 font-normal">
+              <div
+                key={i}
+                className="flex items-start space-x-3 text-xs sm:text-sm text-slate-300 font-normal"
+              >
                 <div className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0 mt-2" />
                 <span className="leading-relaxed">{ctrl}</span>
               </div>
@@ -264,4 +415,3 @@ export default function InstallationServicesPage() {
     </div>
   );
 }
-
