@@ -832,53 +832,53 @@ export default async function LightningProtectionCityPage({
       </section>
 
       {/* Section 3: ARK MAKE COMPONENTS DELIVERED ACROSS CITY (LIGHT GRAY) */}
-      <section className="w-full bg-[#f8fafc] text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-10">
-            <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
-              SUPPLIED IN {city.name.toUpperCase()}
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight mb-2">
-              ARK Make components delivered across {city.name}
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-600 font-normal">
-              Project quantities with test certificates, batch traceability and
-              scheduled site delivery.
-            </p>
-          </div>
+        {/* <section className="w-full bg-[#f8fafc] text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-10">
+              <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
+                SUPPLIED IN {city.name.toUpperCase()}
+              </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight mb-2">
+                ARK Make components delivered across {city.name}
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 font-normal">
+                Project quantities with test certificates, batch traceability and
+                scheduled site delivery.
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {componentCards.map((comp) => (
-              <div
-                key={comp.title}
-                className="bg-white rounded-xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-all flex flex-col"
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {componentCards.map((comp) => (
+                <div
+                  key={comp.title}
+                  className="bg-white rounded-xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-all flex flex-col"
+                >
+                  <div className="bg-[#09101f] text-white p-4">
+                    <h3 className="font-bold text-sm sm:text-base text-white">
+                      {comp.title}
+                    </h3>
+                    <span className="text-[10px] sm:text-xs font-bold text-amber-400 uppercase tracking-wider block mt-1">
+                      {comp.spec}
+                    </span>
+                  </div>
+                  <div className="p-5 text-slate-600 text-xs sm:text-sm leading-relaxed font-normal flex-grow bg-white">
+                    {comp.desc}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="pt-8">
+              <Link
+                href="/lightning-protection-system"
+                className="inline-flex items-center text-xs font-bold text-amber-600 hover:text-amber-700 uppercase tracking-wider"
               >
-                <div className="bg-[#09101f] text-white p-4">
-                  <h3 className="font-bold text-sm sm:text-base text-white">
-                    {comp.title}
-                  </h3>
-                  <span className="text-[10px] sm:text-xs font-bold text-amber-400 uppercase tracking-wider block mt-1">
-                    {comp.spec}
-                  </span>
-                </div>
-                <div className="p-5 text-slate-600 text-xs sm:text-sm leading-relaxed font-normal flex-grow bg-white">
-                  {comp.desc}
-                </div>
-              </div>
-            ))}
+                <span>VIEW THE COMPLETE LIGHTNING PROTECTION SYSTEM RANGE</span>
+                <ChevronRight className="w-4 h-4 ml-1" />
+              </Link>
+            </div>
           </div>
-
-          <div className="pt-8">
-            <Link
-              href="/lightning-protection-system"
-              className="inline-flex items-center text-xs font-bold text-amber-600 hover:text-amber-700 uppercase tracking-wider"
-            >
-              <span>VIEW THE COMPLETE LIGHTNING PROTECTION SYSTEM RANGE</span>
-              <ChevronRight className="w-4 h-4 ml-1" />
-            </Link>
-          </div>
-        </div>
-      </section>
+        </section> */}
 
       {/* Section 4: QUESTIONS PEOPLE ASK (WHITE) */}
       <section className="w-full bg-white text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
