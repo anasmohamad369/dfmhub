@@ -90,32 +90,6 @@ export default function Header() {
   return (
     <header className="w-full sticky top-0 z-50 shadow-md bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 transition-colors duration-200">
       {/* Top Banner Bar */}
-      <div className="bg-[#0b1329] text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-          <div className="flex items-center space-x-4">
-            <span className="flex items-center text-amber-400 font-medium">
-              <Shield className="w-3.5 h-3.5 mr-1" />
-              IS/IEC 62305 & IS 3043 Compliant Systems · ARK Make
-            </span>
-          </div>
-          <div className="flex items-center space-x-6">
-            <a
-              href="tel:+919483564777"
-              className="flex items-center hover:text-amber-400 transition-colors font-semibold text-white"
-            >
-              <Phone className="w-3.5 h-3.5 mr-1.5 text-amber-500" />
-              +91 94835 64777
-            </a>
-            <a
-              href="mailto:partner@dfmhub.com"
-              className="hidden md:flex items-center hover:text-amber-400 transition-colors"
-            >
-              <Mail className="w-3.5 h-3.5 mr-1.5 text-amber-500" />
-              partner@dfmhub.com
-            </a>
-          </div>
-        </div>
-      </div>
 
       {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
