@@ -38,7 +38,7 @@ export function RegistrationPageContainer() {
   };
 
   return (
-    <div className="py-10 bg-slate-50 dark:bg-[#070d19] text-slate-900 dark:text-slate-100 flex flex-col font-sans relative overflow-hidden transition-colors duration-200">
+    <div className="py-10 bg-slate-50 dark:bg-[#070d19] text-slate-900 dark:text-slate-100 flex flex-col font-poppins relative overflow-hidden transition-colors duration-200">
       {/* Ambient Glows */}
       <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute top-1/2 -right-40 w-[600px] h-[600px] bg-sky-500/10 rounded-full blur-[150px] pointer-events-none" />

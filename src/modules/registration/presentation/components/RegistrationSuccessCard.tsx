@@ -18,7 +18,7 @@ export function RegistrationSuccessCard({
         <CheckCircle2 className="w-10 h-10" />
       </div>
       <div className="space-y-2">
-        <span className="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest block">
+        <span className="text-xs font-bold text-amber-400 uppercase tracking-widest block">
           REGISTRATION SUCCESSFUL
         </span>
         <h2 className="text-2xl font-bold text-white">
@@ -33,7 +33,7 @@ export function RegistrationSuccessCard({
       </div>
 
       {project && (
-        <div className="bg-[#040914] border border-slate-800 rounded-xl p-4 text-left max-w-md mx-auto space-y-2 text-xs font-mono">
+        <div className="bg-[#040914] border border-slate-800 rounded-xl p-4 text-left max-w-md mx-auto space-y-2 text-xs">
           <div className="flex justify-between border-b border-slate-800 pb-2">
             <span className="text-slate-400">Reference ID:</span>
             <span className="text-amber-400 font-bold">{project.id}</span>

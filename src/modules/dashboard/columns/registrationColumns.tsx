@@ -19,7 +19,7 @@ export function getRegistrationColumns({
       accessorKey: "id",
       header: "Ref ID",
       cell: ({ row }) => (
-        <span className="font-mono font-extrabold text-slate-900 dark:text-white flex flex-col gap-2">
+        <span className="font-semibold uppercase text-slate-900 dark:text-white flex flex-col gap-2">
           {row.original.id}
           <p className="text-xs font-semibold text-slate-600 dark:text-slate-400">{new Date(row.original.createdAt).toLocaleDateString()}</p>
         </span>
@@ -49,7 +49,7 @@ export function getRegistrationColumns({
       accessorKey: "phoneNumber",
       header: "Phone Number",
       cell: ({ row }) => (
-        <div className="flex items-center gap-1.5 text-slate-900 dark:text-slate-200 font-bold text-xs font-mono">
+        <div className="flex items-center gap-1.5 text-slate-900 dark:text-slate-200 font-bold text-xs">
           <Phone className="w-3.5 h-3.5 text-amber-600 dark:text-amber-500 shrink-0" />
           <a href={`tel:${row.original.phoneNumber}`} className="hover:text-amber-700 dark:hover:text-amber-400">
             {row.original.phoneNumber}

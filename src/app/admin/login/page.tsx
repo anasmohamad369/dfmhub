@@ -69,7 +69,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-slate-50 dark:bg-[#070d19] text-slate-900 dark:text-slate-100 font-sans transition-colors duration-200 relative">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-slate-50 dark:bg-[#070d19] text-slate-900 dark:text-slate-100 font-poppins transition-colors duration-200 relative">
       {/* Top Bar Navigation Actions */}
       <div className="absolute top-6 right-6 flex items-center gap-3">
         <Button

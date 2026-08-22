@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -16,6 +16,13 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const poppins = Poppins({
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
+  variable: "--font-poppins",
+  display: "swap",
 });
 
 const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-DFMHUB2026";
@@ -161,8 +168,7 @@ const themeScript = `
   (function() {
     try {
       var savedTheme = localStorage.getItem('theme');
-      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      if (savedTheme === 'dark') {
         document.documentElement.classList.add('dark');
       } else {
         document.documentElement.classList.remove('dark');
@@ -179,7 +185,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>

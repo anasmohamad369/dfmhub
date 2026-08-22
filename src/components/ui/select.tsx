@@ -51,7 +51,7 @@ export function Select({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full px-3 py-1.5 rounded-xl font-mono text-xs font-bold border outline-none cursor-pointer flex items-center justify-between gap-2 transition-all ${
+        className={`w-full px-3 py-1.5 rounded-xl font-poppins text-xs font-bold border outline-none cursor-pointer flex items-center justify-between gap-2 transition-all ${
           selectedOption?.badgeClass ||
           "bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 border-slate-300 dark:border-slate-800 hover:border-amber-500"
         }`}

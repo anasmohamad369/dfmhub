@@ -12,5 +12,9 @@ export default function ToolLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <AuthGuard>{children}</AuthGuard>;
+  return (
+    <AuthGuard>
+      <div className="font-poppins min-h-screen">{children}</div>
+    </AuthGuard>
+  );
 }

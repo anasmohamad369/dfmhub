@@ -15,6 +15,7 @@ import {
   Moon,
   UserCheck,
   LogOut,
+  Wrench,
 } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
 
@@ -77,8 +78,8 @@ export default function Header() {
         },
       ],
     },
-    { 
-      name: "Structural Earthing", 
+    {
+      name: "Structural Earthing",
       href: "/structural-earthing",
       dropdown: [
         {
@@ -142,11 +143,10 @@ export default function Header() {
               <div key={link.name} className="relative group">
                 <Link
                   href={link.href}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors inline-block ${
-                    isActive(link.href)
-                      ? "text-amber-600 dark:text-amber-400 bg-amber-50/80 dark:bg-amber-950/40 font-semibold"
-                      : "text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800"
-                  }`}
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors inline-block ${isActive(link.href)
+                    ? "text-amber-600 dark:text-amber-400 bg-amber-50/80 dark:bg-amber-950/40 font-semibold"
+                    : "text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                    }`}
                 >
                   {link.name}
                 </Link>
@@ -209,25 +209,6 @@ export default function Header() {
                 </>
               )}
             </button>
-
-            {pathname !== "/register" &&
-              (isAuth ? (
-                  <button
-                    onClick={handleLogout}
-                  className="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs uppercase px-5 py-3 rounded-md shadow-sm transition-all transform hover:-translate-y-0.5 flex items-center tracking-wider gap-1.5 cursor-pointer"
-                  >
-                    <LogOut className="w-4 h-4" />
-                  LOG OUT
-                  </button>
-              ) : (
-                <Link
-                  href="/register"
-                  className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs uppercase px-5 py-3 rounded-md shadow-sm transition-all transform hover:-translate-y-0.5 flex items-center tracking-wider gap-1.5"
-                >
-                  <UserCheck className="w-4 h-4" />
-                  REGISTER
-                </Link>
-              ))}
           </div>
 
           {/* Mobile buttons: Theme Switcher & Mobile menu */}
@@ -267,11 +248,10 @@ export default function Header() {
               <Link
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block px-3 py-2.5 rounded-md text-base font-medium ${
-                  isActive(link.href)
-                    ? "text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 font-semibold"
-                    : "text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-50 dark:hover:bg-slate-800"
-                }`}
+                className={`block px-3 py-2.5 rounded-md text-base font-medium ${isActive(link.href)
+                  ? "text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 font-semibold"
+                  : "text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-50 dark:hover:bg-slate-800"
+                  }`}
               >
                 {link.name}
               </Link>
@@ -314,32 +294,41 @@ export default function Header() {
               )}
             </button>
 
-            {pathname !== "/register" &&
-              (isAuth ? (
-                  <button
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      handleLogout();
-                    }}
-                  className="w-full flex items-center justify-center gap-2 bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm uppercase py-3 rounded-md shadow transition-colors cursor-pointer"
-                  >
-                    <LogOut className="w-4 h-4" />
-                    <span>LOG OUT</span>
-                  </button>
-              ) : (
-                <Link
-                  href="/register"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm uppercase py-3 rounded-md shadow transition-colors"
-                >
-                  <UserCheck className="w-4 h-4" />
-                  <span>REGISTER</span>
-                </Link>
-              ))}
+            {pathname !== "/tool" && (
+              <Link
+                href="/tool"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm uppercase py-3 rounded-md shadow transition-colors cursor-pointer"
+              >
+                <Wrench className="w-4 h-4" />
+                <span>GO TO TOOL</span>
+              </Link>
+            )}
+
+            {isAuth ? (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  handleLogout();
+                }}
+                className="w-full flex items-center justify-center gap-2 bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm uppercase py-3 rounded-md shadow transition-colors cursor-pointer"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>LOG OUT</span>
+              </button>
+            ) : (
+              <Link
+                href="/register"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700 font-bold text-sm uppercase py-3 rounded-md shadow transition-colors"
+              >
+                <UserCheck className="w-4 h-4 text-amber-500" />
+                <span>REGISTER</span>
+              </Link>
+            )}
           </div>
         </div>
       )}
     </header>
   );
 }
-

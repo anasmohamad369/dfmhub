@@ -70,7 +70,7 @@ function TablePaginationBar({ table }: { table: ReactTableInstance<any> }) {
         </select>
       </div>
 
-      <div className="flex items-center gap-1 font-mono text-slate-600 dark:text-slate-400">
+      <div className="flex items-center gap-1 text-slate-600 dark:text-slate-400">
         <span>Page</span>
         <strong className="text-slate-900 dark:text-white font-bold">
           {pageIndex + 1} of {pageCount}
@@ -292,7 +292,7 @@ export default function EarthLineApp() {
   // Auth Protection Check
   if (authChecking || !isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-[#070d19] text-amber-700 dark:text-amber-500 font-mono text-xs transition-colors duration-200">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-[#070d19] text-amber-700 dark:text-amber-500 text-xs transition-colors duration-200">
         <RefreshCw className="w-5 h-5 animate-spin mr-2" />
         <span>VERIFYING ADMIN SESSION...</span>
       </div>
@@ -300,12 +300,12 @@ export default function EarthLineApp() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#070d19] text-slate-900 dark:text-slate-100 p-4 sm:p-6 lg:p-8 font-sans transition-colors duration-200">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#070d19] text-slate-900 dark:text-slate-100 p-4 sm:p-6 lg:p-8 font-poppins transition-colors duration-200">
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         {/* Top Header & Shadcn Tabs Switcher */}
         <div className="max-w-7xl mx-auto mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-300 dark:border-slate-800 pb-6">
           <div>
-            <div className="flex items-center gap-2 text-amber-700 dark:text-amber-500 text-xs font-mono font-bold uppercase tracking-widest">
+            <div className="flex items-center gap-2 text-amber-700 dark:text-amber-500 text-xs font-bold uppercase tracking-widest">
               <ShieldCheck className="w-4 h-4" />
               <span>DFMHUB EXECUTIVE CONSOLE (AUTHENTICATED)</span>
             </div>

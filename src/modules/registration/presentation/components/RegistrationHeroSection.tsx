@@ -6,7 +6,7 @@ export function RegistrationHeroSection() {
     <div className="lg:col-span-6 space-y-8">
       {/* Subheading Badge */}
       <div className="flex items-center gap-2">
-        <span className="text-amber-600 dark:text-amber-500 font-bold text-xs uppercase tracking-widest font-mono">
+        <span className="text-amber-600 dark:text-amber-500 font-bold text-xs uppercase tracking-widest">
           PROJECT REGISTRATION
         </span>
         <div className="w-12 h-0.5 bg-amber-500/60 rounded-full" />

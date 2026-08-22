@@ -1,6 +1,6 @@
 import React from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import { MapPin, Eye, Building2, User, Calendar, ShieldAlert } from "lucide-react";
+import { MapPin, Eye, Building2, User, Calendar, ShieldAlert, Smartphone } from "lucide-react";
 import { ProjectRecord } from "@/hooks/useAdminQueries";
 import { Button } from "@/components/ui/button";
 
@@ -15,10 +15,10 @@ export function getProjectColumns({
       header: "Project Ref",
       cell: ({ row }) => (
         <div>
-          <span className="font-mono font-extrabold text-slate-900 dark:text-white text-xs block">
+          <span className="font-semibold uppercase text-slate-900 dark:text-white text-xs block">
             {row.original.id}
           </span>
-          <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-400 font-mono flex items-center gap-1 mt-0.5">
+          <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-1 mt-0.5">
             <Calendar className="w-3 h-3 text-amber-500" />
             {new Date(row.original.createdAt).toLocaleDateString()}
           </span>
@@ -35,8 +35,8 @@ export function getProjectColumns({
             {row.original.userFullName || "Guest User"}
           </span>
           {row.original.userPhone && row.original.userPhone !== "N/A" && (
-            <span className="text-slate-600 dark:text-slate-400 font-mono text-[11px] block mt-0.5">
-              📞 {row.original.userPhone}
+            <span className="text-slate-600 dark:text-slate-400 flex gap-2 text-[11px] block mt-0.5">
+              < Smartphone className="w-3 h-3 shrink-0" /> {row.original.userPhone}
             </span>
           )}
         </div>
@@ -71,7 +71,7 @@ export function getProjectColumns({
       accessorKey: "lplClass",
       header: "LPL Class",
       cell: ({ row }) => (
-        <span className="inline-flex items-center gap-1 font-bold text-amber-600 dark:text-amber-400 text-xs font-mono px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30">
+        <span className="inline-flex items-center gap-1 font-bold text-amber-600 dark:text-amber-400 text-xs px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30">
           <ShieldAlert className="w-3 h-3" />
           {row.original.lplClass}
         </span>
@@ -81,7 +81,7 @@ export function getProjectColumns({
       accessorKey: "targetResistance",
       header: "Target Resistance",
       cell: ({ row }) => (
-        <span className="font-mono font-semibold text-slate-700 dark:text-slate-300 text-xs">
+        <span className="font-semibold text-slate-700 dark:text-slate-300 text-xs">
           {row.original.targetResistance}
         </span>
       ),

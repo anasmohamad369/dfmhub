@@ -15,8 +15,19 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-poppins), var(--font-geist-sans);
+  --font-mono: var(--font-poppins), var(--font-geist-mono);
+  --font-poppins: var(--font-poppins), sans-serif;
+}
+
+.font-poppins,
+.font-mono {
+  font-family: var(--font-poppins), sans-serif !important;
+}
+
+.font-poppins :not(code):not(pre),
+.font-mono :not(code):not(pre) {
+  font-family: var(--font-poppins), sans-serif;
 }
 
 body {
@@ -24,6 +35,13 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Table typography setup */
+table,
+th,
+td {
+  font-family: var(--font-poppins), sans-serif;
 }
 
 /* Hide scrollbar utility for tables */

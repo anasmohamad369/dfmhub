@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function DashboardPage() {
   return (
-    <div className="w-full bg-[#12151a]">
+    <div className="w-full bg-slate-50 dark:bg-[#12151a]">
       <EarthLineApp />
     </div>
   );

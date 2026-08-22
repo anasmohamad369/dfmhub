@@ -52,7 +52,7 @@ export default function AdminLoginScreen({ onLoginSuccess }: AdminLoginScreenPro
   };
 
   return (
-    <div className="min-h-[85vh] flex items-center justify-center p-4 bg-[#070d19] text-slate-100 font-sans">
+    <div className="min-h-[85vh] flex items-center justify-center p-4 bg-[#070d19] text-slate-100 font-poppins">
       <Card className="max-w-md w-full !bg-slate-900 border-slate-800 space-y-6 relative overflow-hidden text-slate-100">
         {/* Subtle Accent Glow */}
         <div className="absolute -top-24 -right-24 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -62,7 +62,7 @@ export default function AdminLoginScreen({ onLoginSuccess }: AdminLoginScreenPro
           <div className="w-14 h-14 bg-amber-500/10 border border-amber-500/30 rounded-2xl flex items-center justify-center mx-auto text-amber-400">
             <ShieldCheck className="w-7 h-7 text-amber-400" />
           </div>
-          <span className="text-amber-500 text-[11px] font-mono font-bold uppercase tracking-widest block">
+          <span className="text-amber-500 text-[11px] font-bold uppercase tracking-widest block">
             RESTRICTED ADMIN CONSOLE
           </span>
           <h1 className="text-2xl font-extrabold text-white tracking-tight">
@@ -136,10 +136,10 @@ export default function AdminLoginScreen({ onLoginSuccess }: AdminLoginScreenPro
             variant="ghost"
             size="sm"
             onClick={handleQuickDemoFill}
-            className="text-[11px] font-mono text-slate-400 hover:text-amber-400 transition-colors inline-flex items-center gap-1 cursor-pointer lowercase"
+            className="text-[11px] text-slate-400 hover:text-amber-400 transition-colors inline-flex items-center gap-1 cursor-pointer lowercase"
           >
             <span>Auto-fill demo credentials</span>
-            <span className="text-[10px] bg-slate-800 px-1.5 py-0.5 rounded text-amber-300 border border-slate-700 font-mono">
+            <span className="text-[10px] bg-slate-800 px-1.5 py-0.5 rounded text-amber-300 border border-slate-700">
               admin / admin123
             </span>
           </Button>

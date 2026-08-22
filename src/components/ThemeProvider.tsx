@@ -17,24 +17,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Determine initial theme on client side
+    // Determine initial theme on client side — default is light (white) theme
     const savedTheme = localStorage.getItem("theme") as Theme | null;
-    if (savedTheme === "dark" || savedTheme === "light") {
-      setThemeState(savedTheme);
-      if (savedTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
+    if (savedTheme === "dark") {
+      setThemeState("dark");
+      document.documentElement.classList.add("dark");
     } else {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const initialTheme = prefersDark ? "dark" : "light";
-      setThemeState(initialTheme);
-      if (initialTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
+      setThemeState("light");
+      document.documentElement.classList.remove("dark");
     }
     setMounted(true);
   }, []);

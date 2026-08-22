@@ -92,7 +92,7 @@ export default function ProjectDetailPage({
 
   if (authChecking || (loading && isAuthenticated)) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-[#070d19] text-amber-700 dark:text-amber-500 font-mono text-xs transition-colors duration-200">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-[#070d19] text-amber-700 dark:text-amber-500 text-xs transition-colors duration-200">
         <RefreshCw className="w-5 h-5 animate-spin mr-2" />
         <span>LOADING PROJECT SPECIFICATIONS...</span>
       </div>
@@ -127,7 +127,7 @@ export default function ProjectDetailPage({
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#070d19] text-slate-900 dark:text-slate-100 p-4 sm:p-6 lg:p-8 font-sans transition-colors duration-200">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#070d19] text-slate-900 dark:text-slate-100 p-4 sm:p-6 lg:p-8 font-poppins transition-colors duration-200">
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Navigation & Action Bar */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
@@ -173,7 +173,7 @@ export default function ProjectDetailPage({
         <Card className="p-6 border-slate-300 dark:border-slate-800 bg-gradient-to-r from-amber-500/5 via-slate-100/50 to-slate-200/50 dark:from-amber-500/10 dark:via-slate-900/50 dark:to-slate-950/50">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <div className="flex items-center gap-2 text-amber-700 dark:text-amber-500 text-xs font-mono font-bold uppercase tracking-widest">
+              <div className="flex items-center gap-2 text-amber-700 dark:text-amber-500 text-xs font-bold uppercase tracking-widest">
                 <ShieldCheck className="w-4 h-4" />
                 <span>DFMHUB TOOL CALCULATION AUDIT</span>
               </div>
@@ -192,10 +192,10 @@ export default function ProjectDetailPage({
 
             <div className="flex items-center gap-3 shrink-0">
               <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-right">
-                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase block">
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase block">
                   Project Ref Code
                 </span>
-                <strong className="text-sm font-mono font-extrabold text-amber-600 dark:text-amber-400">
+                <strong className="text-sm font-extrabold text-amber-600 dark:text-amber-400">
                   {project.id}
                 </strong>
               </div>
@@ -209,7 +209,7 @@ export default function ProjectDetailPage({
           <div className="space-y-6 lg:col-span-1">
             {/* Customer Details Card */}
             <Card className="p-5 border-slate-300 dark:border-slate-800 space-y-4">
-              <h3 className="text-xs font-mono font-extrabold uppercase text-amber-700 dark:text-amber-400 tracking-wider flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+              <h3 className="text-xs font-extrabold uppercase text-amber-700 dark:text-amber-400 tracking-wider flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
                 <User className="w-4 h-4" />
                 <span>Customer Contact Details</span>
               </h3>
@@ -219,8 +219,9 @@ export default function ProjectDetailPage({
                   <span className="text-slate-500 dark:text-slate-400 text-[11px] block font-medium">
                     Full Name
                   </span>
-                  <strong className="text-sm font-bold text-slate-900 dark:text-white mt-0.5 block">
-                    👤 {project.userFullName || "Guest User"}
+                  <strong className="text-sm font-bold text-slate-900 dark:text-white mt-0.5 flex items-center gap-1.5">
+                    <User className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>{project.userFullName || "Guest User"}</span>
                   </strong>
                 </div>
 
@@ -228,7 +229,7 @@ export default function ProjectDetailPage({
                   <span className="text-slate-500 dark:text-slate-400 text-[11px] block font-medium">
                     Phone Number
                   </span>
-                  <span className="font-mono font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 mt-0.5">
+                  <span className="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 mt-0.5">
                     <Phone className="w-3.5 h-3.5 text-amber-500" />
                     {project.userPhone || "N/A"}
                   </span>
@@ -238,7 +239,7 @@ export default function ProjectDetailPage({
                   <span className="text-slate-500 dark:text-slate-400 text-[11px] block font-medium">
                     Email Address
                   </span>
-                  <span className="font-mono text-slate-800 dark:text-slate-200 flex items-center gap-1.5 mt-0.5">
+                  <span className="text-slate-800 dark:text-slate-200 flex items-center gap-1.5 mt-0.5">
                     <Mail className="w-3.5 h-3.5 text-amber-500" />
                     {project.userEmail || "N/A"}
                   </span>
@@ -249,7 +250,7 @@ export default function ProjectDetailPage({
                     <span className="text-slate-500 dark:text-slate-400 text-[11px] block font-medium">
                       Linked Registration Ref
                     </span>
-                    <span className="font-mono text-xs font-bold text-sky-600 dark:text-sky-400 mt-0.5 block">
+                    <span className="text-xs font-bold text-sky-600 dark:text-sky-400 mt-0.5 block">
                       {project.registrationId}
                     </span>
                   </div>
@@ -259,7 +260,7 @@ export default function ProjectDetailPage({
 
             {/* Building Specs Card */}
             <Card className="p-5 border-slate-300 dark:border-slate-800 space-y-4">
-              <h3 className="text-xs font-mono font-extrabold uppercase text-amber-700 dark:text-amber-400 tracking-wider flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+              <h3 className="text-xs font-extrabold uppercase text-amber-700 dark:text-amber-400 tracking-wider flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
                 <Building2 className="w-4 h-4" />
                 <span>Facility &amp; Dimensions</span>
               </h3>
@@ -267,7 +268,7 @@ export default function ProjectDetailPage({
               <div className="space-y-3 text-xs">
                 <div className="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
                   <span className="text-slate-500 font-medium">Dimensions (L×W×H)</span>
-                  <span className="font-mono font-extrabold text-slate-900 dark:text-white">
+                  <span className="font-extrabold text-slate-900 dark:text-white">
                     {project.dimensions}
                   </span>
                 </div>
@@ -300,7 +301,7 @@ export default function ProjectDetailPage({
           <div className="space-y-6 lg:col-span-2">
             {/* Section 1: Earthing & Resistance Calculations */}
             <Card className="p-6 border-slate-300 dark:border-slate-800 space-y-4">
-              <h3 className="text-sm font-mono font-extrabold uppercase text-amber-700 dark:text-amber-400 tracking-wider flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+              <h3 className="text-sm font-extrabold uppercase text-amber-700 dark:text-amber-400 tracking-wider flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
                 <Activity className="w-5 h-5 text-amber-500" />
                 <span>1. Structural Earthing Calculations (IS 3043:2018)</span>
               </h3>
@@ -310,7 +311,7 @@ export default function ProjectDetailPage({
                   <span className="text-xs text-amber-800 dark:text-amber-300 font-medium block">
                     Calculated Average Earth Resistance (R_avg)
                   </span>
-                  <span className="text-2xl font-extrabold font-mono text-amber-700 dark:text-amber-400 mt-1 block">
+                  <span className="text-2xl font-extrabold text-amber-700 dark:text-amber-400 mt-1 block">
                     {project.avgResistance}
                   </span>
                   <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-2">
@@ -322,7 +323,7 @@ export default function ProjectDetailPage({
                   <span className="text-xs text-emerald-800 dark:text-emerald-300 font-medium block">
                     Target Earth Resistance Specification
                   </span>
-                  <span className="text-2xl font-extrabold font-mono text-emerald-700 dark:text-emerald-400 mt-1 block">
+                  <span className="text-2xl font-extrabold text-emerald-700 dark:text-emerald-400 mt-1 block">
                     {project.targetResistance}
                   </span>
                   <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-2">
@@ -334,7 +335,7 @@ export default function ProjectDetailPage({
 
             {/* Section 2: Lightning Protection System (IEC 62305) */}
             <Card className="p-6 border-slate-300 dark:border-slate-800 space-y-4">
-              <h3 className="text-sm font-mono font-extrabold uppercase text-amber-700 dark:text-amber-400 tracking-wider flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+              <h3 className="text-sm font-extrabold uppercase text-amber-700 dark:text-amber-400 tracking-wider flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
                 <Zap className="w-5 h-5 text-amber-500" />
                 <span>2. Lightning Protection System Risk Audit (IEC 62305)</span>
               </h3>
@@ -342,7 +343,7 @@ export default function ProjectDetailPage({
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="p-4 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
                   <span className="text-xs text-slate-500 font-medium block">LPL Protection Class</span>
-                  <strong className="text-xl font-extrabold font-mono text-amber-600 dark:text-amber-400 mt-1 block">
+                  <strong className="text-xl font-extrabold text-amber-600 dark:text-amber-400 mt-1 block">
                     {project.lplClass}
                   </strong>
                   <span className="text-[11px] text-slate-500 mt-1 block">
@@ -352,7 +353,7 @@ export default function ProjectDetailPage({
 
                 <div className="p-4 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
                   <span className="text-xs text-slate-500 font-medium block">Lightning Risk (R1)</span>
-                  <strong className="text-xl font-extrabold font-mono text-sky-600 dark:text-sky-400 mt-1 block">
+                  <strong className="text-xl font-extrabold text-sky-600 dark:text-sky-400 mt-1 block">
                     {project.riskR1}
                   </strong>
                   <span className="text-[11px] text-slate-500 mt-1 block">
@@ -362,7 +363,7 @@ export default function ProjectDetailPage({
 
                 <div className="p-4 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
                   <span className="text-xs text-slate-500 font-medium block">Compliance Score</span>
-                  <strong className="text-xl font-extrabold font-mono text-slate-900 dark:text-white mt-1 block">
+                  <strong className="text-xl font-extrabold text-slate-900 dark:text-white mt-1 block">
                     {project.checklistScore}
                   </strong>
                   <span className="text-[11px] text-slate-500 mt-1 block">
@@ -374,7 +375,7 @@ export default function ProjectDetailPage({
 
             {/* Section 3: Engineering Recommendation Notes */}
             <Card className="p-6 border-slate-300 dark:border-slate-800 space-y-4">
-              <h3 className="text-sm font-mono font-extrabold uppercase text-amber-700 dark:text-amber-400 tracking-wider flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+              <h3 className="text-sm font-extrabold uppercase text-amber-700 dark:text-amber-400 tracking-wider flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
                 <FileText className="w-5 h-5 text-amber-500" />
                 <span>3. Recommended Procurement &amp; Installation Steps</span>
               </h3>

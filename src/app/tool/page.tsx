@@ -1786,6 +1786,9 @@ export default function EarthLineConsolePage() {
                       }
                       setSubmittingProject(false);
                       setProjectSubmitted(true);
+                      setTimeout(() => {
+                        logout();
+                      }, 2000);
                     }}
                     disabled={submittingProject}
                     className={`w-full sm:w-auto px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer ${
@@ -1802,7 +1805,7 @@ export default function EarthLineConsolePage() {
                     ) : projectSubmitted ? (
                       <>
                         <CheckCircle2 className="w-4 h-4 text-emerald-200" />
-                        <span>QUOTATION REQUEST SENT SUCCESSFULLY! ✓</span>
+                        <span>QUOTATION REQUEST SENT! LOGGING OUT... ✓</span>
                       </>
                     ) : (
                       <>

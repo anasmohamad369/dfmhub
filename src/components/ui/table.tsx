@@ -7,7 +7,7 @@ const Table = React.forwardRef<
   <div className="relative w-full overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
     <table
       ref={ref}
-      className={`w-full caption-bottom text-xs text-left ${className}`}
+      className={`w-full caption-bottom text-xs text-left font-poppins ${className}`}
       {...props}
     />
   </div>
@@ -20,7 +20,7 @@ const TableHeader = React.forwardRef<
 >(({ className = "", ...props }, ref) => (
   <thead
     ref={ref}
-    className={`bg-slate-200/90 dark:bg-slate-950 text-slate-800 dark:text-slate-300 font-mono uppercase text-[11px] font-bold tracking-wider border-b border-slate-300 dark:border-slate-800 ${className}`}
+    className={`bg-slate-200/90 dark:bg-slate-950 text-slate-800 dark:text-slate-300 font-poppins uppercase text-[11px] font-bold tracking-wider border-b border-slate-300 dark:border-slate-800 ${className}`}
     {...props}
   />
 ));
@@ -32,7 +32,7 @@ const TableBody = React.forwardRef<
 >(({ className = "", ...props }, ref) => (
   <tbody
     ref={ref}
-    className={`divide-y divide-slate-200 dark:divide-slate-800/60 font-normal ${className}`}
+    className={`divide-y divide-slate-200 dark:divide-slate-800/60 font-poppins font-normal ${className}`}
     {...props}
   />
 ));
@@ -44,7 +44,7 @@ const TableFooter = React.forwardRef<
 >(({ className = "", ...props }, ref) => (
   <tfoot
     ref={ref}
-    className={`border-t bg-slate-100/50 font-medium ${className}`}
+    className={`border-t bg-slate-100/50 font-poppins font-medium ${className}`}
     {...props}
   />
 ));
@@ -68,7 +68,7 @@ const TableHead = React.forwardRef<
 >(({ className = "", ...props }, ref) => (
   <th
     ref={ref}
-    className={`h-10 px-4 text-left align-middle font-bold text-slate-800 dark:text-slate-300 ${className}`}
+    className={`h-10 px-4 text-left align-middle font-poppins font-bold text-slate-800 dark:text-slate-300 ${className}`}
     {...props}
   />
 ));
@@ -80,7 +80,7 @@ const TableCell = React.forwardRef<
 >(({ className = "", ...props }, ref) => (
   <td
     ref={ref}
-    className={`py-4 px-4 align-middle ${className}`}
+    className={`py-4 px-4 align-middle font-poppins ${className}`}
     {...props}
   />
 ));
