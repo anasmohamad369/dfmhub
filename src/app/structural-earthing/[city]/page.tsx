@@ -1,7 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ChevronRight, MapPin, ShieldCheck, Zap } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronRight,
+  MapPin,
+  ShieldCheck,
+  Zap,
+} from "lucide-react";
 import FAQAccordion from "@/components/FAQAccordion";
 import ContactForm from "@/components/ContactForm";
 import { notFound } from "next/navigation";
@@ -15,7 +21,33 @@ interface CityData {
   sectors: string;
   soil: string;
   storm: string;
-  earthingIntro: {
+  desc?: string;
+  heroSubtext?: string;
+  subofsub?: string;
+  climateRiskHeading?: string;
+  climateRiskPara1?: string;
+  climateData?: string;
+  climateRiskPara2?: string;
+  climateRiskPara3?: string;
+  soilHeading?: string;
+  soilPara1?: string;
+  soilPara2?: string;
+  soilPara3?: string;
+  productsHeading?: string;
+  productsList?: string[];
+  productsNote?: string;
+  riskAssessmentTitle?: string;
+  riskAssessmentText1?: string;
+  riskAssessmentText2?: string;
+  riskAssessmentSteps?: string;
+  supportTitle?: string;
+  supportServices?: string[];
+  supportLocationsText?: string;
+  ctaText?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  keywords?: string;
+  earthingIntro?: {
     p1: string;
     p2: string;
     p3: string;
@@ -30,56 +62,99 @@ const cityRegistry: Record<string, CityData> = {
     slug: "bengaluru",
     state: "Karnataka",
     region: "Bengaluru and greater Karnataka",
-    areas: "Peenya, Whitefield, Electronic City, Devanahalli / KIADB Aerospace Park, Bommasandra, Hebbal, Yeshwanthpur",
-    sectors: "IT campuses & data centres, aerospace and defence units, biotech labs, high-rise residential towers",
-    soil: "hard red laterite and granitic gneiss with high dry-season resistivity (typically 80-300 Ω·m)",
-    storm: "roughly 45-60 thunderstorm days a year, with intense pre-monsoon strikes in April-May",
-    earthingIntro: {
-      p1: "Ground conditions decide the design. Around Bengaluru we typically encounter hard red laterite and granitic gneiss with high dry-season resistivity (typically 80-300 Ω·m), which is why every project starts with a Wenner four-pin resistivity survey rather than an assumed electrode count.",
-      p2: "On new construction we bond the foundation reinforcement itself — pile caps, rafts and column cages — with rebar clamps and exothermic welds, cross-bonded at multiple levels and brought out to test links above plinth. This gives a far more stable impedance than isolated pits through Bengaluru's dry months, and consumes no additional land on tight plots in Peenya or Electronic City.",
-      p3: "Where the design demands lower values we supplement with copper bonded rods, deep-bore or chemical electrodes and low-resistivity enhancement compound. Roughly 45-60 thunderstorm days a year, with intense pre-monsoon strikes in April-May also makes seasonal re-testing worthwhile, and we offer scheduled testing contracts city-wide.",
-      p4: "Typical clients in Bengaluru include IT campuses & data centres, aerospace and defence units, biotech labs, high-rise residential towers. Bulk ARK Make earthing material is supplied to contractors across Peenya, Whitefield, Electronic City with test certificates and batch traceability.",
-    },
+    areas:
+      "Whitefield | Electronic City | Peenya | Bommasandra | Anekal | Hebbal | Yeshwanthpur | Devanahalli / Aerospace Park",
+    sectors:
+      "Data Centres | IT Campuses | High-Rise Buildings | Hospitals | Industrial Plants | Commercial Buildings | Infrastructure Projects",
+    soil: "granite and gneiss terrain with red loamy, sandy and lateritic soils",
+    storm: "45-60 thunderstorm days annually",
+    desc: "DFMHUB is a Bengaluru (Bangalore) based manufacturer of ARK Structural Earthing System components, providing engineering support for foundation earthing, RCC rebar bonding, fixed earthing terminals, equipotential bonding, installation coordination, continuity testing and project documentation.",
+    heroSubtext:
+      "The system is designed to integrate earthing provisions into the building structure during construction instead of treating earthing as an activity to be added after the RCC work is completed.",
+    subofsub:
+      "Engineering Review → Earthing Design → ARK Products → RCC Coordination → Testing → Documentation",
+    climateRiskHeading: "Structural Earthing for Bengaluru Conditions",
+    climateRiskPara1:
+      "Bengaluru Urban is predominantly associated with granite and gneiss terrain with red loamy, sandy and lateritic soils. Ground conditions can vary considerably across developed areas, making site-specific engineering preferable to assuming a standard earthing arrangement.",
+    climateData: "For Bengaluru projects, the earthing design may consider:",
+    climateRiskPara2:
+      "Soil Conditions | Foundation Type | RCC Layout | Fault Current | Electrical Loads | LPS Interface | Equipment Bonding | Project Specifications",
+    climateRiskPara3:
+      "Where required, soil resistivity measurements can be used as an engineering input.",
+    soilHeading: "ARK Structural Earthing System",
+    soilPara1:
+      "The ARK system can integrate: Foundation Earthing Network → Rebar Bonding → Vertical Earthing Paths → Fixed Earthing Terminals → Equipment Bonding → Lightning Protection Interface.",
+    soilPara2:
+      "Suitable structural reinforcement may form part of the earthing/bonding network where permitted by the project design and applicable standards and where electrical continuity is verified.",
+    soilPara3: "",
+    productsHeading: "ARK Structural Earthing Products",
+    productsList: [
+      "10 mm Copper Bonded Conductor",
+      "Rebar Bonding Clamps",
+      "Diagonal Clamps",
+      "Cross Connectors",
+      "Straight Connectors",
+      "Fixed Earthing Terminals",
+      "Earth Studs with Copper Tail",
+      "Equipotential Bonding Bars",
+      "Strip / Conductor Holders",
+      "Project-Specific Bonding Accessories",
+    ],
+    productsNote:
+      "Applicable components can be supplied with relevant material, electrical resistivity, salt-spray, mechanical and chemical test documentation, depending on product and project requirements.",
+    riskAssessmentTitle: "Free Structural Earthing Design Review",
+    riskAssessmentText1:
+      "DFMHUB offers a Free Structural Earthing Design Review in Bengaluru.",
+    riskAssessmentText2:
+      "Share your foundation layout, RCC drawings, building dimensions, and project specification. Our engineering team reviews the inputs and assists in integrating structural earthing provisions into the building design.",
+    riskAssessmentSteps:
+      "Drawing Review → Earthing Layout → Rebar Bonding → RCC Coordination → Continuity Testing → Inspection → As-Built Documentation",
+    supportTitle: "Design, Installation & Testing Support",
+    supportServices: [
+      "Drawing Review",
+      "Earthing Layout",
+      "Rebar Bonding",
+      "RCC Coordination",
+      "Continuity Testing",
+      "Inspection Before Concreting",
+      "As-Built Documentation",
+    ],
+    supportLocationsText:
+      "Support is available across: Whitefield | Electronic City | Peenya | Bommasandra | Anekal | Hebbal | Yeshwanthpur | Devanahalli / Aerospace Park. Typical applications: Data Centres | IT Campuses | High-Rise Buildings | Hospitals | Industrial Plants | Commercial Buildings | Infrastructure Projects.",
+    ctaText:
+      "Looking for a Structural Earthing System in Bengaluru? Start with a Free Structural Earthing Design Review by DFMHUB.",
+    metaTitle:
+      "Structural Earthing System Manufacturer in Bengaluru – ARK Make",
+    metaDescription:
+      "DFMHUB manufactures ARK Structural Earthing System components in Bengaluru. Foundation earthing, RCC rebar bonding, design review, testing & documentation.",
+    keywords:
+      "Structural Earthing System in Bengaluru, Structural Earthing Bengaluru, Structural Earthing Manufacturer Bengaluru, Foundation Earthing Bengaluru, Rebar Bonding Bengaluru, Fixed Earthing Terminals Bengaluru, Equipotential Bonding Bengaluru, IS 3043 Structural Earthing, ARK Structural Earthing",
     earthingFaqs: [
       {
-        question: "Who supplies structural earthing systems in Bengaluru?",
+        question: "What is a Structural Earthing System?",
         answer:
-          "DFMHUB manufactures ARK Make structural earthing products — copper bonded rods, rebar bonding clamps, exothermic weld kits, earth bars and chambers — and delivers design-plus-installation packages across Bengaluru, Karnataka. Work is executed to IS 3043:2018 and IEC 62561 with documented test results.",
+          "It is an engineered earthing and bonding network coordinated with the building foundation and structural reinforcement to establish reliable electrical continuity and earthing paths.",
       },
       {
-        question: "What earth resistance value should I target in Bengaluru?",
+        question: "When should structural earthing be planned?",
         answer:
-          "IS 3043 sets practical limits by application: under 1 Ω for large substations, under 5 Ω for LPS and equipment earths in most commercial buildings, and under 1-2 Ω for data centres and pharma facilities. Because Bengaluru has hard red laterite and granitic gneiss with high dry-season resistivity (typically 80-300 Ω·m), meeting those values often needs deep-bore or chemical electrodes with enhancement compound rather than standard 3 m pits.",
+          "Ideally during the foundation and RCC design stage, before reinforcement connections become concealed.",
       },
       {
-        question: "Why is structural earthing better than conventional earth pits in Bengaluru?",
+        question: "Does Bengaluru soil affect the earthing design?",
         answer:
-          "Foundation reinforcement gives a very large, permanently moist contact area, so impedance is lower and far more stable through Bengaluru's dry season than isolated pits. It also saves land on tight urban plots in Peenya and Electronic City, and cannot be damaged later by landscaping or excavation.",
+          "Yes. Granite/gneiss terrain and varying red loamy and lateritic soils mean site conditions should be considered instead of applying one electrode arrangement to every project.",
       },
       {
-        question: "Can structural earthing be retrofitted to an existing building in Bengaluru?",
+        question: "Does DFMHUB provide structural earthing design support?",
         answer:
-          "Partially. Exposed pile caps, plinth beams and column starter bars can be bonded after the fact, but full foundation earthing must be built with the structure. For existing buildings in Bengaluru we usually combine accessible rebar bonding with supplementary deep-bore electrodes to reach the required resistance.",
+          "Yes. DFMHUB supports design review, product selection, installation coordination, continuity testing and documentation.",
       },
       {
-        question: "How does Bengaluru soil affect electrode selection?",
+        question:
+          "Can structural earthing interface with a Lightning Protection System?",
         answer:
-          "With hard red laterite and granitic gneiss with high dry-season resistivity (typically 80-300 Ω·m), plain GI pipe electrodes corrode or lose contact quickly. We specify 250-micron copper bonded rods, solid copper electrodes for corrosive coastal or chemical exposure, and bentonite or conductive-cement backfill so resistance stays stable across seasons in Bengaluru.",
-      },
-      {
-        question: "How often should earthing be tested in Bengaluru?",
-        answer:
-          "Annually as a minimum, and after any major electrical modification or lightning event. Facilities in Bengaluru handling IT campuses & data centres typically test every six months. DFMHUB provides scheduled testing with instrument-traceable reports for each earth pit and bonding bar.",
-      },
-      {
-        question: "Do you supply earthing materials in bulk to contractors in Bengaluru?",
-        answer:
-          "Yes. ARK Make earth rods, strips, clamps, chambers, exothermic weld kits and enhancement compound are supplied in project quantities to EPC and electrical contractors across Bengaluru, with test certificates, batch traceability and scheduled site delivery to Peenya, Whitefield, Electronic City.",
-      },
-      {
-        question: "Which industries in Bengaluru do you work with?",
-        answer:
-          "Our Bengaluru project list is concentrated in IT campuses & data centres, aerospace and defence units, biotech labs, high-rise residential towers, spanning greenfield construction, plant expansion and compliance retrofits across Peenya, Whitefield, Electronic City, Devanahalli / KIADB Aerospace Park.",
+          "Yes, where permitted by the LPS design and applicable standards. Suitable structural reinforcement and dedicated conductors may form coordinated current paths when continuity and connection requirements are satisfied.",
       },
     ],
   },
@@ -88,16 +163,68 @@ const cityRegistry: Record<string, CityData> = {
     slug: "chennai",
     state: "Tamil Nadu",
     region: "Chennai and greater Tamil Nadu",
-    areas: "Sriperumbudur, Oragadam, Maraimalai Nagar, Ambattur, Guindy, Ennore, OMR",
-    sectors: "Automotive manufacturing plants, port & petrochemical facilities, hardware manufacturing, data centers",
-    soil: "coastal saline clay and alluvial soil with variable dry-season resistivity (15-90 Ω·m)",
-    storm: "35-50 thunderstorm days annually, concentrated during the northeast monsoon season",
-    earthingIntro: {
-      p1: "Ground conditions decide the design. Around Chennai we encounter coastal saline clay and alluvial soil with high salt content, where electrode selection is driven by corrosion resistance and tidal ground moisture shifts.",
-      p2: "On new construction we bond the foundation reinforcement cage using heavy rebar clamps or exothermic welds, creating an equipotential mesh that limits step and touch potentials across high-rise slabs and factory bays in Oragadam and Sriperumbudur.",
-      p3: "To prevent atmospheric and soil corrosion in marine air, we deploy 250-micron copper bonded rods or solid copper electrodes with conductive backfill, maintaining <1 Ω earth resistance across seasons.",
-      p4: "Typical clients in Chennai include automotive OEMs, tier-1 suppliers, port facilities, data centres, and commercial IT parks across OMR, Ambattur, and Sriperumbudur.",
-    },
+    areas:
+      "Ambattur | Guindy | Manali | OMR | Taramani | Siruseri | Oragadam | Sriperumbudur | Maraimalai Nagar",
+    sectors:
+      "Automotive Plants | Electronics Manufacturing | Data Centres | IT Parks | High-Rise Buildings | Industrial Facilities | Commercial Projects",
+    soil: "coastal and alluvial formations with combinations of sand, clay, gravel and lateritic formations",
+    storm: "35-50 thunderstorm days annually",
+    desc: "DFMHUB provides ARK Structural Earthing Systems in Chennai, combining engineering design, manufacturer-direct product supply, RCC coordination, installation support, continuity testing and documentation.",
+    heroSubtext:
+      "The system is particularly suited to projects where earthing needs to be incorporated into the foundation and RCC construction from the beginning.",
+    subofsub:
+      "Design → ARK Products → Rebar Bonding → RCC Coordination → Testing",
+    climateRiskHeading: "Chennai Coastal & Ground Conditions",
+    climateRiskPara1:
+      "Chennai and its surrounding region include coastal and alluvial formations with combinations of sand, clay, gravel and lateritic formations, while groundwater conditions can also be influenced by proximity to the coast.",
+    climateData: "For structural earthing, Chennai projects should pay particular attention to:",
+    climateRiskPara2:
+      "Coastal Exposure | Moisture | Salinity | Material Compatibility | Corrosion Resistance | Foundation Conditions",
+    climateRiskPara3:
+      "Material selection around embedded and exposed interfaces should consider the possibility of corrosion and incompatible metal combinations.",
+    soilHeading: "ARK Structural Earthing Products for Chennai",
+    soilPara1:
+      "For Chennai projects, component selection can place additional emphasis on corrosion resistance and material compatibility.",
+    soilPara2: "",
+    soilPara3: "",
+    productsHeading: "ARK Structural Earthing Products for Chennai",
+    productsList: [
+      "10 mm Copper Bonded Conductors",
+      "Rebar Bonding Clamps",
+      "Fixed Earthing Terminals",
+      "Earth Studs",
+      "Cross Connectors",
+      "Diagonal Clamps",
+      "Straight Connectors",
+      "Equipotential Bonding Bars",
+    ],
+    productsNote:
+      "For Chennai projects, component selection can place additional emphasis on corrosion resistance and material compatibility.",
+    riskAssessmentTitle: "Free Structural Earthing Design Review",
+    riskAssessmentText1:
+      "Share your: Foundation Drawing + RCC/Rebar Drawing + Electrical SLD + Building Use + Project Earthing Specification.",
+    riskAssessmentText2:
+      "DFMHUB can recommend suitable: Foundation Routes | Rebar Connections | Earthing Terminals | Equipment Bonding Points | LPS Interfaces.",
+    riskAssessmentSteps:
+      "Connection Inspection → Continuity Testing → Fixed-Terminal Inspection → Quality Checks → Photo Records → As-Built Documentation",
+    supportTitle: "Installation & Quality Control",
+    supportServices: [
+      "Connection Inspection",
+      "Continuity Testing",
+      "Fixed-Terminal Inspection",
+      "Quality Checks",
+      "Photo Records",
+      "As-Built Documentation",
+    ],
+    supportLocationsText:
+      "Support across: Ambattur | Guindy | Manali | OMR | Taramani | Siruseri | Oragadam | Sriperumbudur | Maraimalai Nagar. Applications include: Automotive Plants | Electronics Manufacturing | Data Centres | IT Parks | High-Rise Buildings | Industrial Facilities | Commercial Projects.",
+    ctaText:
+      "Looking for a Structural Earthing System in Chennai? Start with a Free Structural Earthing Design Review by DFMHUB.",
+    metaTitle: "Structural Earthing System in Chennai – ARK Make by DFMHUB",
+    metaDescription:
+      "DFMHUB provides ARK Structural Earthing Systems in Chennai. Engineering design, product supply, rebar bonding, RCC coordination, testing & documentation.",
+    keywords:
+      "Structural Earthing System in Chennai, Structural Earthing Chennai, Structural Earthing Manufacturer Chennai, Foundation Earthing Chennai, Rebar Bonding Chennai, Fixed Earthing Terminals Chennai, Equipotential Bonding Chennai",
     earthingFaqs: [
       {
         question: "Who supplies structural earthing systems in Chennai?",
@@ -146,56 +273,88 @@ const cityRegistry: Record<string, CityData> = {
     slug: "hyderabad",
     state: "Telangana",
     region: "Hyderabad and greater Telangana",
-    areas: "HITEC City, Gachibowli, Genome Valley, Pashamylaram, Patancheru, Jeedimetla, Shamshabad",
-    sectors: "Pharma & life sciences plants, data centres, IT campuses, defence research facilities",
-    soil: "hard granitic rock and rocky terrain with high dry-season resistivity (150-500 Ω·m)",
-    storm: "40-55 thunderstorm days annually with severe lightning activity during monsoon onset",
-    earthingIntro: {
-      p1: "Ground conditions decide the design. Around Hyderabad we encounter hard granitic rock and high-resistivity soil (150-500 Ω·m), requiring deep-drilled boreholes and chemical enhancement to achieve target earth impedance.",
-      p2: "Structural foundation bonding connects high-rise raft reinforcement directly into the ground grid, providing a massive equipotential plane across HITEC City and Gachibowli IT complexes.",
-      p3: "Where soil depth is minimal over granite, deep-bore chemical electrodes surrounded by bentonite backfill maintain sub-1 Ω readings essential for pharma cleanrooms in Genome Valley and Patancheru.",
-      p4: "We supply contractors and EPCs across Cyberabad with certified ARK Make copper bonded rods, rebar clamps, exothermic weld powder, and inspection chambers.",
-    },
+    areas:
+      "HITEC City | Gachibowli | Financial District | Genome Valley | Medchal | Patancheru | Jeedimetla | Shamshabad",
+    sectors:
+      "Data Centres | IT Campuses | Pharma | Life Sciences | Hospitals | Industrial Plants | Warehouses | High-Rise Buildings",
+    soil: "crystalline granite and granite-gneiss formations, including weathered and fractured hard-rock zones",
+    storm: "40-55 thunderstorm days annually",
+    desc: "DFMHUB provides ARK Structural Earthing Systems in Hyderabad for data centres, IT campuses, pharmaceutical facilities, industrial plants, hospitals and high-rise projects.",
+    heroSubtext:
+      "Solutions can cover: Foundation Earthing Design → Rebar Bonding → Fixed Earthing Terminals → Equipment Bonding → Testing → Documentation",
+    subofsub:
+      "Foundation Earthing Design → Rebar Bonding → Fixed Earthing Terminals → Equipment Bonding → Testing → Documentation",
+    climateRiskHeading: "Hyderabad Soil & Ground Conditions",
+    climateRiskPara1:
+      "Hyderabad and surrounding areas are substantially associated with crystalline granite and granite-gneiss formations, including weathered and fractured hard-rock zones.",
+    climateData: "Engineering considerations:",
+    climateRiskPara2:
+      "These conditions make it important to distinguish between the structural bonding network and the final earth-termination requirements rather than assuming that one standard pit arrangement will work everywhere.",
+    climateRiskPara3:
+      "Hyderabad projects such as data centres, IT facilities, pharma plants and laboratories can have extensive electrical, electronic and mechanical services requiring coordinated equipotential bonding.",
+    soilHeading: "Structural Earthing for Critical Facilities",
+    soilPara1:
+      "The structural earthing design can identify: Foundation Routes | Rebar Bonding Points | Vertical Paths | Equipment Terminals | Equipotential Bonding | Lightning Protection Interfaces.",
+    soilPara2: "",
+    soilPara3: "",
+    productsHeading: "ARK Products",
+    productsList: [
+      "10 mm Copper Bonded Conductors",
+      "Rebar Bonding Clamps",
+      "Earth Studs",
+      "Fixed Earthing Terminals",
+      "Cross Connectors",
+      "Diagonal Clamps",
+      "Straight Connectors",
+      "Equipotential Bonding Bars",
+    ],
+    productsNote:
+      "ARK Structural Earthing components for Hyderabad critical facilities and industrial developments. Supported by technical documentation.",
+    riskAssessmentTitle: "Free Structural Earthing Design Review",
+    riskAssessmentText1:
+      "Share: RCC Drawings + Foundation Plan + Electrical SLD + Equipment Details + Project Earthing Specification.",
+    riskAssessmentText2:
+      "DFMHUB can review the project and recommend suitable structural earthing architecture.",
+    riskAssessmentSteps:
+      "Pre-Concreting Inspection → Continuity Testing → Connection Verification → Terminal Inspection → Photo Documentation → As-Built Drawings",
+    supportTitle: "Installation & Testing",
+    supportServices: [
+      "Pre-Concreting Inspection",
+      "Continuity Testing",
+      "Connection Verification",
+      "Terminal Inspection",
+      "Photo Documentation",
+      "As-Built Drawings",
+    ],
+    supportLocationsText:
+      "Supported across: HITEC City | Gachibowli | Financial District | Genome Valley | Medchal | Patancheru | Jeedimetla | Shamshabad. Applications: Data Centres | IT Campuses | Pharma | Life Sciences | Hospitals | Industrial Plants | Warehouses | High-Rise Buildings.",
+    ctaText:
+      "Looking for a Structural Earthing System in Hyderabad? Start with a Free Structural Earthing Design Review by DFMHUB.",
+    metaTitle: "Structural Earthing System in Hyderabad – ARK Make by DFMHUB",
+    metaDescription:
+      "DFMHUB provides ARK Structural Earthing Systems in Hyderabad. Foundation earthing, rebar bonding, fixed terminals, testing & documentation.",
+    keywords:
+      "Structural Earthing System in Hyderabad, Structural Earthing Hyderabad, Structural Earthing Manufacturer Hyderabad, Foundation Earthing Hyderabad, Rebar Bonding Hyderabad, Fixed Earthing Terminals Hyderabad, Equipotential Bonding Hyderabad",
     earthingFaqs: [
       {
-        question: "Who supplies structural earthing systems in Hyderabad?",
+        question: "Is structural earthing suitable for Hyderabad data centres?",
         answer:
-          "DFMHUB manufactures and installs ARK Make structural earthing products across Hyderabad, Cyberabad, and Telangana, serving pharma plants in Genome Valley, IT hubs in HITEC City, and industrial zones in Patancheru.",
+          "Yes, where it forms part of a properly engineered earthing and bonding strategy designed around the facility's electrical architecture and project specifications.",
       },
       {
-        question: "What earth resistance value should I target in Hyderabad?",
+        question: "Does Hyderabad hard-rock geology affect earthing?",
         answer:
-          "Target below 1 Ω for pharma plants and data centres, and below 5 Ω for commercial LPS. Hyderabad's hard granitic terrain (150-500 Ω·m resistivity) requires deep boreholes filled with conductive backfill compound.",
+          "It can influence the earth-termination portion of the system, which is why actual site conditions and soil resistivity should be considered where applicable.",
       },
       {
-        question: "Why is structural earthing better than conventional earth pits in Hyderabad?",
+        question: "When should rebar bonding be inspected?",
         answer:
-          "Using the deep foundation reinforcement cage of high-rises and factory blocks provides a wide ground contact area that bypasses shallow dry granitic rock layer.",
+          "Preferably before concreting, because the connections may become permanently concealed.",
       },
       {
-        question: "Can structural earthing be retrofitted to an existing building in Hyderabad?",
+        question: "Can structural earthing integrate with lightning protection?",
         answer:
-          "Plinth beam reinforcement and starter bars can be bonded with exothermic welds, supplemented by deep vertical chemical electrodes in granitic boreholes.",
-      },
-      {
-        question: "How does Hyderabad soil affect electrode selection?",
-        answer:
-          "High soil resistivity makes standard GI pits ineffective. We deploy deep-driven copper bonded rods and chemical electrodes encased in bentonite or conductive cement backfill.",
-      },
-      {
-        question: "How often should earthing be tested in Hyderabad?",
-        answer:
-          "At least once a year per IS 3043 and NBC 2016 Part 8. Critical pharma and data centre facilities in HITEC City test biannually.",
-      },
-      {
-        question: "Do you supply earthing materials in bulk to contractors in Hyderabad?",
-        answer:
-          "Yes, project quantities of ARK Make rods, exothermic weld powders, graphite moulds, and earth bars are delivered directly to sites across Cyberabad and Patancheru.",
-      },
-      {
-        question: "Which industries in Hyderabad do you work with?",
-        answer:
-          "Pharma & life sciences facilities, data centres, IT campuses, defence research units, and high-rise residential projects.",
+          "Yes. Where allowed by the LPS design and applicable standards, suitable structural elements may contribute to coordinated lightning-current paths.",
       },
     ],
   },
@@ -204,56 +363,84 @@ const cityRegistry: Record<string, CityData> = {
     slug: "pune",
     state: "Maharashtra",
     region: "Pune and greater Maharashtra",
-    areas: "Pimpri-Chinchwad (PCMC), Chakan, Talegaon, Ranjangaon, Hinjawadi, Hadapsar, Bhosari",
-    sectors: "Automotive & EV plants, engineering MIDC units, IT parks, heavy machinery plants",
-    soil: "black cotton soil and basalt rock with seasonal shrinking and high dry resistivity (100-350 Ω·m)",
-    storm: "50-65 thunderstorm days per year with intense pre-monsoon strikes",
-    earthingIntro: {
-      p1: "Ground conditions decide the design. Around Pune we encounter expanding/shrinking black cotton soil over hard basalt rock, which causes traditional shallow pits to pull away from surrounding soil during dry summer months.",
-      p2: "Structural foundation earthing bonds deep pile caps and raft slabs below the shrink line, ensuring stable year-round earth resistance for heavy automotive plants in Chakan and PCMC.",
-      p3: "We supplement structural rebar grids with 250-micron copper bonded driven rods and moisture-retaining conductive cement compound to comply with IS 3043:2018.",
-      p4: "Our Pune team serves automotive OEMs, EV manufacturers, engineering MIDC units, and IT parks in Hinjawadi with design, supply, installation, and DISH audit compliance certification.",
-    },
+    areas:
+      "Pimpri-Chinchwad | Chakan | Talegaon | Ranjangaon | Hinjawadi | Kharadi | Hadapsar",
+    sectors:
+      "Automotive Plants | Engineering Industries | Data Centres | IT Facilities | Warehouses | Commercial Buildings | High-Rises",
+    soil: "Deccan Trap basalt and hard-rock terrain",
+    storm: "50-65 thunderstorm days per year",
+    desc: "DFMHUB provides ARK Structural Earthing Systems for Pune projects, covering foundation earthing engineering, rebar bonding products, fixed earthing points, installation coordination, continuity testing and documentation.",
+    heroSubtext:
+      "We support automotive plants, manufacturing facilities, warehouses, IT campuses, data centres, commercial buildings and industrial projects across Pune and surrounding industrial corridors.",
+    subofsub:
+      "Foundation Review → Earthing Network → Rebar Bonding Locations → Fixed Terminals → Electrical/LPS Interfaces → Inspection → Testing",
+    climateRiskHeading: "Pune Ground Conditions",
+    climateRiskPara1:
+      "Pune District is predominantly Deccan Trap basalt, and Maharashtra's GSDA describes the Pune region as largely hard-rock terrain. This makes project-specific evaluation important where the structural network interfaces with the earth-termination system.",
+    climateData: "Design inputs may include:",
+    climateRiskPara2:
+      "Foundation Type | Basalt/Hard-Rock Conditions | Soil Resistivity | Fault Current | Building Type | RCC Layout | Equipment Earthing Requirements",
+    climateRiskPara3:
+      "The final arrangement should be based on the project's electrical design and fault-current requirements rather than a generic resistance target.",
+    soilHeading: "ARK Structural Earthing for Industrial Pune",
+    soilPara1:
+      "Pune's strong automotive, engineering, manufacturing and warehouse base makes early earthing coordination particularly useful for large RCC and industrial developments.",
+    soilPara2:
+      "Designed for construction-stage integration: Critical connections are planned before RCC works conceal them. Suitable for complex industrial projects where bonding points coordinate with equipment and electrical earthing requirements.",
+    soilPara3:
+      "Manufacturer-direct ARK components manufactured by DFMHUB, supported by engineering drawings, inspection records and test results as part of the handover package.",
+    productsHeading: "ARK Structural Earthing Products for Pune",
+    productsList: [
+      "Copper Bonded Conductors",
+      "Rebar Bonding Clamps",
+      "Diagonal Clamps",
+      "Fixed Earthing Terminals",
+      "Earth Studs",
+      "Cross & Straight Connectors",
+      "Equipotential Bonding Bars",
+    ],
+    productsNote:
+      "ARK Structural Earthing components for Pune industrial and warehouse developments. Relevant products are supported by technical documentation.",
+    riskAssessmentTitle: "Free Design Review in Pune",
+    riskAssessmentText1:
+      "Send: Structural Drawings + Foundation Details + Electrical SLD + Earthing Specification + Project Location.",
+    riskAssessmentText2:
+      "DFMHUB can review the structural and electrical interfaces and prepare an appropriate approach.",
+    riskAssessmentSteps:
+      "RCC Coordination → Connection Inspection → Continuity Checks → Test-Point Inspection → Quality Documentation → As-Built Drawings",
+    supportTitle: "Installation & Testing",
+    supportServices: [
+      "RCC Coordination",
+      "Connection Inspection",
+      "Continuity Checks",
+      "Test-Point Inspection",
+      "Quality Documentation",
+      "As-Built Drawings",
+    ],
+    supportLocationsText:
+      "Supported across: Pimpri-Chinchwad | Chakan | Talegaon | Ranjangaon | Hinjawadi | Kharadi | Hadapsar. Applications: Automotive Plants | Engineering Industries | Data Centres | IT Facilities | Warehouses | Commercial Buildings | High-Rises.",
+    ctaText:
+      "Looking for a Structural Earthing System in Pune? Start with a Free Structural Earthing Design Review by DFMHUB.",
+    metaTitle: "Structural Earthing System in Pune – ARK Make by DFMHUB",
+    metaDescription:
+      "DFMHUB provides ARK Structural Earthing Systems in Pune. Foundation earthing, rebar bonding, fixed earthing points, installation, testing & documentation.",
+    keywords:
+      "Structural Earthing System in Pune, Structural Earthing Pune, Structural Earthing Manufacturer Pune, Foundation Earthing Pune, Rebar Bonding Pune, Fixed Earthing Terminals Pune, Equipotential Bonding Pune",
     earthingFaqs: [
       {
-        question: "Who supplies structural earthing systems in Pune?",
+        question: "Why does Pune geology matter for earthing?",
         answer:
-          "DFMHUB manufactures ARK Make earthing components and delivers turnkey design, supply, and installation across Pune MIDC belts including Chakan, PCMC, Ranjangaon, and Hinjawadi.",
+          "Much of Pune is underlain by basaltic hard rock, so earth-termination performance can vary depending on weathering, fractures and overlying soil conditions.",
       },
       {
-        question: "What earth resistance value should I target in Pune?",
+        question: "Is structural earthing suitable for factories?",
         answer:
-          "Under 1 Ω for heavy manufacturing plant substations and IT data hubs; under 5 Ω for general machinery earthing to IS 3043:2018.",
+          "Yes. It can provide a coordinated bonding and earthing network for industrial RCC structures when engineered according to fault-current and equipment requirements.",
       },
       {
-        question: "Why is structural earthing better than conventional earth pits in Pune?",
+        question: "Should soil resistivity testing still be performed?",
         answer:
-          "Pune's black cotton soil shrinks severely in summer, pulling away from traditional earth pits. Structural foundation bonding stays deep in stable moisture strata.",
-      },
-      {
-        question: "Can structural earthing be retrofitted to an existing building in Pune?",
-        answer:
-          "Partial retrofits via column starter bar bonding and perimeter ring conductors are routinely executed for MIDC factory expansions in Chakan and Bhosari.",
-      },
-      {
-        question: "How does Pune soil affect electrode selection?",
-        answer:
-          "Shrinking black cotton soil and underlying basalt rock demand 250-micron copper bonded rods and moisture-retaining conductive cement compounds to maintain constant contact.",
-      },
-      {
-        question: "How often should earthing be tested in Pune?",
-        answer:
-          "Annual testing before monsoon onset is recommended to verify impedance levels for DISH factory inspectorate and insurance compliance.",
-      },
-      {
-        question: "Do you supply earthing materials in bulk to contractors in Pune?",
-        answer:
-          "Yes. ARK Make copper bonded rods, GI & copper tapes, exothermic weld kits, and inspection chambers are supplied with test certificates across all MIDC zones.",
-      },
-      {
-        question: "Which industries in Pune do you work with?",
-        answer:
-          "Automotive & EV plants, heavy engineering MIDC units, IT parks in Hinjawadi, and commercial real estate developments.",
+          "Where earth-electrode or earth-termination design depends on soil characteristics, site-specific testing can be valuable.",
       },
     ],
   },
@@ -274,15 +461,34 @@ export async function generateMetadata({
   if (!city) {
     return { title: "Structural Earthing | DFMHUB" };
   }
+  const pageTitle =
+    city.metaTitle ||
+    `Structural Earthing System Manufacturer in ${city.name} – ARK Make | DFMHUB`;
+  const pageDesc =
+    city.metaDescription ||
+    `DFMHUB manufactures ARK Structural Earthing System components in ${city.name}. Foundation earthing, RCC rebar bonding, design review, testing & documentation.`;
+  const pageKeywords =
+    city.keywords || `Structural Earthing System in ${city.name}`;
+
   return {
-    title: `Structural Earthing in ${city.name}, ${city.state} | IS 3043 & IEC 62305-3`,
-    description: `DFMHUB manufactures ARK Make structural earthing components — copper bonded rods, rebar clamps, exothermic weld kits for ${city.sectors} across ${city.name}, ${city.state}.`,
+    title: pageTitle,
+    description: pageDesc,
+    keywords: pageKeywords,
     alternates: {
       canonical: `https://dfmhub.vercel.app/structural-earthing/${city.slug}`,
     },
     openGraph: {
-      title: `Structural Earthing in ${city.name} | DFMHUB`,
-      description: `Foundation rebar bonding, copper bonded rods and chemical electrodes engineered for ${city.name} ground conditions.`,
+      title: pageTitle,
+      description: pageDesc,
+      url: `https://dfmhub.vercel.app/structural-earthing/${city.slug}`,
+      siteName: "DFMHUB - ARK Structural Earthing Systems",
+      locale: "en_IN",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: pageTitle,
+      description: pageDesc,
     },
   };
 }
@@ -304,41 +510,75 @@ export default async function StructuralEarthingCityPage({
     (c) => c.slug !== city.slug
   );
 
-  const componentCards = [
-    {
-      title: "ARK Copper Bonded Earth Rods",
-      spec: "14/17.2/20 MM, 250 M CU",
-      desc: "High-tensile steel core with molecularly bonded 250-micron copper coating for driven-depth installation and 20+ year design life to IEC 62561-2.",
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: city.earthingFaqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://dfmhub.vercel.app/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Structural Earthing",
+        item: "https://dfmhub.vercel.app/structural-earthing",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: city.name,
+        item: `https://dfmhub.vercel.app/structural-earthing/${city.slug}`,
+      },
+    ],
+  };
+
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: `DFMHUB - Structural Earthing System in ${city.name}`,
+    description: city.metaDescription || city.desc,
+    url: `https://dfmhub.vercel.app/structural-earthing/${city.slug}`,
+    telephone: "+919483564777",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: city.name,
+      addressRegion: city.state,
+      addressCountry: "IN",
     },
-    {
-      title: "ARK Pure Copper Earth Electrodes",
-      spec: "SOLID CU, 25-50 MM DIA",
-      desc: "Solid copper electrodes for highly corrosive coastal, saline and chemical plant soils where bonded rods are not acceptable.",
-    },
-    {
-      title: "ARK Chemical / Maintenance-Free Electrodes",
-      spec: "48/76 MM, 1-3 M",
-      desc: "Backfill-charged electrodes with crystalline salt reservoirs that stabilise resistance in rocky and high-resistivity soils.",
-    },
-    {
-      title: "ARK GI & Copper Earthing Strips",
-      spec: "25X3 TO 75X12 MM",
-      desc: "Hot-dip galvanised and copper earthing strips for equipotential ring conductors, grid mats and structural bonding runs.",
-    },
-    {
-      title: "ARK Earth Enhancement Compound",
-      spec: "BENTONITE / CONDUCTIVE CEMENT",
-      desc: "Non-corrosive, low-resistivity backfill that reduces electrode-to-soil contact resistance and retains moisture through dry seasons.",
-    },
-    {
-      title: "ARK Structural Rebar Bonding Clamps",
-      spec: "CAST CU ALLOY, 8-32 MM REBAR",
-      desc: "Clamps and weld kits that turn foundation reinforcement into a certified structural earth electrode as permitted by IS 3043 and IEC 62305-3.",
-    },
-  ];
+  };
 
   return (
     <div className="w-full transition-colors duration-200">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(localBusinessSchema),
+        }}
+      />
       {/* Section 1: Hero Section (DARK NAVY) */}
       <section className="relative bg-[#070d19] text-white overflow-hidden py-16 sm:py-20 lg:py-24 border-b border-slate-800">
         <div className="absolute inset-0 bg-gradient-to-r from-[#070d19] via-[#091325]/90 to-transparent z-10" />
@@ -355,31 +595,40 @@ export default async function StructuralEarthingCityPage({
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl space-y-6">
             <div className="flex items-center space-x-2 text-xs font-semibold text-slate-400">
-              <Link href="/" className="hover:text-amber-400">Home</Link>
+              <Link href="/" className="hover:text-amber-400">
+                Home
+              </Link>
               <span>&gt;</span>
-              <Link href="/structural-earthing" className="hover:text-amber-400">Structural Earthing</Link>
+              <Link
+                href="/structural-earthing"
+                className="hover:text-amber-400"
+              >
+                Structural Earthing
+              </Link>
               <span>&gt;</span>
               <span className="text-amber-400 font-bold">{city.name}</span>
             </div>
 
             <span className="text-amber-500 font-bold text-xs uppercase tracking-widest block">
-              STRUCTURAL EARTHING · {city.name.toUpperCase()}
+              STRUCTURAL EARTHING SYSTEM · {city.name.toUpperCase()}
             </span>
 
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight">
-              Structural Earthing in {city.name}
+              {city.metaTitle ||
+                `Structural Earthing System Manufacturer in ${city.name} – ARK Make`}
             </h1>
 
-            <p className="text-sm sm:text-base lg:text-lg text-slate-300 leading-relaxed font-normal max-w-3xl">
-              ARK Make structural earthing designed, manufactured and installed for projects across {city.region} — foundation rebar bonding, electrodes, exothermic welding and documented testing to IS 3043:2018.
-            </p>
+            {/* <p className="text-sm sm:text-base lg:text-lg text-slate-300 leading-relaxed font-normal max-w-3xl">
+              {city.desc ||
+                `DFMHUB manufactures ARK Structural Earthing System components in ${city.name}, providing engineering support for foundation earthing, rebar bonding, fixed earthing terminals and testing.`}
+            </p> */}
 
             <div className="pt-2 flex flex-col sm:flex-row gap-4">
               <Link
                 href="/contact-us"
                 className="bg-[#d97706] hover:bg-[#b45309] text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-4 rounded-md shadow-lg transition-all flex items-center justify-center space-x-2"
               >
-                <span>GET A FREE DESIGN CONSULTATION</span>
+                <span>GET FREE STRUCTURAL EARTHING DESIGN REVIEW</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
@@ -393,111 +642,191 @@ export default async function StructuralEarthingCityPage({
         </div>
       </section>
 
-      {/* Section 2: WHY CITY PROJECTS NEED A CITY-SPECIFIC DESIGN (WHITE) */}
+      {/* Section 2: MAIN CONTENT (WHITE) */}
       <section className="w-full bg-white text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-8">
-            <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
-              {city.name.toUpperCase()}, {city.state.toUpperCase()}
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight mb-4">
-              Why {city.name} projects need a city-specific design
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-            <div className="lg:col-span-7 space-y-4 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-              <p>{city.earthingIntro.p1}</p>
-              <p>{city.earthingIntro.p2}</p>
-              <p>{city.earthingIntro.p3}</p>
-              <p>{city.earthingIntro.p4}</p>
-            </div>
-
-            {/* Coverage Summary Box */}
-            <div className="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
-              <h3 className="font-bold text-slate-900 text-lg border-b border-slate-200 pb-3">
-                {city.name} coverage
-              </h3>
-
-              <div className="space-y-4 text-xs text-slate-700 font-normal">
-                <div>
-                  <span className="text-amber-600 font-bold text-[11px] uppercase tracking-wider block mb-1">
-                    AREAS SERVED
-                  </span>
-                  <p className="leading-relaxed">{city.areas}</p>
-                </div>
-
-                <div>
-                  <span className="text-amber-600 font-bold text-[11px] uppercase tracking-wider block mb-1">
-                    SECTORS
-                  </span>
-                  <p className="leading-relaxed">{city.sectors}</p>
-                </div>
-
-                <div>
-                  <span className="text-amber-600 font-bold text-[11px] uppercase tracking-wider block mb-1">
-                    SOIL PROFILE
-                  </span>
-                  <p className="leading-relaxed">{city.soil}</p>
-                </div>
-
-                <div>
-                  <span className="text-amber-600 font-bold text-[11px] uppercase tracking-wider block mb-1">
-                    STORM EXPOSURE
-                  </span>
-                  <p className="leading-relaxed">{city.storm}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 3: ARK MAKE COMPONENTS DELIVERED ACROSS CITY (LIGHT GRAY) */}
-      <section className="w-full bg-[#f8fafc] text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-10">
-            <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
-              SUPPLIED IN {city.name.toUpperCase()}
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight mb-2">
-              ARK Make components delivered across {city.name}
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-600 font-normal">
-              Project quantities with test certificates, batch traceability and scheduled site delivery.
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          <div className="space-y-4">
+            <p className="text-lg max-w-4xl text-slate-800 leading-relaxed">
+              {city.desc}
             </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {componentCards.map((comp) => (
-              <div
-                key={comp.title}
-                className="bg-white rounded-xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-all flex flex-col"
+            {city.heroSubtext && (
+              <p className="text-lg max-w-4xl text-slate-700 leading-relaxed">
+                {city.heroSubtext}
+              </p>
+            )}
+            {city.subofsub && (
+              <p className="font-bold text-lg max-w-4xl text-amber-700">
+                {city.subofsub}
+              </p>
+            )}
+            <div className="flex w-full pt-2">
+              <Link
+                href="/contact-us"
+                className="bg-[#d97706] hover:bg-[#b45309] text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-4 rounded-md shadow-lg transition-all flex items-center justify-center space-x-2"
               >
-                <div className="bg-[#09101f] text-white p-4">
-                  <h3 className="font-bold text-sm sm:text-base text-white">
-                    {comp.title}
-                  </h3>
-                  <span className="text-[10px] sm:text-xs font-bold text-amber-400 uppercase tracking-wider block mt-1">
-                    {comp.spec}
-                  </span>
-                </div>
-                <div className="p-5 text-slate-600 text-xs sm:text-sm leading-relaxed font-normal flex-grow bg-white">
-                  {comp.desc}
-                </div>
-              </div>
-            ))}
+                <span>GET FREE STRUCTURAL EARTHING DESIGN REVIEW</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
 
-          <div className="pt-8">
-            <Link
-              href="/structural-earthing"
-              className="inline-flex items-center text-xs font-bold text-amber-600 hover:text-amber-700 uppercase tracking-wider"
-            >
-              <span>VIEW THE COMPLETE STRUCTURAL EARTHING RANGE</span>
-              <ChevronRight className="w-4 h-4 ml-1" />
-            </Link>
+          <div className="max-w-4xl space-y-8 text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+            {/* Structural Earthing for City Conditions */}
+            {city.climateRiskHeading ? (
+              <div className="space-y-3">
+                <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+                  {city.climateRiskHeading}
+                </h2>
+
+                <p className="text-slate-700 leading-relaxed">
+                  {city.climateRiskPara1}
+                </p>
+                <p className="text-slate-700 leading-relaxed">
+                  {city.climateData}
+                </p>
+                <p className="text-slate-700 leading-relaxed font-semibold">
+                  {city.climateRiskPara2}
+                </p>
+                <p className="text-slate-700 leading-relaxed">
+                  {city.climateRiskPara3}
+                </p>
+              </div>
+            ) : null}
+
+            {/* Soil / System Conditions */}
+            {city.soilHeading ? (
+              <div className="space-y-3 pt-4 border-t border-slate-100">
+                <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+                  {city.soilHeading}
+                </h2>
+                <p className="text-slate-700 leading-relaxed">
+                  {city.soilPara1}
+                </p>
+                {city.soilPara2 && (
+                  <p className="text-slate-700 leading-relaxed">
+                    {city.soilPara2}
+                  </p>
+                )}
+                {city.soilPara3 && (
+                  <p className="text-slate-700 leading-relaxed">
+                    {city.soilPara3}
+                  </p>
+                )}
+              </div>
+            ) : null}
+
+            {/* Legacy earthingIntro fallback if climateRiskHeading is missing */}
+            {!city.climateRiskHeading && city.earthingIntro && (
+              <div className="space-y-4">
+                <p>{city.earthingIntro.p1}</p>
+                <p>{city.earthingIntro.p2}</p>
+                <p>{city.earthingIntro.p3}</p>
+                <p>{city.earthingIntro.p4}</p>
+              </div>
+            )}
           </div>
+
+          {/* Products List section for City */}
+          {city.productsList && (
+            <div className="border-t border-slate-200 pt-8 space-y-4">
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
+                {city.productsHeading || "ARK Structural Earthing Products"}
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 font-medium">
+                ARK Structural Earthing components include:
+              </p>
+              <div className="flex flex-wrap gap-2.5 pt-1">
+                {city.productsList.map((item) => (
+                  <span
+                    key={item}
+                    className="bg-amber-50 text-amber-900 border border-amber-200 text-xs sm:text-sm px-3.5 py-2 rounded-xl font-semibold shadow-xs"
+                  >
+                    • {item}
+                  </span>
+                ))}
+              </div>
+              {city.productsNote && (
+                <p className="text-xs sm:text-sm text-slate-600 italic pt-2 leading-relaxed">
+                  {city.productsNote}
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* Design Review Banner */}
+          {city.riskAssessmentTitle && (
+            <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-6 sm:p-8 space-y-3 text-slate-900">
+              <h3 className="text-lg sm:text-xl font-bold text-amber-700 flex items-center gap-2">
+                <Zap className="w-5 h-5 text-amber-600" />
+                <span>{city.riskAssessmentTitle}</span>
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-700 font-normal leading-relaxed">
+                {city.riskAssessmentText1}
+              </p>
+              <p className="text-xs sm:text-sm text-slate-700 font-normal leading-relaxed">
+                {city.riskAssessmentText2}
+              </p>
+              {city.riskAssessmentSteps && (
+                <div className="pt-2 text-xs font-bold text-amber-800 tracking-wide uppercase">
+                  {city.riskAssessmentSteps}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Support Services list */}
+          {city.supportTitle && (
+            <div className="border-t border-slate-200 pt-8 space-y-6">
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
+                {city.supportTitle}
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600">
+                DFMHUB provides complete engineering, material supply and testing support for Structural Earthing Systems in {city.name}
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {city.supportServices?.map((service) => (
+                  <div
+                    key={service}
+                    className="flex items-center gap-2 text-xs sm:text-sm text-slate-800 bg-slate-50 border border-slate-200/80 p-3.5 rounded-xl font-medium"
+                  >
+                    <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0" />
+                    <span>{service}</span>
+                  </div>
+                ))}
+              </div>
+
+              {city.supportLocationsText && (
+                <div className="pt-4 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal bg-slate-50/60 border border-slate-200/60 p-5 rounded-xl">
+                  <h4 className="font-bold text-slate-900 text-sm mb-2">
+                    Structural Earthing Projects Across {city.name}
+                  </h4>
+                  <p>{city.supportLocationsText}</p>
+                </div>
+              )}
+
+              {city.ctaText && (
+                <div className="pt-2">
+                  <div className="bg-slate-900 text-white p-6 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                      <h4 className="font-bold text-base text-amber-400">
+                        {city.ctaText}
+                      </h4>
+                      <p className="text-xs text-slate-300 mt-1">
+                        Planning a project in {city.name}? Share your foundation layout and RCC drawings with DFMHUB for a structural earthing design review.
+                      </p>
+                    </div>
+                    <Link
+                      href="/contact-us"
+                      className="bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-lg whitespace-nowrap transition-all shrink-0"
+                    >
+                      GET FREE DESIGN REVIEW
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
 
@@ -505,7 +834,7 @@ export default async function StructuralEarthingCityPage({
       <section className="w-full bg-white text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight mb-10">
-            Structural Earthing in {city.name} — questions people ask
+            Frequently Asked Questions
           </h2>
           <FAQAccordion items={city.earthingFaqs} />
         </div>

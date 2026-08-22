@@ -26,9 +26,14 @@ import {
   Compass,
   Sparkles,
   Lock,
+  LogOut,
+  KeyRound,
+  ShieldCheck,
+  UserCheck,
   AlertCircle,
 } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
+import AuthGuard, { useAuth } from "@/components/AuthGuard";
 import { Poppins } from "next/font/google";
 
 const poppins = Poppins({
@@ -248,6 +253,7 @@ function statusWord(s: StatusKind): string {
 /* ---------------- Main Component ---------------- */
 export default function EarthLineConsolePage() {
   const { theme, toggleTheme } = useTheme();
+  const { logout } = useAuth();
 
   // Navigation State
   const [tab, setTab] = useState<StepItem["id"]>("site");
@@ -275,7 +281,11 @@ export default function EarthLineConsolePage() {
   const [r3, setR3] = useState<string>("");
   const [checks, setChecks] = useState<boolean[]>(Array(checklistItems.length).fill(false));
 
-  /* -------- Select Options Maps -------- */
+  // Project submission state
+  const [submittingProject, setSubmittingProject] = useState(false);
+  const [projectSubmitted, setProjectSubmitted] = useState(false);
+
+  // Select Options Maps
   const occupancyOptions = useMemo(
     () =>
       occupancyTypes.map((o, i) => ({
@@ -645,6 +655,13 @@ export default function EarthLineConsolePage() {
                   title="Clear Form"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={logout}
+                  className="p-1.5 rounded-lg border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/60 transition-colors cursor-pointer"
+                  title="Logout (Clear Auth)"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
@@ -1703,19 +1720,105 @@ export default function EarthLineConsolePage() {
               </div>
 
               {/* Final Action Bar */}
-              <div className="no-print flex justify-between items-center pt-4">
+              <div className="no-print flex flex-col sm:flex-row justify-between items-center gap-4 pt-4">
                 <button
                   onClick={() => setTab("strike")}
-                  className="px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-semibold transition-colors flex items-center gap-2 cursor-pointer"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <ChevronLeft className="w-4 h-4" /> Back to Step 03
                 </button>
-                <button
-                  onClick={() => window.print()}
-                  className="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold text-sm transition-colors flex items-center gap-2 shadow-md shadow-amber-500/20 cursor-pointer"
-                >
-                  <Printer className="w-4 h-4" /> Print / Save Report as PDF
-                </button>
+
+                <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                  <button
+                    onClick={async () => {
+                      if (submittingProject || projectSubmitted) return;
+                      setSubmittingProject(true);
+                      try {
+                        let userInfo: any = null;
+                        try {
+                          if (typeof window !== "undefined") {
+                            const saved = localStorage.getItem("dfm_user_info");
+                            if (saved) userInfo = JSON.parse(saved);
+                          }
+                        } catch (e) {}
+
+                        // 1. Save project details linked with user info in project_details table
+                        await fetch("/api/projects", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({
+                            userFullName: userInfo?.fullName || "Guest User",
+                            userPhone: userInfo?.phone || "N/A",
+                            userEmail: userInfo?.email || "N/A",
+                            siteName: siteName || "Unnamed Project",
+                            location: siteLoc || "Unspecified Location",
+                            occupancy: data.occ.name,
+                            dimensions: `${data.L}m × ${data.W}m × ${data.H}m`,
+                            soilType: data.soil.name,
+                            climateZone: data.climate.name,
+                            avgResistance: data.rAvg !== null ? `${fmt(data.rAvg, 2)} Ω` : "Not recorded",
+                            targetResistance: `${fmt(data.target, 1)} Ω`,
+                            checklistScore: `${fmt(data.checklistPct, 0)}%`,
+                            lplClass: data.lplText,
+                            riskR1: data.R1.toExponential(2),
+                            status: "NEW",
+                          }),
+                        });
+
+                        // 2. Store same location in user registrations table
+                        await fetch("/api/registrations", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({
+                            fullName: userInfo?.fullName || "Tool User",
+                            phoneNumber: userInfo?.phone || "N/A",
+                            email: userInfo?.email || "N/A",
+                            companyName: userInfo?.company || siteName || "Tool Audit",
+                            location: siteLoc || "Unspecified Location",
+                            requirement: "Tool Audit BOQ Quote",
+                            source: "TOOL_AUDIT",
+                            status: "NEW",
+                            remarks: `Tool Audit for ${siteName || "Project"} (${siteLoc || "N/A"})`,
+                          }),
+                        });
+                      } catch (err) {
+                        console.warn("Save project error:", err);
+                      }
+                      setSubmittingProject(false);
+                      setProjectSubmitted(true);
+                    }}
+                    disabled={submittingProject}
+                    className={`w-full sm:w-auto px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer ${
+                      projectSubmitted
+                        ? "bg-emerald-600 text-white cursor-default"
+                        : "bg-emerald-600 hover:bg-emerald-500 text-white"
+                    }`}
+                  >
+                    {submittingProject ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        <span>SENDING QUOTE REQUEST...</span>
+                      </>
+                    ) : projectSubmitted ? (
+                      <>
+                        <CheckCircle2 className="w-4 h-4 text-emerald-200" />
+                        <span>QUOTATION REQUEST SENT SUCCESSFULLY! ✓</span>
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="w-4 h-4 text-emerald-200" />
+                        <span>REQUEST OFFICIAL BOQ &amp; QUOTE</span>
+                      </>
+                    )}
+                  </button>
+
+                  <button
+                    onClick={() => window.print()}
+                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold text-xs transition-colors flex items-center justify-center gap-2 shadow-md shadow-amber-500/20 cursor-pointer"
+                  >
+                    <Printer className="w-4 h-4" /> Print / Save PDF
+                  </button>
+                </div>
               </div>
             </section>
           )}

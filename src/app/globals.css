@@ -26,3 +26,12 @@ body {
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+/* Hide scrollbar utility for tables */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
