@@ -1,26 +1,28 @@
 import React from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import { MapPin } from "lucide-react";
+import { MapPin, Eye, Building2, User, Calendar, ShieldAlert } from "lucide-react";
 import { ProjectRecord } from "@/hooks/useAdminQueries";
+import { Button } from "@/components/ui/button";
 
-export function getProjectColumns(): ColumnDef<ProjectRecord>[] {
+export function getProjectColumns({
+  onViewDetails,
+}: {
+  onViewDetails?: (project: ProjectRecord) => void;
+} = {}): ColumnDef<ProjectRecord>[] {
   return [
     {
       accessorKey: "id",
       header: "Project Ref",
       cell: ({ row }) => (
-        <span className="font-mono font-extrabold text-slate-900 dark:text-white">
-          {row.original.id}
-        </span>
-      ),
-    },
-    {
-      accessorKey: "createdAt",
-      header: "Date",
-      cell: ({ row }) => (
-        <span className="text-xs font-semibold text-slate-600 dark:text-slate-400 font-mono">
-          {new Date(row.original.createdAt).toLocaleDateString()}
-        </span>
+        <div>
+          <span className="font-mono font-extrabold text-slate-900 dark:text-white text-xs block">
+            {row.original.id}
+          </span>
+          <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-400 font-mono flex items-center gap-1 mt-0.5">
+            <Calendar className="w-3 h-3 text-amber-500" />
+            {new Date(row.original.createdAt).toLocaleDateString()}
+          </span>
+        </div>
       ),
     },
     {
@@ -28,11 +30,12 @@ export function getProjectColumns(): ColumnDef<ProjectRecord>[] {
       header: "Linked Customer",
       cell: ({ row }) => (
         <div>
-          <span className="font-bold text-slate-900 dark:text-white text-xs block">
-            👤 {row.original.userFullName || "Guest User"}
+          <span className="font-bold text-slate-900 dark:text-white text-xs flex items-center gap-1">
+            <User className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+            {row.original.userFullName || "Guest User"}
           </span>
           {row.original.userPhone && row.original.userPhone !== "N/A" && (
-            <span className="text-slate-600 dark:text-slate-400 font-mono text-[11px] block">
+            <span className="text-slate-600 dark:text-slate-400 font-mono text-[11px] block mt-0.5">
               📞 {row.original.userPhone}
             </span>
           )}
@@ -41,65 +44,36 @@ export function getProjectColumns(): ColumnDef<ProjectRecord>[] {
     },
     {
       accessorKey: "siteName",
-      header: "Site Name",
+      header: "Site & Location",
       cell: ({ row }) => (
-        <span className="font-bold text-slate-900 dark:text-white text-xs">
-          🏢 {row.original.siteName}
-        </span>
-      ),
-    },
-    {
-      accessorKey: "location",
-      header: "Location",
-      cell: ({ row }) => (
-        <span className="text-amber-700 dark:text-amber-400 font-semibold text-xs flex items-center gap-1">
-          <MapPin className="w-3.5 h-3.5 shrink-0" />
-          {row.original.location}
-        </span>
+        <div>
+          <span className="font-bold text-slate-900 dark:text-white text-xs flex items-center gap-1">
+            <Building2 className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+            {row.original.siteName}
+          </span>
+          <span className="text-amber-700 dark:text-amber-400 font-semibold text-[11px] flex items-center gap-1 mt-0.5">
+            <MapPin className="w-3 h-3 shrink-0" />
+            {row.original.location}
+          </span>
+        </div>
       ),
     },
     {
       accessorKey: "occupancy",
       header: "Occupancy",
       cell: ({ row }) => (
-        <span className="text-slate-900 dark:text-slate-100 font-medium text-xs">
+        <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700">
           {row.original.occupancy}
         </span>
       ),
     },
     {
-      accessorKey: "dimensions",
-      header: "Dimensions (L×W×H)",
+      accessorKey: "lplClass",
+      header: "LPL Class",
       cell: ({ row }) => (
-        <span className="text-slate-700 dark:text-slate-300 font-mono text-xs">
-          {row.original.dimensions}
-        </span>
-      ),
-    },
-    {
-      accessorKey: "soilType",
-      header: "Soil Type",
-      cell: ({ row }) => (
-        <span className="text-slate-800 dark:text-slate-200 text-xs">
-          {row.original.soilType}
-        </span>
-      ),
-    },
-    {
-      accessorKey: "climateZone",
-      header: "Climate Zone",
-      cell: ({ row }) => (
-        <span className="text-slate-800 dark:text-slate-200 text-xs">
-          {row.original.climateZone}
-        </span>
-      ),
-    },
-    {
-      accessorKey: "avgResistance",
-      header: "Avg Resistance (R_avg)",
-      cell: ({ row }) => (
-        <span className="font-mono font-bold text-slate-900 dark:text-slate-100 text-xs">
-          {row.original.avgResistance}
+        <span className="inline-flex items-center gap-1 font-bold text-amber-600 dark:text-amber-400 text-xs font-mono px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30">
+          <ShieldAlert className="w-3 h-3" />
+          {row.original.lplClass}
         </span>
       ),
     },
@@ -113,30 +87,18 @@ export function getProjectColumns(): ColumnDef<ProjectRecord>[] {
       ),
     },
     {
-      accessorKey: "checklistScore",
-      header: "Checklist Score",
+      id: "actions",
+      header: "Action",
       cell: ({ row }) => (
-        <span className="font-mono text-xs text-slate-800 dark:text-slate-200">
-          {row.original.checklistScore}
-        </span>
-      ),
-    },
-    {
-      accessorKey: "lplClass",
-      header: "LPL Class",
-      cell: ({ row }) => (
-        <span className="font-bold text-amber-600 dark:text-amber-400 text-xs font-mono">
-          {row.original.lplClass}
-        </span>
-      ),
-    },
-    {
-      accessorKey: "riskR1",
-      header: "Lightning Risk (R1)",
-      cell: ({ row }) => (
-        <span className="font-mono text-sky-700 dark:text-sky-400 font-semibold text-xs">
-          {row.original.riskR1}
-        </span>
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => onViewDetails?.(row.original)}
+          className="h-8 px-3 text-xs font-bold bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-500/30 hover:border-amber-500/50 flex items-center gap-1.5 cursor-pointer"
+        >
+          <Eye className="w-3.5 h-3.5" />
+          <span>View Details</span>
+        </Button>
       ),
     },
   ];

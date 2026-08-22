@@ -174,7 +174,7 @@ export default function Header() {
             ))}
           </nav>
 
-            {/* Action Buttons: Theme Switcher & CTA */}
+          {/* Action Buttons: Theme Switcher & CTA */}
           <div className="hidden sm:flex items-center space-x-3">
             {/* Admin Portal Button */}
             <Link
@@ -212,13 +212,13 @@ export default function Header() {
 
             {pathname !== "/register" &&
               (isAuth ? (
-                <button
-                  onClick={handleLogout}
+                  <button
+                    onClick={handleLogout}
                   className="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs uppercase px-5 py-3 rounded-md shadow-sm transition-all transform hover:-translate-y-0.5 flex items-center tracking-wider gap-1.5 cursor-pointer"
-                >
-                  <LogOut className="w-4 h-4" />
+                  >
+                    <LogOut className="w-4 h-4" />
                   LOG OUT
-                </button>
+                  </button>
               ) : (
                 <Link
                   href="/register"
@@ -316,16 +316,16 @@ export default function Header() {
 
             {pathname !== "/register" &&
               (isAuth ? (
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    handleLogout();
-                  }}
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      handleLogout();
+                    }}
                   className="w-full flex items-center justify-center gap-2 bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm uppercase py-3 rounded-md shadow transition-colors cursor-pointer"
-                >
-                  <LogOut className="w-4 h-4" />
-                  <span>LOG OUT</span>
-                </button>
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>LOG OUT</span>
+                  </button>
               ) : (
                 <Link
                   href="/register"
