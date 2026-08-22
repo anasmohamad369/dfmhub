@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model ProjectRegistration {
+  id          String   @id @default(cuid())
+  fullName    String
+  phoneNumber String
+  email       String
+  companyName String
+  location    String?
+  requirement String?
+  source      String   @default("WEBSITE_CONTACT")
+  status      String   @default("NEW")
+  assignedTo  String?
+  remarks     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("project_registrations")
+}
+
+model ProjectDetail {
+  id               String   @id @default(cuid())
+  registrationId   String?  // Foreign link ID to ProjectRegistration
+  userFullName     String?  // Linked customer full name
+  userPhone        String?  // Linked customer phone
+  userEmail        String?  // Linked customer email
+  siteName         String
+  location         String
+  occupancy        String
+  dimensions       String
+  soilType         String
+  climateZone      String
+  avgResistance    String
+  targetResistance String
+  checklistScore   String
+  lplClass         String
+  riskR1           String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("project_details")
+}

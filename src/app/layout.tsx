@@ -163,6 +163,8 @@ const themeScript = `
   })();
 `;
 
+import QueryProvider from "@/components/QueryProvider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -182,12 +184,14 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200">
-        <ThemeProvider>
-          <Header />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-          <WhatsAppFloatingButton />
-        </ThemeProvider>
+        <QueryProvider>
+          <ThemeProvider>
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+            <WhatsAppFloatingButton />
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );

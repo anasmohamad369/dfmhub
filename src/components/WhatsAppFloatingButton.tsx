@@ -3,7 +3,15 @@
 import React from "react";
 import { MessageCircle } from "lucide-react";
 
+import { usePathname } from "next/navigation";
+
 export default function WhatsAppFloatingButton() {
+  const pathname = usePathname();
+
+  if (pathname === "/register" || pathname?.startsWith("/dashboard") || pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   const whatsappUrl =
     "https://wa.me/919483564777?text=" +
     encodeURIComponent("Hello DFMHUB Team, I would like to enquiry about Lightning Protection & Structural Earthing Systems.");

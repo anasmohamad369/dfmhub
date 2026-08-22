@@ -194,54 +194,107 @@ const cityRegistry: Record<string, CityData> = {
       "Sriperumbudur, Oragadam, Maraimalai Nagar, Ambattur, Guindy, Ennore, OMR",
     sectors:
       "Automotive manufacturing plants, port & petrochemical facilities, hardware manufacturing, data centers",
-    soil: "coastal saline clay and alluvial soil with variable dry-season resistivity (15-90 Ω·m)",
+    soil: "coastal plain with sandy deposits, clayey soils, alluvium and varying groundwater influence",
     storm:
       "35-50 thunderstorm days annually, concentrated during the northeast monsoon season",
+    desc: "DFMHUB provides ARK External Lightning Protection Systems in Chennai, covering free preliminary lightning risk assessment, IS/IEC 62305-based design, manufacturer-direct product supply, installation, testing and Consultant & statutory approval assistance.",
+    heroSubtext:
+      "ARK components are manufactured by DFMHUB and supplied for industrial plants, IT facilities, data centres, warehouses, commercial buildings, infrastructure and high-rise projects across Chennai and surrounding industrial regions.",
+    subofsub:
+      "Risk Assessment → Design → ARK Products → Installation → Testing",
+    climateRiskHeading:
+      "Lightning Protection for Chennai Conditions",
+    climateRiskPara1:
+      "Chennai's coastal location, high humidity, monsoon weather and salt-laden atmosphere create demanding conditions for exposed Lightning Protection System components.",
+    climateData: "DFMHUB evaluates:",
+    climateRiskPara2:
+      "Building Height | Roof Geometry | Coastal Exposure | Occupancy | Rooftop Equipment | Incoming Services | Surrounding Structures",
+    climateRiskPara3:
+      "These inputs are considered through an IS/IEC 62305-2 based Lightning Risk Assessment before developing the LPS design. Material compatibility and corrosion resistance are particularly important for Chennai projects.",
+    soilHeading: "Chennai Coastal & Ground Conditions",
+    soilPara1:
+      "Chennai is located on a coastal plain with ground conditions that can include sandy deposits, clayey soils, alluvium and varying groundwater influence.",
+    soilPara2:
+      "Earth-termination performance should therefore not be assumed from a standard electrode arrangement. Where required, site-specific soil resistivity testing can be considered to support the earth-termination design.",
+    soilPara3:
+      "For coastal and industrial environments, the selection of exposed LPS materials should also consider humidity, salt exposure, corrosion and compatibility between different metals.",
+    productsHeading: "ARK Products for Chennai Projects",
+    productsList: [
+      "Air Terminal Rods",
+      "8 mm Aluminium Conductors",
+      "Roof & Parapet Holders",
+      "Standing Seam Clamps",
+      "Metal Roof Clamps",
+      "Stainless Steel Connectors",
+      "Down Conductor Holders",
+      "Test Joints",
+      "Equipotential Bonding Bars",
+      "Lightning Flash Counters",
+    ],
+    productsNote:
+      "For Chennai projects, product selection particularly considers: Corrosion Resistance | Material Compatibility | Coastal Exposure | Roof Type | Mechanical Stability. Applicable products are supported with relevant technical documentation and IEC 62561 test evidence.",
+    riskAssessmentTitle: "Free Lightning Risk Assessment",
+    riskAssessmentText1:
+      "DFMHUB offers a Free Preliminary Lightning Risk Assessment in Chennai.",
+    riskAssessmentText2:
+      "Simply share your project location, building dimensions, height, building use and available drawings. Our engineering team evaluates the project based on IS/IEC 62305-2 principles and helps identify the appropriate next steps for LPS design.",
+    riskAssessmentSteps:
+      "Risk Assessment → Design → ARK Product Selection → Installation → Testing",
+    supportTitle:
+      " Design, Supply, Installation & Testing of Lightning Protection System by DFMHUB",
+    supportServices: [
+      "Free Lightning Risk Assessment",
+      "IS/IEC 62305-based LPS Design",
+      "ARK Product Supply",
+      "Installation & Testing",
+      "Consultant Approval Assistance",
+      "CIEG Approval Assistance",
+      "Test Reports & As-Built Documentation",
+    ],
+    supportLocationsText:
+      "DFMHUB supports Lightning Protection System requirements for projects across: Sriperumbudur, Oragadam, Maraimalai Nagar, Ambattur, Guindy, Ennore, OMR and surrounding Chennai industrial areas",
+    ctaText:
+      "Looking for a Lightning Protection System in Chennai? Start with a Free Lightning Risk Assessment by DFMHUB.",
+    metaTitle: "Lightning Protection System in Chennai – ARK Make by DFMHUB",
+    metaDescription:
+      "DFMHUB provides ARK External Lightning Protection Systems in Chennai. Free risk assessment, IS/IEC 62305-based design, product supply, installation & testing.",
+    keywords:
+      "Lightning Protection System in Chennai, Lightning Protection System Chennai, Lightning Protection System Manufacturer in Chennai, Lightning Protection System Supplier in Chennai, External Lightning Protection System Chennai, Lightning Protection System Design Chennai, Lightning Protection System Installation Chennai, Lightning Risk Assessment Chennai, IEC 62305 Lightning Protection, IEC 62561 LPS Components, ARK Lightning Protection System, Lightning Protection System for Data Centres Chennai, Industrial Lightning Protection Chennai, Lightning Protection Company Chennai",
     lpsFaqs: [
       {
-        question:
-          "Who is the leading lightning protection manufacturer in Chennai?",
+        question: "Who supplies ARK Lightning Protection Systems in Chennai?",
         answer:
-          "DFMHUB manufactures ARK Make systems and supplies automotive plants, data centres, and industrial facilities across Sriperumbudur, Oragadam, OMR, and Ambattur with complete IS/IEC 62305 compliance.",
+          "DFMHUB supplies ARK External Lightning Protection System components in Chennai with engineering support for risk assessment, design, installation and testing.",
       },
       {
-        question: "What does a lightning protection system cost in Chennai?",
+        question: "Is DFMHUB a Lightning Protection System manufacturer?",
         answer:
-          "Cost is determined by protection level (LPL I to IV) and marine-grade corrosion specs (tinned copper or SS 316). We offer itemized BOM proposals and free site surveys in Chennai.",
+          "Yes. DFMHUB manufactures ARK Lightning Protection System components in Bengaluru and provides manufacturer-direct supply and engineering support for Chennai projects.",
       },
       {
-        question:
-          "Is lightning protection mandatory for commercial buildings in Chennai?",
+        question: "Why is corrosion resistance important for Chennai LPS projects?",
         answer:
-          "Yes, NBC 2016 Part 8 and Tamil Nadu Electrical Inspectorate mandate compliant LPS and earth resistance certificates for building plan sanctions and fire NOCs.",
+          "Chennai's humid and coastal environment can accelerate corrosion of exposed metallic components. Appropriate material selection, compatible connections and corrosion-resistant components are therefore important.",
       },
       {
-        question:
-          "How does coastal humidity impact lightning protection design in Chennai?",
+        question: "Which standard is used for Lightning Protection System design?",
         answer:
-          "High salt spray requires tinned copper conductors or 316-grade stainless steel air terminals to prevent atmospheric corrosion over decades of exposure.",
+          "LPS design can be carried out with reference to IS/IEC 62305, including IEC 62305-2 for risk management and IEC 62305-3 for protection of structures.",
       },
       {
-        question: "What soil conditions affect earthing in Chennai?",
+        question: "Does DFMHUB provide a free Lightning Risk Assessment in Chennai?",
         answer:
-          "Coastal alluvial soil gives good conductivity, but tidal moisture variations require deep-driven copper bonded rods with sealed test chambers to maintain <1 Ω ground resistance.",
+          "Yes. Share the project location, dimensions, height, building use and available drawings for a preliminary engineering review.",
       },
       {
-        question:
-          "How long does installation take in Chennai industrial parks?",
+        question: "Does DFMHUB provide LPS installation in Chennai?",
         answer:
-          "Commercial towers take 5 to 10 days; large manufacturing facilities in Oragadam or Sriperumbudur take 2 to 4 weeks with zero plant downtime.",
+          "Yes. Support can include design, product supply, installation, inspection, continuity testing and handover documentation.",
       },
       {
-        question:
-          "Do you provide earth resistance testing and compliance certificates in Chennai?",
+        question: "Are ARK products suitable for coastal locations?",
         answer:
-          "Yes. Full fall-of-potential test reports, continuity certificates, as-built drawings, and IEC 62561 test evidence are delivered at handover for fire and insurance NOCs.",
-      },
-      {
-        question: "Which areas of Chennai are covered?",
-        answer:
-          "Whole Chennai region including Sriperumbudur, Oragadam, Ambattur, OMR, Guindy, Ennore, and Maraimalai Nagar.",
+          "Product suitability depends on the design, environmental exposure and material compatibility. ARK offers component options suitable for projects where corrosion resistance is an important consideration.",
       },
     ],
     earthingFaqs: [
@@ -268,51 +321,107 @@ const cityRegistry: Record<string, CityData> = {
       "HITEC City, Gachibowli, Genome Valley, Pashamylaram, Patancheru, Jeedimetla, Shamshabad",
     sectors:
       "Pharma & life sciences plants, data centres, IT campuses, defence research facilities",
-    soil: "hard granitic rock and rocky terrain with high dry-season resistivity (150-500 Ω·m)",
+    soil: "granite and granite-gneiss formations with red loamy soils and hard-rock ground conditions",
     storm:
       "40-55 thunderstorm days annually with severe lightning activity during monsoon onset",
+    desc: "DFMHUB provides ARK External Lightning Protection Systems in Hyderabad, including free preliminary lightning risk assessment, IS/IEC 62305-based engineering, manufacturer-direct product supply, installation, testing and documentation support.",
+    heroSubtext:
+      "Solutions are suitable for data centres, IT campuses, pharma facilities, industrial plants, warehouses, commercial buildings and high-rise developments across Hyderabad.",
+    subofsub:
+      "Risk Assessment → Design → ARK Products → Installation → Testing",
+    climateRiskHeading:
+      "Lightning Protection for Hyderabad Conditions",
+    climateRiskPara1:
+      "Hyderabad experiences seasonal thunderstorm and lightning activity, while its rapid growth has created large concentrations of data centres, IT buildings, pharmaceutical facilities and industrial projects containing sensitive electronic infrastructure.",
+    climateData: "DFMHUB evaluates:",
+    climateRiskPara2:
+      "Building Height | Roof Geometry | Occupancy | Critical Equipment | Incoming Services | Rooftop Installations | Surrounding Structures",
+    climateRiskPara3:
+      "The project is then reviewed using IS/IEC 62305-2 Lightning Risk Assessment principles before the LPS design is finalised.",
+    soilHeading: "Hyderabad Soil & Ground Conditions",
+    soilPara1:
+      "Hyderabad is widely characterised by granite and granite-gneiss formations with red loamy soils and hard-rock ground conditions.",
+    soilPara2:
+      "Ground characteristics can vary substantially across the metropolitan and industrial regions.",
+    soilPara3:
+      "For projects where earth-termination performance depends on the surrounding soil, site-specific soil resistivity testing should be considered rather than adopting a standard earth electrode arrangement.",
+    productsHeading: "ARK Products for Hyderabad Projects",
+    productsList: [
+      "Air Terminal Rods",
+      "8 mm Aluminium Conductors",
+      "Roof & Parapet Holders",
+      "Standing Seam Clamps",
+      "Metal Roof Clamps",
+      "Cross & Straight Connectors",
+      "Down Conductor Holders",
+      "Test Joints",
+      "Equipotential Bonding Bars",
+      "Lightning Flash Counters",
+    ],
+    productsNote:
+      "For Hyderabad projects, component selection can consider: Building Height | Rooftop Equipment | Data & Electronic Infrastructure | Roof Type | Environmental Exposure | Required Conductor Routing. Relevant products are supported by applicable IEC 62561 test evidence and technical documentation.",
+    riskAssessmentTitle: "Free Lightning Risk Assessment in Hyderabad",
+    riskAssessmentText1:
+      "DFMHUB offers a Free Preliminary Lightning Risk Assessment in Hyderabad.",
+    riskAssessmentText2:
+      "Share project location, building dimensions, height, building use, roof plan, and available drawings. Our engineering team can evaluate the project using IS/IEC 62305-2 principles and recommend the next steps for LPS design.",
+    riskAssessmentSteps:
+      "Risk Assessment → Design → ARK Product Selection → Installation → Testing",
+    supportTitle:
+      " Design, Supply, Installation & Testing of Lightning Protection System by DFMHUB",
+    supportServices: [
+      "Free Lightning Risk Assessment",
+      "IS/IEC 62305-based LPS Design",
+      "ARK Product Supply",
+      "Installation & Testing",
+      "Consultant Approval Assistance",
+      "CIEG Approval Assistance",
+      "Test Reports & As-Built Documentation",
+    ],
+    supportLocationsText:
+      "DFMHUB supports Lightning Protection System requirements for projects across: HITEC City, Gachibowli, Genome Valley, Pashamylaram, Patancheru, Jeedimetla, Shamshabad and surrounding Hyderabad industrial areas",
+    ctaText:
+      "Looking for a Lightning Protection System in Hyderabad? Start with a Free Lightning Risk Assessment by DFMHUB.",
+    metaTitle: "Lightning Protection System in Hyderabad – ARK Make by DFMHUB",
+    metaDescription:
+      "DFMHUB provides ARK External Lightning Protection Systems in Hyderabad. Free preliminary risk assessment, IS/IEC 62305 engineering, product supply, installation & testing.",
+    keywords:
+      "Lightning Protection System in Hyderabad, Lightning Protection System Hyderabad, Lightning Protection System Manufacturer in Hyderabad, Lightning Protection System Supplier in Hyderabad, External Lightning Protection System Hyderabad, Lightning Protection System Design Hyderabad, Lightning Protection System Installation Hyderabad, Lightning Risk Assessment Hyderabad, IEC 62305 Lightning Protection, IEC 62561 LPS Components, ARK Lightning Protection System, Lightning Protection System for Data Centres Hyderabad, Industrial Lightning Protection Hyderabad, Lightning Protection Company Hyderabad",
     lpsFaqs: [
       {
-        question:
-          "Who is the best lightning protection system manufacturer in Hyderabad?",
+        question: "Who supplies ARK Lightning Protection Systems in Hyderabad?",
         answer:
-          "DFMHUB manufactures ARK Make systems and supplies pharma units, data centres, and IT campuses across HITEC City, Gachibowli, Genome Valley, and Patancheru with turnkey engineering.",
+          "DFMHUB supplies ARK External Lightning Protection System components in Hyderabad and supports projects with risk assessment, design, installation and testing.",
       },
       {
-        question: "What is the cost of lightning protection in Hyderabad?",
+        question: "Is DFMHUB a Lightning Protection System manufacturer?",
         answer:
-          "Cost depends on protection level (LPL I for pharma & data centres). DFMHUB provides free site surveys and itemized BOM quotes across Hyderabad.",
+          "Yes. DFMHUB manufactures ARK LPS components in Bengaluru and provides manufacturer-direct product supply and engineering support for Hyderabad projects.",
       },
       {
-        question:
-          "Is LPS compliance required for pharma plants and data centres in Hyderabad?",
+        question: "What ground conditions are common in Hyderabad?",
         answer:
-          "Yes, Telangana Fire & Electrical Inspectorate NOCs and USFDA/GMP audits for pharma plants require certified IS/IEC 62305 lightning protection.",
+          "Hyderabad is largely associated with granite, granite-gneiss and hard-rock geology, with red loamy soils in many locations. Site conditions should still be verified before finalising an earth-termination design.",
       },
       {
-        question: "How does Hyderabad's rocky ground impact earthing design?",
+        question: "Is Lightning Protection important for Hyderabad data centres?",
         answer:
-          "Hard granitic rock requires deep-bore chemical earth electrodes and bentonite enhancement compounds to reach low target resistance.",
+          "Data centres and IT facilities require project-specific lightning risk evaluation because they contain critical electronic systems, incoming services and rooftop equipment that can affect the overall protection strategy.",
       },
       {
-        question: "What is the storm risk profile in Hyderabad?",
+        question: "Does DFMHUB provide a free Lightning Risk Assessment?",
         answer:
-          "40-55 thunderstorm days per year with intense ground flash density, pushing high-value facilities to LPL I or II rolling sphere mesh protection.",
+          "Yes. Share the location, building dimensions, height, building use and available drawings for a preliminary assessment.",
       },
       {
-        question: "How long does LPS installation take in Hyderabad?",
+        question: "Which standard is used for LPS design?",
         answer:
-          "5 to 12 days for commercial towers in HITEC City; 2 to 4 weeks for pharma complexes in Genome Valley or Patancheru.",
+          "Lightning Protection System engineering can be carried out with reference to IS/IEC 62305, including IEC 62305-2 for risk assessment.",
       },
       {
-        question: "Do you issue test certificates for Hyderabad installations?",
+        question: "Does DFMHUB provide installation and testing in Hyderabad?",
         answer:
-          "Yes, fall-of-potential earth resistance test readings, continuity logs, as-builts, and IEC 62561 certificates are included in the handover pack.",
-      },
-      {
-        question: "Which areas in Hyderabad do you serve?",
-        answer:
-          "Entire Hyderabad metropolitan area including HITEC City, Gachibowli, Genome Valley, Patancheru, Shamshabad, and Jeedimetla.",
+          "Yes. Support can include installation, inspection, continuity testing, test-joint checks, quality checks and handover documentation.",
       },
     ],
     earthingFaqs: [
@@ -338,52 +447,107 @@ const cityRegistry: Record<string, CityData> = {
       "Pimpri-Chinchwad (PCMC), Chakan, Talegaon, Ranjangaon, Hinjawadi, Hadapsar, Bhosari",
     sectors:
       "Automotive & EV plants, engineering MIDC units, IT parks, heavy machinery plants",
-    soil: "black cotton soil and basalt rock with seasonal shrinking and high dry resistivity (100-350 Ω·m)",
+    soil: "Deccan basalt and hard-rock geology, with varying soil depth and ground characteristics",
     storm: "50-65 thunderstorm days per year with intense pre-monsoon strikes",
+    desc: "DFMHUB provides ARK External Lightning Protection Systems in Pune, supporting projects through free preliminary lightning risk assessment, IS/IEC 62305-based design, manufacturer-direct product supply, installation, testing and project documentation.",
+    heroSubtext:
+      "We support automotive plants, manufacturing facilities, warehouses, IT campuses, data centres, commercial buildings and industrial projects across Pune and surrounding industrial corridors.",
+    subofsub:
+      "Risk Assessment → Design → ARK Products → Installation → Testing",
+    climateRiskHeading: "Lightning Protection for Pune Conditions",
+    climateRiskPara1:
+      "Pune combines seasonal thunderstorms, monsoon rainfall, expanding industrial development and large numbers of metal-roofed manufacturing and warehouse structures. A Lightning Protection System should therefore be engineered for the specific building rather than selected as a standard arrangement.",
+    climateData: "DFMHUB considers:",
+    climateRiskPara2:
+      "Building Height | Roof Geometry | Structural Type | Occupancy | Rooftop Equipment | Incoming Services | Surrounding Structures",
+    climateRiskPara3:
+      "These inputs are evaluated using IS/IEC 62305-2 risk assessment principles.",
+    soilHeading: "Pune Soil & Ground Conditions",
+    soilPara1:
+      "Pune and the surrounding region are strongly influenced by Deccan basalt and hard-rock geology, with soil depth and ground characteristics varying significantly between locations.",
+    soilPara2:
+      "Dry-season conditions can also affect earth-termination performance.",
+    soilPara3:
+      "Where required, soil resistivity testing should therefore be carried out before finalising the earth-termination design rather than assuming a standard electrode configuration.",
+    productsHeading: "ARK Products for Pune Projects",
+    productsList: [
+      "Air Terminal Rods",
+      "8 mm Aluminium Conductors",
+      "Parapet Holders",
+      "Flat Roof Holders",
+      "Standing Seam Clamps",
+      "Metal Roof Clamps",
+      "Cross Connectors",
+      "Straight Connectors",
+      "Down Conductor Holders",
+      "Test Joints",
+      "Equipotential Bonding Bars",
+      "Lightning Flash Counters",
+    ],
+    productsNote:
+      "For Pune's industrial and warehouse projects, product selection can consider: Metal Roof Type | Standing Seams | PEB Construction | Conductor Routing | Mechanical Stability | Outdoor Exposure. Applicable products are supported with relevant IEC 62561 test evidence and technical documentation.",
+    riskAssessmentTitle: "Free Lightning Risk Assessment in Pune",
+    riskAssessmentText1:
+      "DFMHUB offers a Free Preliminary Lightning Risk Assessment in Pune.",
+    riskAssessmentText2:
+      "Share project location, building dimensions, height, building use, roof type, and available architectural/electrical drawings. Our engineering team can evaluate the inputs using IS/IEC 62305-2 principles and recommend the appropriate next steps.",
+    riskAssessmentSteps:
+      "Risk Assessment → Design → ARK Product Selection → Installation → Testing",
+    supportTitle:
+      " Design, Supply, Installation & Testing of Lightning Protection System by DFMHUB",
+    supportServices: [
+      "Free Lightning Risk Assessment",
+      "IS/IEC 62305-based LPS Design",
+      "ARK Product Supply",
+      "Installation & Testing",
+      "Consultant Approval Assistance",
+      "CIEG Approval Assistance",
+      "Test Reports & As-Built Documentation",
+    ],
+    supportLocationsText:
+      "DFMHUB supports Lightning Protection System requirements for projects across: Pimpri-Chinchwad (PCMC), Chakan, Talegaon, Ranjangaon, Hinjawadi, Hadapsar, Bhosari and surrounding Pune industrial areas",
+    ctaText:
+      "Looking for a Lightning Protection System in Pune? Start with a Free Lightning Risk Assessment by DFMHUB.",
+    metaTitle: "Lightning Protection System in Pune – ARK Make by DFMHUB",
+    metaDescription:
+      "DFMHUB provides ARK External Lightning Protection Systems in Pune. Free preliminary risk assessment, IS/IEC 62305 design, product supply, installation & testing.",
+    keywords:
+      "Lightning Protection System in Pune, Lightning Protection System Pune, Lightning Protection System Manufacturer in Pune, Lightning Protection System Supplier in Pune, External Lightning Protection System Pune, Lightning Protection System Design Pune, Lightning Protection System Installation Pune, Lightning Risk Assessment Pune, IEC 62305 Lightning Protection, IEC 62561 LPS Components, ARK Lightning Protection System, Lightning Protection System for Data Centres Pune, Industrial Lightning Protection Pune, Lightning Protection Company Pune",
     lpsFaqs: [
       {
-        question:
-          "Who manufactures and installs lightning protection systems in Pune?",
+        question: "Who supplies Lightning Protection Systems in Pune?",
         answer:
-          "DFMHUB manufactures ARK Make systems and delivers turnkey design, installation, and testing across PCMC, Chakan, Ranjangaon, and Hinjawadi.",
+          "DFMHUB supplies ARK External Lightning Protection System components in Pune and provides risk assessment, design, installation and testing support.",
       },
       {
-        question:
-          "What does lightning protection cost for MIDC factories in Pune?",
+        question: "Is DFMHUB a manufacturer or trader?",
         answer:
-          "Pricing is based on structure height, roof area, and required LPL rating. Free site surveys and itemized BOMs are provided for all Pune MIDC projects.",
+          "DFMHUB manufactures ARK Lightning Protection System components and provides manufacturer-direct supply for Pune projects.",
       },
       {
-        question: "Is lightning protection mandatory for factories in Pune?",
+        question: "Does Pune's hard-rock geology affect earthing?",
         answer:
-          "Yes, MIDC building bylaws, DISH factory inspectorate rules, and NBC 2016 Part 8 require compliant LPS with annual inspection certificates.",
+          "Ground conditions can affect earth-termination performance. Pune and surrounding areas include significant basaltic hard-rock formations, so site-specific soil resistivity testing may be required.",
       },
       {
-        question: "How does black cotton soil in Pune affect earthing?",
+        question: "Can ARK LPS be used for PEB and industrial buildings?",
         answer:
-          "Black cotton soil shrinks in summer, causing standard pits to dry out. We install deep-driven copper bonded rods with chemical enhancement compound to maintain stable resistance.",
+          "Yes. ARK includes conductor holders, standing seam clamps, metal roof clamps, connectors and other components suitable for LPS designs on many industrial and PEB structures.",
       },
       {
-        question: "What is Pune's lightning exposure level?",
+        question: "Does DFMHUB provide a free Lightning Risk Assessment in Pune?",
         answer:
-          "50-65 thunderstorm days per year, requiring LPL I or II rolling sphere mesh protection for automotive and electronics manufacturing.",
+          "Yes. Share basic building dimensions, location, height, building use, roof information and available drawings for preliminary review.",
       },
       {
-        question:
-          "What is the installation timeline for Pune industrial units?",
+        question: "Which standard is used for LPS design?",
         answer:
-          "5 to 10 days for IT parks in Hinjawadi; 2 to 4 weeks for large automotive plants in Chakan or Ranjangaon.",
+          "Design can be carried out with reference to IS/IEC 62305, including risk assessment and external Lightning Protection System requirements.",
       },
       {
-        question:
-          "Do you provide test documentation for MIDC & Fire NOCs in Pune?",
+        question: "Does DFMHUB provide installation and testing?",
         answer:
-          "Yes, full fall-of-potential test reports, continuity logs, as-built drawings, and IEC 62561 material test certificates.",
-      },
-      {
-        question: "Which industrial zones in Pune are covered?",
-        answer:
-          "All Pune MIDC zones: Chakan, Talegaon, Ranjangaon, Bhosari, PCMC, Hinjawadi, Hadapsar, and Pirangut.",
+          "Yes. Support can cover installation, continuity testing, test-joint inspection, quality checks and handover documentation.",
       },
     ],
     earthingFaqs: [

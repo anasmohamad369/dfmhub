@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Phone,
   Mail,
@@ -13,13 +13,40 @@ import {
   ChevronRight,
   Sun,
   Moon,
+  UserCheck,
+  LogOut,
 } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isAuth, setIsAuth] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const { theme, toggleTheme } = useTheme();
+
+  useEffect(() => {
+    const checkAuth = () => {
+      if (typeof window !== "undefined") {
+        setIsAuth(localStorage.getItem("isAuthenticated") === "true");
+      }
+    };
+    checkAuth();
+    window.addEventListener("storage", checkAuth);
+    return () => window.removeEventListener("storage", checkAuth);
+  }, [pathname]);
+
+  if (pathname?.startsWith("/dashboard") || pathname?.startsWith("/admin")) {
+    return null;
+  }
+
+  const handleLogout = () => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("isAuthenticated", "false");
+      setIsAuth(false);
+    }
+    router.push("/register");
+  };
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -147,8 +174,18 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Action Buttons: Theme Switcher & CTA */}
+            {/* Action Buttons: Theme Switcher & CTA */}
           <div className="hidden sm:flex items-center space-x-3">
+            {/* Admin Portal Button */}
+            <Link
+              href="/admin/login"
+              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex items-center gap-1.5 text-xs font-bold"
+              title="Admin Portal Login"
+            >
+              <Shield className="w-4 h-4 text-amber-500" />
+              <span className="hidden md:inline">Admin</span>
+            </Link>
+
             {/* Theme Switcher Button */}
             <button
               onClick={toggleTheme}
@@ -173,13 +210,24 @@ export default function Header() {
               )}
             </button>
 
-            <Link
-              href="/contact-us"
-              className="bg-[#d97706] hover:bg-[#b45309] text-white font-bold text-xs uppercase px-5 py-3 rounded-md shadow-sm transition-all transform hover:-translate-y-0.5 flex items-center tracking-wider"
-            >
-              GET A QUOTE
-              <ChevronRight className="w-4 h-4 ml-1" />
-            </Link>
+            {pathname !== "/register" &&
+              (isAuth ? (
+                <button
+                  onClick={handleLogout}
+                  className="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs uppercase px-5 py-3 rounded-md shadow-sm transition-all transform hover:-translate-y-0.5 flex items-center tracking-wider gap-1.5 cursor-pointer"
+                >
+                  <LogOut className="w-4 h-4" />
+                  LOG OUT
+                </button>
+              ) : (
+                <Link
+                  href="/register"
+                  className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs uppercase px-5 py-3 rounded-md shadow-sm transition-all transform hover:-translate-y-0.5 flex items-center tracking-wider gap-1.5"
+                >
+                  <UserCheck className="w-4 h-4" />
+                  REGISTER
+                </Link>
+              ))}
           </div>
 
           {/* Mobile buttons: Theme Switcher & Mobile menu */}
@@ -266,16 +314,32 @@ export default function Header() {
               )}
             </button>
 
-            <Link
-              href="/contact-us"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-center bg-[#d97706] hover:bg-[#b45309] text-white font-bold text-sm uppercase py-3 rounded-md shadow transition-colors"
-            >
-              GET A QUOTE
-            </Link>
+            {pathname !== "/register" &&
+              (isAuth ? (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    handleLogout();
+                  }}
+                  className="w-full flex items-center justify-center gap-2 bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm uppercase py-3 rounded-md shadow transition-colors cursor-pointer"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>LOG OUT</span>
+                </button>
+              ) : (
+                <Link
+                  href="/register"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm uppercase py-3 rounded-md shadow transition-colors"
+                >
+                  <UserCheck className="w-4 h-4" />
+                  <span>REGISTER</span>
+                </Link>
+              ))}
           </div>
         </div>
       )}
     </header>
   );
 }
+

@@ -1,8 +1,17 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Zap, Phone, Mail, MapPin, Clock, ShieldCheck } from "lucide-react";
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  if (pathname === "/register" || pathname?.startsWith("/dashboard") || pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <footer className="bg-[#0b1329] dark:bg-slate-950 text-slate-300 border-t border-slate-800 dark:border-slate-900 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
@@ -179,13 +188,16 @@ export default function Footer() {
             © {new Date().getFullYear()} DFMHUB Engineering. All rights reserved.
           </div>
           <div className="flex flex-wrap items-center justify-center gap-3 text-[11px] font-medium text-slate-400">
+            <Link href="/admin/login" className="text-slate-400 hover:text-amber-400 transition-colors font-semibold flex items-center gap-1">
+              <ShieldCheck className="w-3 h-3 text-amber-500" />
+              <span>Admin Portal</span>
+            </Link>
+            <span>·</span>
             <span className="bg-slate-800/80 px-2.5 py-1 rounded text-amber-400 border border-slate-700">ARK Make</span>
             <span>·</span>
             <span>IS/IEC 62305</span>
             <span>·</span>
             <span>IS 3043</span>
-            <span>·</span>
-            <span>IEC 62561</span>
           </div>
         </div>
       </div>

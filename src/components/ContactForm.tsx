@@ -15,8 +15,44 @@ export default function ContactForm() {
     details: "",
   });
 
-  const handleWhatsAppSend = (e: React.FormEvent) => {
+  const handleWhatsAppSend = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    try {
+      if (typeof window !== "undefined") {
+        localStorage.setItem(
+          "dfm_user_info",
+          JSON.stringify({
+            fullName: formData.fullName,
+            phone: formData.phone,
+            email: formData.email,
+            company: formData.company,
+            location: formData.city,
+          })
+        );
+      }
+    } catch (err) {}
+
+    // Strategy 1: Save Lead to Database
+    try {
+      await fetch("/api/registrations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          companyName: formData.company || "Individual Enquiry",
+          phoneNumber: formData.phone,
+          email: formData.email,
+          location: formData.city,
+          requirement: formData.requirement,
+          source: "WEBSITE_CONTACT",
+          status: "NEW",
+          remarks: formData.details,
+        }),
+      });
+    } catch (err) {
+      console.warn("Background lead save warning:", err);
+    }
 
     const text = `*New DFMHUB Project Consultation Enquiry* ⚡
 

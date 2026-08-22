@@ -1,554 +1,564 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
+import {
+  useReactTable,
+  getCoreRowModel,
+  getPaginationRowModel,
+  flexRender,
+  Table as ReactTableInstance,
+} from "@tanstack/react-table";
+import {
+  Users,
+  RefreshCw,
+  Search,
+  Sun,
+  Moon,
+  FolderCheck,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+  LogOut,
+  ShieldCheck,
+  Globe,
+} from "lucide-react";
+import { useTheme } from "@/components/ThemeProvider";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Select, SelectOption } from "@/components/ui/select";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+} from "@/components/ui/table";
+import {
+  useRegistrationsQuery,
+  useProjectsQuery,
+  useUpdateRegistrationMutation,
+} from "@/hooks/useAdminQueries";
+import { getRegistrationColumns } from "@/modules/dashboard/columns/registrationColumns";
+import { getProjectColumns } from "@/modules/dashboard/columns/projectColumns";
+import AdminLoginScreen from "@/modules/dashboard/components/AdminLoginScreen";
 
-/* ---------------- reference data ---------------- */
-const soilTypes = [
-  { name: "Marshy / wet organic soil", low: 5, high: 50, corrosion: "Low–Moderate", note: "Excellent conductivity. Watch for organic-acid corrosion on ferrous electrodes." },
-  { name: "Clay (moist)", low: 50, high: 100, corrosion: "Moderate", note: "Good, stable conductivity if moisture is retained year-round." },
-  { name: "Clay & loam mix", low: 100, high: 200, corrosion: "Moderate", note: "Reliable general-purpose soil for standard rod electrodes." },
-  { name: "Black cotton soil", low: 100, high: 250, corrosion: "High (expansive/saline pockets)", note: "Seasonal shrink–swell can loosen electrode contact — re-torque connections annually." },
-  { name: "Sandy clay", low: 150, high: 300, corrosion: "Moderate", note: "Resistivity rises sharply on drying; a chemical backfill compound helps." },
-  { name: "Wet sand / gravel", low: 200, high: 500, corrosion: "Low", note: "Conductivity is highly dependent on residual moisture content." },
-  { name: "Dry sand", low: 500, high: 2500, corrosion: "Low", note: "Poor conductor. Use deep-driven or multiple electrodes with conductive backfill." },
-  { name: "Gravel / stony soil", low: 1000, high: 3000, corrosion: "Low", note: "Difficult driving conditions — plate or mat electrodes are usually preferred." },
-  { name: "Rock / hard rock", low: 3000, high: 10000, corrosion: "Very low", note: "Requires a surface earth mat with chemical backfill, or blasted electrode pits." },
-];
-
-const climateZones = [
-  { name: "Tropical monsoon (high rainfall)", factor: 0.7, corrosion: "Moderate", note: "Resistivity drops in the monsoon and rises markedly in the dry season — audit both seasons." },
-  { name: "Humid subtropical", factor: 0.9, corrosion: "Moderate", note: "Moderate, fairly stable seasonal variation." },
-  { name: "Temperate", factor: 1.2, corrosion: "Moderate", note: "Moderate seasonal swing; frost can affect shallow electrodes in winter." },
-  { name: "Arid / desert", factor: 1.8, corrosion: "Low (unless saline)", note: "High and unstable resistivity — drive electrodes below the residual moisture table." },
-  { name: "Coastal / saline", factor: 0.6, corrosion: "High (chloride)", note: "Low resistivity but accelerated galvanic corrosion — inspect connections yearly." },
-  { name: "Cold / alpine (frost-prone)", factor: 2.5, corrosion: "Low", note: "Frozen top layer spikes resistivity in winter — drive electrodes below the frost line." },
-  { name: "Semi-arid", factor: 1.4, corrosion: "Low–Moderate", note: "Notable dry-season rise; consider chemical (GEM) earthing." },
-];
-
-const occupancyTypes = [
-  { name: "Residential", target: 5, lb: 0.5 },
-  { name: "Commercial / office", target: 5, lb: 0.6 },
-  { name: "Industrial / factory", target: 2, lb: 1.0 },
-  { name: "Hospital / critical care", target: 1, lb: 2.0 },
-  { name: "Data center / telecom", target: 1, lb: 1.2 },
-  { name: "School / educational", target: 2, lb: 1.4 },
-  { name: "Public assembly (stadium, hall)", target: 2, lb: 1.6 },
-  { name: "Fuel / chemical storage", target: 1, lb: 3.0 },
-  { name: "Substation / utility yard", target: 0.5, lb: 1.0 },
-];
-
-const checklistItems = [
-  "Earth pit inspection cover intact and accessible",
-  "No visible corrosion on electrode or strip at test point",
-  "All connections bolted / clamped — not twisted or taped",
-  "Bonding conductor continuity verified with a continuity tester",
-  "Minimum spacing between electrodes ≥ 2× electrode length maintained",
-  "Test link / disconnecting joint provided and accessible for periodic testing",
-  "Moisture-maintenance arrangement present (conventional pipe earthing)",
-  "Electrical, LPS and electronic earths bonded at a single reference point",
-  "Earth conductor route protected from mechanical damage",
-  "Signage / identification label present at the earth pit",
-];
-
-const pbByLps = { none: 1, "4": 0.2, "3": 0.1, "2": 0.05, "1": 0.02 };
-
-const STEPS = [
-  { id: "site", label: "Site & Climate", num: "01" },
-  { id: "earth", label: "Earthing Audit", num: "02" },
-  { id: "strike", label: "Lightning Risk", num: "03" },
-  { id: "report", label: "Report", num: "04" },
-];
-
-/* ---------------- helpers ---------------- */
-const fmt = (n: number, d = 2) =>
-  isFinite(n) ? n.toLocaleString(undefined, { maximumFractionDigits: d, minimumFractionDigits: 0 }) : "—";
-const clampPct = (p: number) => Math.max(0, Math.min(100, p));
-
-function statusWord(s: string) {
-  return ({ pass: "Compliant", marginal: "Marginal — action required", fail: "Non-compliant — immediate action required" } as Record<string, string>)[s] || "—";
-}
-
-/* ---------------- component ---------------- */
-export default function EarthLineApp() {
-  const [tab, setTab] = useState("site");
-
-  const [siteName, setSiteName] = useState("");
-  const [siteLoc, setSiteLoc] = useState("");
-  const [occIdx, setOccIdx] = useState(0);
-  const [dimL, setDimL] = useState<number | string>(30);
-  const [dimW, setDimW] = useState<number | string>(20);
-  const [dimH, setDimH] = useState<number | string>(10);
-  const [cd, setCd] = useState<number | string>(0.5);
-  const [soilIdx, setSoilIdx] = useState(0);
-  const [climateIdx, setClimateIdx] = useState(0);
-  const [ngMode, setNgMode] = useState("direct");
-  const [ngDirect, setNgDirect] = useState<number | string>(5);
-  const [ngTd, setNgTd] = useState<number | string>(40);
-  const [lpsClass, setLpsClass] = useState("none");
-
-  const [electrodeType, setElectrodeType] = useState("Pipe / rod electrode");
-  const [electrodeCount, setElectrodeCount] = useState<number | string>(4);
-  const [r1, setR1] = useState("");
-  const [r2, setR2] = useState("");
-  const [r3, setR3] = useState("");
-  const [checks, setChecks] = useState(Array(checklistItems.length).fill(false));
-
-  const toggleCheck = (i: number) => setChecks((c) => c.map((v, idx) => (idx === i ? !v : v)));
-
-  /* -------- derived calculations (pure, recomputed each render) -------- */
-  const data = useMemo(() => {
-    const occ = occupancyTypes[occIdx];
-    const soil = soilTypes[soilIdx];
-    const climate = climateZones[climateIdx];
-    const L = typeof dimL === 'string' ? parseFloat(dimL) || 0 : dimL;
-    const W = typeof dimW === 'string' ? parseFloat(dimW) || 0 : dimW;
-    const H = typeof dimH === 'string' ? parseFloat(dimH) || 0 : dimH;
-    const Cd = typeof cd === 'string' ? parseFloat(cd) : cd;
-    const Ng = ngMode === "direct" ? (typeof ngDirect === 'string' ? parseFloat(ngDirect) || 0 : ngDirect) : ((typeof ngTd === 'string' ? parseFloat(ngTd) || 0 : ngTd) * 0.1);
-
-    // earthing
-    const readings = [r1, r2, r3].map((v) => parseFloat(v)).filter((v) => !isNaN(v));
-    const rAvg = readings.length ? readings.reduce((a, b) => a + b, 0) / readings.length : null;
-    const target = occ.target;
-    const marginalMax = target * 1.5;
-    const scaleMax = Math.max(marginalMax * 1.8, rAvg || 0, 1);
-
-    let rStatus = "nodata";
-    if (rAvg !== null) {
-      if (rAvg <= target) rStatus = "pass";
-      else if (rAvg <= marginalMax) rStatus = "marginal";
-      else rStatus = "fail";
-    }
-    const needlePct = rAvg !== null ? clampPct((rAvg / scaleMax) * 100) : 0;
-
-    const checklistPct = (checks.filter(Boolean).length / checklistItems.length) * 100;
-
-    let earthOverall = "fail";
-    if (rStatus === "pass" && checklistPct >= 80) earthOverall = "pass";
-    else if (rStatus !== "fail" && checklistPct >= 50) earthOverall = "marginal";
-
-    // lightning
-    const Ad = L * W + 2 * 3 * H * (L + W) + Math.PI * Math.pow(3 * H, 2);
-    const Nd = Ng * Ad * Cd * 1e-6;
-    const Pb = pbByLps[lpsClass as keyof typeof pbByLps] || 1;
-    const LbBase = 0.01 * occ.lb;
-    const R1 = Nd * Pb * LbBase;
-    const RT = 1e-5;
-    const ratio = RT > 0 ? R1 / RT : 0;
-    const riskNeedlePct = clampPct((ratio / 10) * 100);
-
-    let lightningOverall, lplText, effText;
-    if (R1 <= RT) {
-      lightningOverall = "pass";
-      effText = "0 (not required)";
-      lplText = "No mandatory LPS — basic bonding & SPDs still advised";
-    } else {
-      const E = 1 - RT / R1;
-      effText = E.toFixed(3);
-      let lpl;
-      if (E >= 0.98) lpl = "Class I (highest protection)";
-      else if (E >= 0.95) lpl = "Class II";
-      else if (E >= 0.9) lpl = "Class III";
-      else lpl = "Class IV (minimum)";
-      lplText = lpl;
-      lightningOverall = ratio > 3 ? "fail" : "marginal";
-    }
-
-    return {
-      occ, soil, climate, L, W, H, Cd, Ng,
-      rAvg, target, scaleMax, rStatus, needlePct,
-      checklistPct, earthOverall,
-      Ad, Nd, R1, RT, ratio, riskNeedlePct, lightningOverall, lplText, effText,
-    };
-  }, [occIdx, soilIdx, climateIdx, dimL, dimW, dimH, cd, ngMode, ngDirect, ngTd, lpsClass, r1, r2, r3, checks]);
-
-  const recs = useMemo(() => {
-    const d = data;
-    const list = [];
-    if (d.rAvg === null) list.push({ t: "Take at least one fall-of-potential earth resistance reading before finalizing this audit.", c: "crit" });
-    else if (d.earthOverall === "fail") list.push({ t: `Measured resistance (${fmt(d.rAvg, 2)}Ω) exceeds the target for ${d.occ.name.toLowerCase()} occupancy (${fmt(d.target, 1)}Ω). Add electrodes, deepen existing rods, or apply a chemical backfill compound.`, c: "crit" });
-    else if (d.earthOverall === "marginal") list.push({ t: `Resistance is above target but within a marginal band. Re-test at end of dry season given the site's ${d.climate.name.toLowerCase()} climate.`, c: "" });
-    else list.push({ t: "Measured earth resistance meets the target for this occupancy type.", c: "ok" });
-
-    if (d.checklistPct < 80) list.push({ t: `Only ${fmt(d.checklistPct, 0)}% of physical inspection items pass. Review unchecked items in Step 02 and close out before sign-off.`, c: d.checklistPct < 50 ? "crit" : "" });
-
-    if (d.climate.factor >= 1.4) list.push({ t: `${d.climate.name} conditions can raise soil resistivity substantially in the dry season (×${d.climate.factor} vs. wet-season baseline) — verify readings across both seasons.`, c: "" });
-    if (d.soil.corrosion.toLowerCase().includes("high")) list.push({ t: `${d.soil.name} carries a high corrosion risk (${d.soil.corrosion}). Inspect electrode connections and cathodic protection annually.`, c: "" });
-
-    if (d.lightningOverall === "fail") list.push({ t: `Lightning risk R1 is ${fmt(d.ratio, 1)}× the tolerable limit. A certified LPS design (${d.lplText}) with surge protective devices is strongly recommended.`, c: "crit" });
-    else if (d.lightningOverall === "marginal") list.push({ t: `Lightning risk exceeds the tolerable threshold. Install or upgrade the LPS to ${d.lplText.toLowerCase()} and add coordinated surge protection.`, c: "" });
-    else list.push({ t: "Structure lightning risk is within the tolerable limit for the assumptions entered. Maintain existing bonding and SPD provisions.", c: "ok" });
-
-    list.push({ t: "This tool provides a preliminary, simplified screening only. Final earthing and lightning protection system design must be certified by a qualified engineer against the applicable local standard (e.g. IEC 62305, IS 3043 / IS 2309, NFPA 780).", c: "" });
-    return list;
-  }, [data]);
-
-  /* ---------------- styles ---------------- */
-  const css = `
-  .el-root{ --bg:#12151a; --panel:#1b2028; --panel-2:#222833; --line:#2e3540; --text:#eae7e0; --muted:#8b93a3;
-    --amber:#f0a83a; --amber-soft:rgba(240,168,58,0.14); --cyan:#4fc3d9; --green:#4fbd85; --green-soft:rgba(79,189,133,0.14);
-    --red:#e2555a; --red-soft:rgba(226,85,90,0.14);
-    background:var(--bg); color:var(--text); font-family:'IBM Plex Sans',sans-serif; font-size:14.5px; line-height:1.5;
-    display:flex; min-height:100vh; }
-  .el-root *{box-sizing:border-box;}
-  .el-mono{font-family:'IBM Plex Mono',monospace;}
-  #el-sidebar{ width:230px; flex-shrink:0; background:linear-gradient(180deg,#161a20,#12151a); border-right:1px solid var(--line);
-    padding:22px 0; display:flex; flex-direction:column; }
-  .el-brand{ padding:0 20px 18px 20px; border-bottom:1px solid var(--line); margin-bottom:10px; }
-  .el-brand .eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.14em; color:var(--amber); text-transform:uppercase; }
-  .el-brand h1{ font-family:'Space Grotesk',sans-serif; font-size:19px; margin:6px 0 4px 0; font-weight:700; letter-spacing:-.01em; }
-  .el-brand p{ margin:0; font-size:11.5px; color:var(--muted); line-height:1.4; }
-  .el-steps{display:flex;flex-direction:column;padding:8px 10px;gap:2px;}
-  .el-step-btn{ display:flex; align-items:center; gap:12px; background:transparent; border:none; color:var(--muted);
-    text-align:left; padding:11px 12px; border-radius:8px; cursor:pointer; font-family:'IBM Plex Sans',sans-serif; font-size:13.5px; }
-  .el-step-btn:hover{background:var(--panel-2);color:var(--text);}
-  .el-step-btn.active{background:var(--amber-soft);color:var(--amber);}
-  .el-step-num{ font-family:'IBM Plex Mono',monospace; font-size:11px; width:22px;height:22px; border-radius:50%;
-    border:1px solid currentColor; display:flex;align-items:center;justify-content:center; flex-shrink:0; opacity:.85; }
-  .el-sidebar-foot{ margin-top:auto; padding:14px 20px 4px 20px; border-top:1px solid var(--line); font-size:10.5px; color:var(--muted); }
-  .el-main{flex:1;min-width:0;padding:34px 40px 80px 40px;max-width:980px;}
-  .el-panel-head{margin-bottom:22px;}
-  .el-panel-head .eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.14em; color:var(--cyan); text-transform:uppercase; }
-  .el-panel-head h2{ font-family:'Space Grotesk',sans-serif; font-size:26px; margin:6px 0 6px 0; font-weight:700; }
-  .el-panel-head p{color:var(--muted);max-width:640px;margin:0;}
-  .el-card{ background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px 22px; margin-bottom:18px; }
-  .el-card h3{ font-family:'Space Grotesk',sans-serif; font-size:15px; margin:0 0 14px 0; font-weight:600; display:flex;align-items:center;gap:8px; }
-  .el-dot{width:7px;height:7px;border-radius:50%;background:var(--amber);}
-  .el-grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  .el-grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
-  @media(max-width:700px){.el-grid2,.el-grid3{grid-template-columns:1fr;}}
-  .el-root label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;}
-  .el-root input[type=text], .el-root input[type=number], .el-root select{
-    width:100%; background:var(--panel-2); border:1px solid var(--line); color:var(--text); padding:9px 11px;
-    border-radius:7px; font-family:'IBM Plex Mono',monospace; font-size:13px; outline:none; }
-  .el-root input:focus, .el-root select:focus{border-color:var(--amber);}
-  .el-field{margin-bottom:14px;}
-  .el-hint{font-size:11px;color:var(--muted);margin-top:5px;}
-  .el-inline-radio{display:flex;gap:14px;flex-wrap:wrap;}
-  .el-inline-radio label{ display:flex;align-items:center;gap:6px; color:var(--text);font-size:13px;margin-bottom:0;
-    background:var(--panel-2);border:1px solid var(--line); padding:7px 12px;border-radius:20px;cursor:pointer; }
-  .el-inline-radio input{width:auto;accent-color:var(--amber);}
-  .el-check-item{ display:flex;gap:10px;align-items:flex-start; padding:9px 0;border-bottom:1px dashed var(--line); }
-  .el-check-item:last-child{border-bottom:none;}
-  .el-check-item input{width:auto;margin-top:3px;accent-color:var(--green);}
-  .el-check-item span{font-size:13px;color:var(--text);}
-  .el-note{ margin-top:10px;padding:10px 12px;background:var(--panel-2); border-left:3px solid var(--cyan);border-radius:6px;font-size:12px;color:var(--muted); }
-  .el-btn-primary{ background:var(--amber);color:#181205;border:none; padding:11px 20px;border-radius:8px;font-weight:600;
-    font-family:'IBM Plex Sans',sans-serif;font-size:13.5px;cursor:pointer; }
-  .el-meter-bar{ position:relative;height:14px;border-radius:7px;overflow:visible;
-    background:linear-gradient(90deg,var(--green) 0%,var(--green) 33%,var(--amber) 33%,var(--amber) 66%,var(--red) 66%,var(--red) 100%); }
-  .el-meter-needle{ position:absolute;top:-6px;width:2px;height:26px;background:#fff;
-    box-shadow:0 0 6px rgba(255,255,255,.7); transition:left .4s ease; }
-  .el-meter-scale{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:6px;font-family:'IBM Plex Mono',monospace;}
-  .el-readout{ display:flex;align-items:baseline;gap:8px;margin-top:14px; background:var(--panel-2);border:1px solid var(--line);border-radius:8px; padding:14px 16px; }
-  .el-readout .val{font-family:'IBM Plex Mono',monospace;font-size:28px;font-weight:600;}
-  .el-readout .unit{color:var(--muted);font-size:12px;}
-  .el-pill{ display:inline-block;padding:5px 12px;border-radius:20px;font-size:11.5px;
-    font-family:'IBM Plex Mono',monospace;letter-spacing:.04em;margin-left:auto; }
-  .el-pill-green{background:var(--green-soft);color:var(--green);}
-  .el-pill-amber{background:var(--amber-soft);color:var(--amber);}
-  .el-pill-red{background:var(--red-soft);color:var(--red);}
-  .el-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:6px;}
-  .el-table th,.el-table td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);}
-  .el-table th{color:var(--muted);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.05em;}
-  .el-table td.val{font-family:'IBM Plex Mono',monospace;}
-  .el-rec-list{margin:0;padding-left:0;list-style:none;}
-  .el-rec-list li{ padding:9px 12px;margin-bottom:7px;border-radius:7px;font-size:12.5px;
-    background:var(--panel-2);border-left:3px solid var(--amber); }
-  .el-rec-list li.crit{border-left-color:var(--red);}
-  .el-rec-list li.ok{border-left-color:var(--green);}
-  @media(max-width:800px){
-    .el-root{flex-direction:column;}
-    #el-sidebar{width:100%;flex-direction:row;overflow-x:auto;padding:14px;}
-    .el-brand,.el-sidebar-foot{display:none;}
-    .el-steps{flex-direction:row;padding:0;}
-    .el-main{padding:22px 18px 60px 18px;}
-  }
-  `;
-
-  const Pill = ({ text, kind }: { text: string; kind: string }) => <span className={`el-pill el-pill-${kind}`}>{text}</span>;
+function TablePaginationBar({ table }: { table: ReactTableInstance<any> }) {
+  const pageIndex = table.getState().pagination.pageIndex;
+  const pageSize = table.getState().pagination.pageSize;
+  const pageCount = table.getPageCount() || 1;
+  const totalRows = table.getFilteredRowModel().rows.length;
 
   return (
-    <div className="el-root">
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');`}</style>
-      <style>{css}</style>
-
-
-
-      <aside id="el-sidebar">
-        <div className="el-brand">
-          <div className="eyebrow">IEC 62305 · IS 3043 aligned</div>
-          <h1>EarthLine</h1>
-          <p>Earthing audit &amp; lightning protection risk console</p>
-        </div>
-        <nav className="el-steps">
-          {STEPS.map((s) => (
-            <button key={s.id} className={`el-step-btn ${tab === s.id ? "active" : ""}`} onClick={() => setTab(s.id)}>
-              <span className="el-step-num">{s.num}</span> {s.label}
-            </button>
+    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 text-xs">
+      <div className="flex items-center gap-2">
+        <span className="text-slate-600 dark:text-slate-400 font-medium">Rows per page:</span>
+        <select
+          value={pageSize}
+          onChange={(e) => table.setPageSize(Number(e.target.value))}
+          className="bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-2.5 py-1 font-semibold outline-none text-slate-900 dark:text-white focus:border-amber-500 cursor-pointer"
+        >
+          {[5, 10, 20, 50].map((size) => (
+            <option key={size} value={size}>
+              {size}
+            </option>
           ))}
-        </nav>
-        <div className="el-sidebar-foot">Preliminary screening tool. Final protection design must be certified by a qualified electrical / LPS engineer per local code.</div>
-      </aside>
+        </select>
+      </div>
 
-      <main className="el-main">
-        {tab === "site" && (
-          <section>
-            <div className="el-panel-head">
-              <div className="eyebrow">Step 01</div>
-              <h2>Site &amp; climate profile</h2>
-              <p>Structure geometry, soil type and climate zone drive every downstream calculation — set these first.</p>
+      <div className="flex items-center gap-1 font-mono text-slate-600 dark:text-slate-400">
+        <span>Page</span>
+        <strong className="text-slate-900 dark:text-white font-bold">
+          {pageIndex + 1} of {pageCount}
+        </strong>
+        <span className="text-slate-500">({totalRows} total entries)</span>
+      </div>
+
+      <div className="flex items-center gap-1 shrink-0">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.setPageIndex(0)}
+          disabled={!table.getCanPreviousPage()}
+          className="h-8 w-8 p-0 flex items-center justify-center border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-950"
+          title="First Page"
+        >
+          <ChevronsLeft className="w-4 h-4 text-slate-700 dark:text-slate-300" />
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+          className="h-8 w-8 p-0 flex items-center justify-center border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-950"
+          title="Previous Page"
+        >
+          <ChevronLeft className="w-4 h-4 text-slate-700 dark:text-slate-300" />
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+          className="h-8 w-8 p-0 flex items-center justify-center border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-950"
+          title="Next Page"
+        >
+          <ChevronRight className="w-4 h-4 text-slate-700 dark:text-slate-300" />
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.setPageIndex(pageCount - 1)}
+          disabled={!table.getCanNextPage()}
+          className="h-8 w-8 p-0 flex items-center justify-center border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-950"
+          title="Last Page"
+        >
+          <ChevronsRight className="w-4 h-4 text-slate-700 dark:text-slate-300" />
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+import { useRouter } from "next/navigation";
+
+export default function EarthLineApp() {
+  const router = useRouter();
+  const { theme, toggleTheme } = useTheme();
+  const [activeTab, setActiveTab] = useState<"registrations" | "projects">("registrations");
+
+  // Admin Auth State
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [authChecking, setAuthChecking] = useState(true);
+
+  useEffect(() => {
+    try {
+      if (typeof window !== "undefined") {
+        const session = localStorage.getItem("dfm_admin_session");
+        if (session === "authenticated") {
+          setIsAuthenticated(true);
+        } else {
+          router.push("/admin/login");
+        }
+      }
+    } catch (e) {}
+    setAuthChecking(false);
+  }, [router]);
+
+  const handleLogout = () => {
+    try {
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("dfm_admin_session");
+        localStorage.removeItem("dfm_admin_token");
+        localStorage.removeItem("dfm_admin_username");
+      }
+    } catch (e) {}
+    setIsAuthenticated(false);
+    router.push("/admin/login");
+  };
+
+  // Filter States
+  const [regStatusFilter, setRegStatusFilter] = useState("ALL");
+  const [regSearchQuery, setRegSearchQuery] = useState("");
+  const [projSearchQuery, setProjSearchQuery] = useState("");
+
+  // TanStack Query Hooks for Data & Mutations (only enabled when authenticated)
+  const {
+    data: registrations = [],
+    isLoading: loadingRegs,
+    refetch: refetchRegistrations,
+  } = useRegistrationsQuery();
+
+  const {
+    data: projects = [],
+    isLoading: loadingProjects,
+    refetch: refetchProjects,
+  } = useProjectsQuery();
+
+  const updateRegMutation = useUpdateRegistrationMutation();
+
+  // Registration Handlers (memoized)
+  const handleUpdateRegStatus = useCallback(
+    async (id: string, newStatus: string) => {
+      await updateRegMutation.mutateAsync({ id, status: newStatus });
+    },
+    [updateRegMutation]
+  );
+
+  const handleUpdateRegAssigned = useCallback(
+    async (id: string, assignedTo: string) => {
+      await updateRegMutation.mutateAsync({ id, assignedTo });
+    },
+    [updateRegMutation]
+  );
+
+  // Filtered Registrations
+  const filteredRegistrations = useMemo(() => {
+    return registrations.filter((r) => {
+      const matchesStatus =
+        regStatusFilter === "ALL" || (r.status || "NEW") === regStatusFilter;
+      const q = regSearchQuery.toLowerCase();
+      const matchesQuery =
+        !q ||
+        r.fullName?.toLowerCase().includes(q) ||
+        r.companyName?.toLowerCase().includes(q) ||
+        r.phoneNumber?.toLowerCase().includes(q) ||
+        r.email?.toLowerCase().includes(q) ||
+        r.location?.toLowerCase().includes(q);
+
+      return matchesStatus && matchesQuery;
+    });
+  }, [registrations, regStatusFilter, regSearchQuery]);
+
+  // Filtered Projects
+  const filteredProjects = useMemo(() => {
+    return projects.filter((p) => {
+      const q = projSearchQuery.toLowerCase();
+      return (
+        !q ||
+        p.siteName?.toLowerCase().includes(q) ||
+        p.location?.toLowerCase().includes(q) ||
+        p.occupancy?.toLowerCase().includes(q) ||
+        p.userFullName?.toLowerCase().includes(q) ||
+        p.userPhone?.toLowerCase().includes(q)
+      );
+    });
+  }, [projects, projSearchQuery]);
+
+  // Imported Modular TanStack Table Columns
+  const regColumns = useMemo(
+    () =>
+      getRegistrationColumns({
+        onUpdateStatus: handleUpdateRegStatus,
+        onUpdateAssigned: handleUpdateRegAssigned,
+      }),
+    [handleUpdateRegStatus, handleUpdateRegAssigned]
+  );
+
+  const projColumns = useMemo(() => getProjectColumns(), []);
+
+  // TanStack Table Instance for Registrations with Pagination
+  const regTable = useReactTable({
+    data: filteredRegistrations,
+    columns: regColumns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      pagination: {
+        pageIndex: 0,
+        pageSize: 10,
+      },
+    },
+  });
+
+  // TanStack Table Instance for Projects with Pagination
+  const projTable = useReactTable({
+    data: filteredProjects,
+    columns: projColumns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      pagination: {
+        pageIndex: 0,
+        pageSize: 10,
+      },
+    },
+  });
+
+  const statusFilterOptions: SelectOption[] = [
+    { value: "ALL", label: "All Statuses" },
+    { value: "NEW", label: "New" },
+    { value: "CONTACTED", label: "Contacted" },
+    { value: "QUOTATION_SENT", label: "Quotation Sent" },
+    { value: "PAID", label: "Paid" },
+    { value: "DID_NOT_BUY", label: "Did Not Buy" },
+  ];
+
+  // Auth Protection Check
+  if (authChecking) {
+    return (
+      <div className="min-h-[70vh] flex items-center justify-center bg-[#070d19] text-amber-500 font-mono text-xs">
+        <RefreshCw className="w-5 h-5 animate-spin mr-2" />
+        <span>VERIFYING ADMIN SESSION...</span>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return null;
+  }
+
+  return (
+    <div className="min-h-screen bg-slate-50 dark:bg-[#070d19] text-slate-900 dark:text-slate-100 p-4 sm:p-6 lg:p-8 font-sans transition-colors duration-200">
+      {/* Top Header & 2-Table Tab Switcher */}
+      <div className="max-w-7xl mx-auto mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-300 dark:border-slate-800 pb-6">
+        <div>
+          <div className="flex items-center gap-2 text-amber-700 dark:text-amber-500 text-xs font-mono font-bold uppercase tracking-widest">
+            <ShieldCheck className="w-4 h-4" />
+            <span>DFMHUB EXECUTIVE CONSOLE (AUTHENTICATED)</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
+            Admin Management Console
+          </h1>
+        </div>
+
+        <div className="flex items-center gap-3 flex-wrap">
+          {/* Main 2 Tabs: User Registrations & Tool Projects using Shadcn Button */}
+          <div className="flex items-center gap-2 bg-slate-200 dark:bg-slate-900 p-1.5 rounded-xl border border-slate-300 dark:border-slate-800">
+            <Button
+              variant={activeTab === "registrations" ? "primary" : "ghost"}
+              size="sm"
+              onClick={() => setActiveTab("registrations")}
+              className={`px-4 py-2 text-xs uppercase tracking-wider font-extrabold flex items-center gap-2 ${
+                activeTab === "registrations" ? "" : "text-slate-700 dark:text-slate-400 hover:text-white"
+              }`}
+            >
+              <Users className="w-4 h-4" />
+              <span>User Registrations ({registrations.length})</span>
+            </Button>
+
+            <Button
+              variant={activeTab === "projects" ? "primary" : "ghost"}
+              size="sm"
+              onClick={() => setActiveTab("projects")}
+              className={`px-4 py-2 text-xs uppercase tracking-wider font-extrabold flex items-center gap-2 ${
+                activeTab === "projects" ? "" : "text-slate-700 dark:text-slate-400 hover:text-white"
+              }`}
+            >
+              <FolderCheck className="w-4 h-4" />
+              <span>Tool Projects ({projects.length})</span>
+            </Button>
+          </div>
+
+          {/* Landing Page Button */}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => router.push("/")}
+            className="h-10 border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center gap-1.5"
+            title="Back to Landing Page"
+          >
+            <Globe className="w-4 h-4 text-amber-600 dark:text-amber-500" />
+            <span className="hidden sm:inline">Landing Page</span>
+          </Button>
+
+          {/* Light / Dark Mode Toggle using Shadcn Button */}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={toggleTheme}
+            className="p-2.5 h-10 w-10 min-w-0 border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900"
+            title={`Switch to ${theme === "dark" ? "Light" : "Dark"} Mode`}
+          >
+            {theme === "dark" ? (
+              <Sun className="w-4 h-4 text-amber-400" />
+            ) : (
+              <Moon className="w-4 h-4 text-slate-800" />
+            )}
+          </Button>
+
+          {/* Admin Logout Button using Shadcn Button */}
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={handleLogout}
+            className="h-10 border-rose-300 dark:border-rose-900/60 bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/80 font-bold text-xs"
+            title="Log out of Admin Console"
+          >
+            <LogOut className="w-4 h-4" />
+            <span className="hidden sm:inline">Logout</span>
+          </Button>
+        </div>
+      </div>
+
+      {/* TABLE 1: USER REGISTRATIONS */}
+      {activeTab === "registrations" && (
+        <div className="max-w-7xl mx-auto space-y-6">
+          {/* Header Card using Shadcn Card */}
+          <Card className="p-6 flex flex-col md:flex-row justify-between items-center gap-4 border-slate-300 dark:border-slate-800 relative z-30 overflow-visible">
+            <div>
+              <h2 className="text-xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                <Users className="w-5 h-5 text-amber-600 dark:text-amber-500" />
+                User Registrations Database ({filteredRegistrations.length})
+              </h2>
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                All registered users and contact form submissions from website visitors.
+              </p>
             </div>
 
-            <div className="el-card">
-              <h3><span className="el-dot"></span>Project</h3>
-              <div className="el-grid2">
-                <div className="el-field"><label>Site / project name</label><input type="text" value={siteName} onChange={(e) => setSiteName(e.target.value)} placeholder="e.g. Riverside Warehouse, Plant 3" /></div>
-                <div className="el-field"><label>Location (city, region)</label><input type="text" value={siteLoc} onChange={(e) => setSiteLoc(e.target.value)} placeholder="e.g. Chennai, Tamil Nadu" /></div>
+            <div className="flex items-center gap-3 w-full md:w-auto">
+              <Input
+                type="text"
+                placeholder="Search user, email, phone..."
+                value={regSearchQuery}
+                onChange={(e) => setRegSearchQuery(e.target.value)}
+                icon={<Search className="w-4 h-4" />}
+                className="w-full sm:w-64 text-xs"
+              />
+
+              <Select
+                value={regStatusFilter}
+                onChange={setRegStatusFilter}
+                options={statusFilterOptions}
+                className="w-36"
+              />
+
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => refetchRegistrations()}
+                disabled={loadingRegs}
+                className="text-xs font-bold shrink-0"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${loadingRegs ? "animate-spin" : ""}`} />
+                <span>Refresh</span>
+              </Button>
+            </div>
+          </Card>
+
+          {/* Registrations Table Container Card */}
+          <Card className="p-0 overflow-hidden border-slate-300 dark:border-slate-800 relative z-10">
+            {loadingRegs ? (
+              <div className="p-12 text-center text-slate-600 dark:text-slate-400 font-semibold text-xs flex items-center justify-center gap-2">
+                <RefreshCw className="w-4 h-4 animate-spin text-amber-500" />
+                <span>Loading User Registrations via TanStack Query...</span>
               </div>
-              <div className="el-field">
-                <label>Occupancy / structure type</label>
-                <select value={occIdx} onChange={(e) => setOccIdx(Number(e.target.value))}>
-                  {occupancyTypes.map((o, i) => <option key={i} value={i}>{o.name}</option>)}
-                </select>
-                <div className="el-hint">Determines the target earth resistance and the loss-of-life weighting used in the lightning risk model.</div>
+            ) : regTable.getRowModel().rows.length === 0 ? (
+              <div className="p-12 text-center text-slate-600 dark:text-slate-400 font-semibold text-xs">
+                No user registrations match the selected criteria.
               </div>
+            ) : (
+              <>
+                <Table>
+                  <TableHeader>
+                    {regTable.getHeaderGroups().map((headerGroup) => (
+                      <TableRow key={headerGroup.id}>
+                        {headerGroup.headers.map((header) => (
+                          <TableHead key={header.id}>
+                            {header.isPlaceholder
+                              ? null
+                              : flexRender(
+                                  header.column.columnDef.header,
+                                  header.getContext()
+                                )}
+                          </TableHead>
+                        ))}
+                      </TableRow>
+                    ))}
+                  </TableHeader>
+                  <TableBody>
+                    {regTable.getRowModel().rows.map((row) => (
+                      <TableRow key={row.id}>
+                        {row.getVisibleCells().map((cell) => (
+                          <TableCell key={cell.id}>
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+                <TablePaginationBar table={regTable} />
+              </>
+            )}
+          </Card>
+        </div>
+      )}
+
+      {/* TABLE 2: TOOL PROJECTS */}
+      {activeTab === "projects" && (
+        <div className="max-w-7xl mx-auto space-y-6">
+          {/* Header Card using Shadcn Card */}
+          <Card className="p-6 flex flex-col md:flex-row justify-between items-center gap-4 border-slate-300 dark:border-slate-800 relative z-30 overflow-visible">
+            <div>
+              <h2 className="text-xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                <FolderCheck className="w-5 h-5 text-amber-600 dark:text-amber-500" />
+                Tool Calculation Projects Database ({filteredProjects.length})
+              </h2>
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                Project site details, building dimensions, soil &amp; earth resistance calculations submitted from /tool page.
+              </p>
             </div>
 
-            <div className="el-card">
-              <h3><span className="el-dot"></span>Structure geometry</h3>
-              <div className="el-grid3">
-                <div className="el-field"><label>Length L (m)</label><input type="number" value={dimL} min="0" onChange={(e) => setDimL(e.target.value)} /></div>
-                <div className="el-field"><label>Width W (m)</label><input type="number" value={dimW} min="0" onChange={(e) => setDimW(e.target.value)} /></div>
-                <div className="el-field"><label>Height H (m)</label><input type="number" value={dimH} min="0" onChange={(e) => setDimH(e.target.value)} /></div>
+            <div className="flex items-center gap-3 w-full md:w-auto">
+              <Input
+                type="text"
+                placeholder="Search customer, site, city..."
+                value={projSearchQuery}
+                onChange={(e) => setProjSearchQuery(e.target.value)}
+                icon={<Search className="w-4 h-4" />}
+                className="w-full sm:w-64 text-xs"
+              />
+
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => refetchProjects()}
+                disabled={loadingProjects}
+                className="text-xs font-bold shrink-0"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${loadingProjects ? "animate-spin" : ""}`} />
+                <span>Refresh</span>
+              </Button>
+            </div>
+          </Card>
+
+          {/* Tool Projects Table Container Card */}
+          <Card className="p-0 overflow-hidden border-slate-300 dark:border-slate-800 relative z-10">
+            {loadingProjects ? (
+              <div className="p-12 text-center text-slate-600 dark:text-slate-400 font-semibold text-xs flex items-center justify-center gap-2">
+                <RefreshCw className="w-4 h-4 animate-spin text-amber-500" />
+                <span>Loading Tool Projects via TanStack Query...</span>
               </div>
-              <div className="el-field">
-                <label>Location factor Cd — surroundings</label>
-                <select value={cd} onChange={(e) => setCd(e.target.value)}>
-                  <option value="0.25">Surrounded by taller structures/trees</option>
-                  <option value="0.5">Surrounded by structures of same or smaller height</option>
-                  <option value="1">Isolated — no other objects nearby</option>
-                  <option value="2">Isolated, on a hilltop or knoll</option>
-                </select>
+            ) : projTable.getRowModel().rows.length === 0 ? (
+              <div className="p-12 text-center text-slate-600 dark:text-slate-400 font-semibold text-xs">
+                No tool calculation projects recorded yet. Submissions from /tool page will appear here.
               </div>
-            </div>
-
-            <div className="el-card">
-              <h3><span className="el-dot"></span>Soil type</h3>
-              <div className="el-field">
-                <label>Predominant soil at electrode depth</label>
-                <select value={soilIdx} onChange={(e) => setSoilIdx(Number(e.target.value))}>
-                  {soilTypes.map((s, i) => <option key={i} value={i}>{s.name} ({s.low}–{s.high} Ω·m)</option>)}
-                </select>
-              </div>
-              <div className="el-note"><strong>{data.soil.name}</strong> — typical resistivity {data.soil.low}–{data.soil.high} Ω·m · corrosion risk: {data.soil.corrosion}.<br />{data.soil.note}</div>
-            </div>
-
-            <div className="el-card">
-              <h3><span className="el-dot"></span>Climate zone</h3>
-              <div className="el-field">
-                <label>Climate classification</label>
-                <select value={climateIdx} onChange={(e) => setClimateIdx(Number(e.target.value))}>
-                  {climateZones.map((c, i) => <option key={i} value={i}>{c.name}</option>)}
-                </select>
-              </div>
-              <div className="el-note"><strong>{data.climate.name}</strong> — seasonal resistivity multiplier ×{data.climate.factor} · corrosion risk: {data.climate.corrosion}.<br />{data.climate.note}</div>
-            </div>
-
-            <div className="el-card">
-              <h3><span className="el-dot"></span>Lightning ground flash density</h3>
-              <div className="el-inline-radio el-field">
-                <label><input type="radio" name="ngMode" checked={ngMode === "direct"} onChange={() => setNgMode("direct")} /> Enter Ng directly</label>
-                <label><input type="radio" name="ngMode" checked={ngMode === "td"} onChange={() => setNgMode("td")} /> Derive from thunderstorm days (Td)</label>
-              </div>
-              <div className="el-grid2">
-                {ngMode === "direct" ? (
-                  <div className="el-field"><label>Ng — flashes / km² / year</label><input type="number" value={ngDirect} step="0.1" min="0" onChange={(e) => setNgDirect(e.target.value)} /></div>
-                ) : (
-                  <div className="el-field"><label>Td — thunderstorm days / year (isokeraunic level)</label><input type="number" value={ngTd} min="0" onChange={(e) => setNgTd(e.target.value)} /></div>
-                )}
-              </div>
-              <div className="el-hint">No local data? Typical Ng: temperate inland 1–4, humid subtropical 4–8, tropical monsoon 8–14+. Confirm with national lightning-detection network data where available.</div>
-              <div className="el-field" style={{ marginTop: 10 }}>
-                <label>Existing lightning protection system (LPS)?</label>
-                <select value={lpsClass} onChange={(e) => setLpsClass(e.target.value)}>
-                  <option value="none">None installed</option>
-                  <option value="4">Class IV (basic)</option>
-                  <option value="3">Class III</option>
-                  <option value="2">Class II</option>
-                  <option value="1">Class I (highest)</option>
-                </select>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {tab === "earth" && (
-          <section>
-            <div className="el-panel-head">
-              <div className="eyebrow">Step 02</div>
-              <h2>Earthing system audit</h2>
-              <p>Log electrode configuration, measured resistance and physical inspection findings.</p>
-            </div>
-
-            <div className="el-card">
-              <h3><span className="el-dot"></span>Electrode configuration</h3>
-              <div className="el-grid2">
-                <div className="el-field">
-                  <label>Electrode type</label>
-                  <select value={electrodeType} onChange={(e) => setElectrodeType(e.target.value)}>
-                    <option>Pipe / rod electrode</option>
-                    <option>Plate electrode</option>
-                    <option>Strip / buried conductor</option>
-                    <option>Earth mat / grid</option>
-                    <option>Chemical (GEM / backfill compound) electrode</option>
-                  </select>
-                </div>
-                <div className="el-field"><label>Number of electrodes / pits</label><input type="number" value={electrodeCount} min="1" onChange={(e) => setElectrodeCount(e.target.value)} /></div>
-              </div>
-            </div>
-
-            <div className="el-card">
-              <h3><span className="el-dot"></span>Measured earth resistance</h3>
-              <div className="el-grid3">
-                <div className="el-field"><label>Pit 1 reading (Ω)</label><input type="number" step="0.01" value={r1} placeholder="e.g. 3.2" onChange={(e) => setR1(e.target.value)} /></div>
-                <div className="el-field"><label>Pit 2 reading (Ω)</label><input type="number" step="0.01" value={r2} placeholder="optional" onChange={(e) => setR2(e.target.value)} /></div>
-                <div className="el-field"><label>Pit 3 reading (Ω)</label><input type="number" step="0.01" value={r3} placeholder="optional" onChange={(e) => setR3(e.target.value)} /></div>
-              </div>
-              <div className="el-hint">Use fall-of-potential (3-point) or clamp method. Average of entered readings is used below.</div>
-
-              <div className="el-readout">
-                <span className="val el-mono">{data.rAvg !== null ? fmt(data.rAvg, 2) : "—"}</span>
-                <span className="unit">Ω average measured</span>
-                <Pill
-                  text={data.rStatus === "nodata" ? "NO READING" : { pass: "COMPLIANT", marginal: "MARGINAL", fail: "NON-COMPLIANT" }[data.rStatus]!}
-                  kind={data.rStatus === "pass" ? "green" : data.rStatus === "fail" ? "red" : "amber"}
-                />
-              </div>
-              <div className="el-meter-bar"><div className="el-meter-needle" style={{ left: `${data.needlePct}%` }}></div></div>
-              <div className="el-meter-scale"><span>0Ω</span><span>Target {fmt(data.target, 1)}Ω</span><span>{fmt(data.scaleMax, 0)}Ω</span></div>
-            </div>
-
-            <div className="el-card">
-              <h3><span className="el-dot"></span>Physical inspection checklist</h3>
-              {checklistItems.map((t, i) => (
-                <div className="el-check-item" key={i}>
-                  <input type="checkbox" checked={checks[i]} onChange={() => toggleCheck(i)} />
-                  <span>{t}</span>
-                </div>
-              ))}
-              <div className="el-readout">
-                <span className="val el-mono">{fmt(data.checklistPct, 0)}</span>
-                <span className="unit">% items compliant</span>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {tab === "strike" && (
-          <section>
-            <div className="el-panel-head">
-              <div className="eyebrow">Step 03</div>
-              <h2>Lightning protection risk assessment</h2>
-              <p>Simplified risk screening aligned to the IEC 62305-2 method (collection area → expected strikes → risk R1 vs. tolerable risk).</p>
-            </div>
-
-            <div className="el-card">
-              <h3><span className="el-dot"></span>Collection area &amp; expected strikes</h3>
-              <table className="el-table">
-                <tbody>
-                  <tr><th>Equivalent collection area (Ad)</th><td className="val">{fmt(data.Ad, 0)} m²</td></tr>
-                  <tr><th>Ground flash density (Ng)</th><td className="val">{fmt(data.Ng, 2)} /km²/yr</td></tr>
-                  <tr><th>Location factor (Cd)</th><td className="val">{data.Cd}</td></tr>
-                  <tr><th>Expected annual strikes (Nd)</th><td className="val">{fmt(data.Nd, 4)} /yr</td></tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div className="el-card">
-              <h3><span className="el-dot"></span>Risk comparison</h3>
-              <div className="el-readout">
-                <span className="val el-mono">{data.R1.toExponential(2)}</span>
-                <span className="unit">R1 — risk of loss of human life</span>
-                <Pill
-                  text={data.lightningOverall === "pass" ? "WITHIN TOLERABLE RISK" : data.lightningOverall === "fail" ? "HIGH RISK" : "EXCEEDS TOLERABLE RISK"}
-                  kind={data.lightningOverall === "pass" ? "green" : data.lightningOverall === "fail" ? "red" : "amber"}
-                />
-              </div>
-              <div className="el-meter-bar"><div className="el-meter-needle" style={{ left: `${data.riskNeedlePct}%` }}></div></div>
-              <div className="el-meter-scale"><span>Below RT</span><span>RT = 1×10⁻⁵</span><span>10× RT</span></div>
-              <table className="el-table" style={{ marginTop: 16 }}>
-                <tbody>
-                  <tr><th>Tolerable risk (RT)</th><td className="val">1 × 10⁻⁵ / year</td></tr>
-                  <tr><th>Required protection efficiency (E)</th><td className="val">{data.effText}</td></tr>
-                  <tr><th>Recommended protection level</th><td className="val">{data.lplText}</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
-        )}
-
-        {tab === "report" && (
-          <section>
-            <div className="el-panel-head">
-              <div className="eyebrow">Step 04</div>
-              <h2>Consolidated audit report</h2>
-              <p>Summary for the site file. Recalculates live from the previous three steps.</p>
-            </div>
-
-            <div className="el-card">
-              <h3><span className="el-dot"></span>Site summary</h3>
-              <table className="el-table">
-                <tbody>
-                  <tr><th>Site</th><td className="val">{siteName || "(unnamed site)"}</td></tr>
-                  <tr><th>Location</th><td className="val">{siteLoc || "(location not entered)"}</td></tr>
-                  <tr><th>Occupancy</th><td className="val">{data.occ.name}</td></tr>
-                  <tr><th>Dimensions (L×W×H)</th><td className="val el-mono">{data.L} × {data.W} × {data.H} m</td></tr>
-                  <tr><th>Soil type</th><td className="val">{data.soil.name}</td></tr>
-                  <tr><th>Climate zone</th><td className="val">{data.climate.name}</td></tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div className="el-card">
-              <h3><span className="el-dot"></span>Earthing audit result</h3>
-              <table className="el-table">
-                <tbody>
-                  <tr><th>Average measured resistance</th><td className="val el-mono">{data.rAvg !== null ? `${fmt(data.rAvg, 2)} Ω` : "not recorded"}</td></tr>
-                  <tr><th>Target resistance</th><td className="val el-mono">{fmt(data.target, 1)} Ω</td></tr>
-                  <tr><th>Inspection checklist score</th><td className="val el-mono">{fmt(data.checklistPct, 0)}%</td></tr>
-                  <tr><th>Overall status</th><td className="val">{statusWord(data.earthOverall)}</td></tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div className="el-card">
-              <h3><span className="el-dot"></span>Lightning risk result</h3>
-              <table className="el-table">
-                <tbody>
-                  <tr><th>Collection area (Ad)</th><td className="val el-mono">{fmt(data.Ad, 0)} m²</td></tr>
-                  <tr><th>Expected annual strikes (Nd)</th><td className="val el-mono">{fmt(data.Nd, 4)}</td></tr>
-                  <tr><th>Risk R1</th><td className="val el-mono">{data.R1.toExponential(2)}</td></tr>
-                  <tr><th>Tolerable risk RT</th><td className="val el-mono">1 × 10⁻⁵</td></tr>
-                  <tr><th>R1 / RT ratio</th><td className="val el-mono">{fmt(data.ratio, 1)}×</td></tr>
-                  <tr><th>Recommended protection level</th><td className="val">{data.lplText}</td></tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div className="el-card">
-              <h3><span className="el-dot"></span>Recommendations</h3>
-              <ul className="el-rec-list">
-                {recs.map((r, i) => <li key={i} className={r.c}>{r.t}</li>)}
-              </ul>
-            </div>
-
-            <div style={{ marginTop: 16 }}>
-              <button className="el-btn-primary" onClick={() => window.print()}>Print / Save as PDF</button>
-            </div>
-          </section>
-        )}
-      </main>
+            ) : (
+              <>
+                <Table>
+                  <TableHeader>
+                    {projTable.getHeaderGroups().map((headerGroup) => (
+                      <TableRow key={headerGroup.id}>
+                        {headerGroup.headers.map((header) => (
+                          <TableHead key={header.id}>
+                            {header.isPlaceholder
+                              ? null
+                              : flexRender(
+                                  header.column.columnDef.header,
+                                  header.getContext()
+                                )}
+                          </TableHead>
+                        ))}
+                      </TableRow>
+                    ))}
+                  </TableHeader>
+                  <TableBody>
+                    {projTable.getRowModel().rows.map((row) => (
+                      <TableRow key={row.id}>
+                        {row.getVisibleCells().map((cell) => (
+                          <TableCell key={cell.id}>
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+                <TablePaginationBar table={projTable} />
+              </>
+            )}
+          </Card>
+        </div>
+      )}
     </div>
   );
 }
