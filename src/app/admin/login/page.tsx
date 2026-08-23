@@ -168,7 +168,7 @@ export default function AdminLoginPage() {
             size="lg"
             className="w-full mt-2 font-extrabold text-xs tracking-wider"
           >
-            <span>{isSubmitting ? "VALIDATING VIA API..." : "LOGIN TO ADMIN CONSOLE"}</span>
+            <span>{isSubmitting ? "VALIDATING ..." : "LOGIN TO ADMIN CONSOLE"}</span>
             <ArrowRight className="w-4 h-4" />
           </Button>
         </form>
