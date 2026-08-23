@@ -107,10 +107,10 @@ export default function AdminLoginPage() {
           <div className="w-14 h-14 bg-amber-500/10 border border-amber-500/30 rounded-2xl flex items-center justify-center mx-auto text-amber-600 dark:text-amber-400">
             <ShieldCheck className="w-7 h-7 text-amber-600 dark:text-amber-400" />
           </div>
-          <span className="text-amber-600 dark:text-amber-500 text-[11px] font-mono font-bold uppercase tracking-widest block">
+          <span className="text-amber-600 dark:text-amber-500 text-[11px]  font-semibold uppercase tracking-widest block">
             RESTRICTED ADMIN CONSOLE
           </span>
-          <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <h1 className="text-2xl font-semibold text-slate-900 dark:text-white tracking-tight">
             DFMHUB Admin Portal
           </h1>
           <p className="text-xs text-slate-600 dark:text-slate-400 max-w-xs mx-auto">
@@ -166,7 +166,7 @@ export default function AdminLoginPage() {
             disabled={isSubmitting}
             variant="primary"
             size="lg"
-            className="w-full mt-2 font-extrabold text-xs tracking-wider"
+            className="w-full mt-2 font-semibold text-xs tracking-wider"
           >
             <span>{isSubmitting ? "VALIDATING ..." : "LOGIN TO ADMIN CONSOLE"}</span>
             <ArrowRight className="w-4 h-4" />
@@ -180,10 +180,10 @@ export default function AdminLoginPage() {
             variant="ghost"
             size="sm"
             onClick={handleQuickDemoFill}
-            className="text-[11px] font-mono text-slate-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors inline-flex items-center gap-1 cursor-pointer lowercase"
+            className="text-[11px]  text-slate-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors inline-flex items-center gap-1 cursor-pointer lowercase"
           >
             <span>Auto-fill demo credentials</span>
-            <span className="text-[10px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-amber-700 dark:text-amber-300 border border-slate-300 dark:border-slate-700 font-mono">
+            <span className="text-[10px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-amber-700 dark:text-amber-300 border border-slate-300 dark:border-slate-700 ">
               admin / admin123
             </span>
           </Button>

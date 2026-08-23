@@ -39,35 +39,7 @@ export default function BlogListClient() {
   return (
     <div className="space-y-8">
       {/* Sleek Minimal Category Filter Pills */}
-      <div className="flex items-center gap-2 flex-wrap pb-3 border-b border-slate-200 dark:border-slate-800">
-        <button
-          onClick={() => setSelectedCategory("ALL")}
-          className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-colors cursor-pointer ${
-            selectedCategory === "ALL"
-              ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900"
-              : "bg-slate-100 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800"
-          }`}
-        >
-          All Articles
-        </button>
 
-        {CATEGORY_OPTIONS.map((cat) => {
-          const isSelected = selectedCategory === cat.value;
-          return (
-            <button
-              key={cat.value}
-              onClick={() => setSelectedCategory(cat.value)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer ${
-                isSelected
-                  ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 font-semibold"
-                  : "bg-slate-100 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800"
-              }`}
-            >
-              <span>{cat.label}</span>
-            </button>
-          );
-        })}
-      </div>
 
       {/* Loading State */}
       {isLoading && (
