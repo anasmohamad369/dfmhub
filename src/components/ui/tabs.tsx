@@ -40,7 +40,7 @@ export function Tabs({ value: valueProp, defaultValue, onValueChange, className 
 export function TabsList({ className = "", children, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={`inline-flex items-center justify-center rounded-xl bg-slate-200/80 dark:bg-slate-900/80 p-1.5 text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-slate-800 backdrop-blur-sm ${className}`}
+      className={`inline-flex items-center justify-start rounded-full bg-slate-100 dark:bg-slate-900/90 p-1 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-800 ${className}`}
       {...props}
     >
       {children}
@@ -64,10 +64,10 @@ export function TabsTrigger({ value, className = "", children, ...props }: TabsT
       role="tab"
       aria-selected={isActive}
       onClick={() => context.onValueChange(value)}
-      className={`inline-flex items-center justify-center whitespace-nowrap rounded-lg px-4 py-2 text-xs font-extrabold uppercase tracking-wider transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 disabled:pointer-events-none disabled:opacity-50 cursor-pointer ${
+      className={`inline-flex items-center justify-center whitespace-nowrap rounded-full px-4 py-1.5 text-xs font-semibold transition-colors disabled:pointer-events-none disabled:opacity-50 cursor-pointer ${
         isActive
-          ? "bg-amber-600 dark:bg-amber-500 text-white dark:text-slate-950 shadow-md shadow-amber-500/20"
-          : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-300/50 dark:hover:bg-slate-800/50"
+          ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900"
+          : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-slate-800/60"
       } ${className}`}
       {...props}
     >

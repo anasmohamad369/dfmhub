@@ -48,3 +48,20 @@ model ProjectDetail {
 
   @@map("project_details")
 }
+
+model BlogPost {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  category  String   // "LIGHTNING_PROTECTION", "STRUCTURAL_EARTHING", "STANDARDS", "TESTING", "SURGE_PROTECTION", "MAINTENANCE"
+  readTime  String   @default("5 min read")
+  summary   String
+  content   String
+  author    String   @default("DFMHUB Engineering Team")
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("blog_posts")
+}
+
