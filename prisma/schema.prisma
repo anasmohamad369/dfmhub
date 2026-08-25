@@ -65,3 +65,23 @@ model BlogPost {
   @@map("blog_posts")
 }
 
+model Product {
+  id                 String   @id @default(cuid())
+  slug               String   @unique
+  title              String
+  description        String
+  price              Float?
+  category           String   // e.g., "LIGHTNING_PROTECTION", "STRUCTURAL_EARTHING"
+  imageUrl           String?
+  inStock            Boolean  @default(true)
+  brand              String?
+  primaryApplication String?
+  specifications     Json?
+  features           Json?
+  useCases           Json?
+  faqs               Json?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@map("products")
+}

@@ -17,6 +17,8 @@ import {
 import ContactForm from "@/components/ContactForm";
 import FAQAccordion from "@/components/FAQAccordion";
 import { Testing } from "@/components/Testing";
+import ProductCarousel from "@/components/ProductCarousel";
+import { getProductsByCategory } from "@/lib/products";
 
 export const metadata = {
   title: "Structural Earthing & Chemical Earthing (IS 3043) | DFMHUB",
@@ -24,7 +26,9 @@ export const metadata = {
     "Foundation rebar bonding, copper bonded and chemical electrodes, earth bars and enhancement compound sized from a Wenner soil resistivity survey to IS 3043:2018.",
 };
 
-export default function StructuralEarthingPage() {
+export default async function StructuralEarthingPage() {
+  const products = await getProductsByCategory("STRUCTURAL_EARTHING");
+
   const lplMatrix = [
     {
       level: "LPL I",
@@ -511,10 +515,12 @@ export default function StructuralEarthingPage() {
       </section> */}
 
       {/* section 3 */}
+      {/* section 3 */}
+
       <Testing matrix={lplMatrix} />
 
       {/* Section 4: 12 ARK MAKE COMPONENTS (WHITE) */}
-      <section className="w-full bg-white text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
+      {/* <section className="w-full bg-white text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-10">
             <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
@@ -550,8 +556,10 @@ export default function StructuralEarthingPage() {
             ))}
           </div>
         </div>
-      </section>
-
+      </section> */}
+{products && products.length > 0 && (
+      <ProductCarousel products={products} title="Structural Earthing Products" subtitle="Explore our engineered components for creating reliable electrical continuity through foundations." />
+)}
       {/* product comparision */}
       <section className="w-full bg-[#f8fafc] text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">

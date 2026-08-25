@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import AdminBlogManager from "@/components/AdminBlogManager";
 import AdminHeader from "@/components/AdminHeader";
+import ProductsClient from "@/app/admin/products/ProductsClient";
 import { DataTable } from "@/components/DataTable";
 import { useTheme } from "@/components/ThemeProvider";
 import { Card } from "@/components/ui/card";
@@ -231,6 +232,10 @@ export default function EarthLineApp() {
               <BookOpen className="w-3.5 h-3.5" />
               <span>Blog Management</span>
             </TabsTrigger>
+            <TabsTrigger value="products" className="flex items-center gap-1.5 py-1.5 px-4 rounded-full font-semibold text-xs">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Products Management</span>
+            </TabsTrigger>
           </TabsList>
         </div>
 
@@ -313,6 +318,13 @@ export default function EarthLineApp() {
         <TabsContent value="blog">
           <div className="max-w-7xl mx-auto">
             <AdminBlogManager />
+          </div>
+        </TabsContent>
+
+        {/* TAB CONTENT 4: PRODUCTS MANAGEMENT */}
+        <TabsContent value="products">
+          <div className="max-w-7xl mx-auto">
+            <ProductsClient />
           </div>
         </TabsContent>
       </Tabs>

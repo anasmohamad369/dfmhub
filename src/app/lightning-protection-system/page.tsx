@@ -5,6 +5,8 @@ import { ArrowRight, ChevronRight, ShieldCheck, Zap, Layers, CheckCircle2, Info,
 import ContactForm from "@/components/ContactForm";
 import FAQAccordion from "@/components/FAQAccordion";
 import {Testing} from "@/components/Testing";
+import ProductCarousel from "@/components/ProductCarousel";
+import { getProductsByCategory } from "@/lib/products";
 
 export const metadata = {
   title: "Lightning Protection System Manufacturer in India | ARK Make by DFMHUB",
@@ -32,7 +34,9 @@ export const metadata = {
   },
 };
 
-export default function LightningProtectionPage() {
+export default async function LightningProtectionPage() {
+  const products = await getProductsByCategory("LIGHTNING_PROTECTION");
+
   const standards = [
     {
       code: "IS/IEC 62305 (Parts 1-4)",
@@ -503,12 +507,14 @@ export default function LightningProtectionPage() {
 
 
 
+
+
       <Testing matrix={lplMatrix} />
 
       
 
       {/* Section 4: 12 ARK MAKE COMPONENTS (WHITE) */}
-      <section className="w-full bg-white text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
+      {/* <section className="w-full bg-white text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-10">
             <span className="text-amber-600 font-bold text-xs uppercase tracking-widest block mb-2">
@@ -544,7 +550,9 @@ export default function LightningProtectionPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
+
+      <ProductCarousel products={products} title="Lightning Protection Products" subtitle="Explore our engineered air terminals, conductors, clamps, connectors and LPS components." />
 
       <section className="w-full bg-slate-50 text-slate-900 py-16 sm:py-20 lg:py-24 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

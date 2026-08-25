@@ -18,6 +18,7 @@ import {
 import StandardsTab from "@/components/StandardsTab";
 import FAQAccordion from "@/components/FAQAccordion";
 import ContactForm from "@/components/ContactForm";
+import FeaturedProducts from "@/components/home/FeaturedProducts";
 
 export const metadata = {
   title: "ARK Make Lightning Protection & Earthing Systems | DFMHUB",
@@ -315,6 +316,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Module 4: Featured Products Catalog */}
+      <FeaturedProducts />
 
       {/* Standards Tab */}
       <section className="w-full bg-white text-slate-900 py-16 sm:py-20">

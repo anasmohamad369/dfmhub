@@ -6,7 +6,7 @@ import { ShieldCheck, Globe, Sun, Moon, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/ThemeProvider";
 
-export default function AdminHeader() {
+export default function AdminHeader({ title }: { title?: string }) {
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
 
@@ -29,7 +29,7 @@ export default function AdminHeader() {
           <span>DFMHUB EXECUTIVE CONSOLE (AUTHENTICATED)</span>
         </div>
         <h1 className="text-lg sm:text-xl font-semibold tracking-tight text-slate-900 dark:text-white">
-          Admin Management Console
+          {title || "Admin Management Console"}
         </h1>
       </div>
 

@@ -2,8 +2,8 @@ import * as React from "react";
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost";
-  size?: "sm" | "md" | "lg";
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "destructive";
+  size?: "sm" | "md" | "lg" | "icon" | "default";
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -19,11 +19,16 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     } else if (variant === "ghost") {
       variantStyles =
         "text-slate-300 hover:text-white hover:bg-slate-800/50 font-medium";
+    } else if (variant === "destructive") {
+      variantStyles = 
+        "bg-rose-600 hover:bg-rose-700 text-white font-bold";
     }
 
     let sizeStyles = "px-5 py-3 text-sm rounded-lg";
     if (size === "sm") sizeStyles = "px-3 py-1.5 text-xs rounded-md";
     if (size === "lg") sizeStyles = "px-6 py-4 text-base rounded-xl";
+    if (size === "icon") sizeStyles = "p-2 rounded-md aspect-square flex items-center justify-center";
+    if (size === "default") sizeStyles = "px-5 py-3 text-sm rounded-lg";
 
     return (
       <button
