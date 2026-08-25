@@ -35,38 +35,6 @@ export default async function FeaturedProducts() {
           </p>
         </div>
 
-        {lightningProducts.length > 0 && (
-          <div className="mb-16">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="p-2.5 rounded-xl bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400">
-                <Zap className="w-6 h-6" />
-              </div>
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Lightning Protection</h3>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {lightningProducts.slice(0, 4).map(product => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {earthingProducts.length > 0 && (
-          <div>
-            <div className="flex items-center gap-3 mb-8">
-              <div className="p-2.5 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400">
-                <ShieldCheck className="w-6 h-6" />
-              </div>
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Structural Earthing</h3>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {earthingProducts.slice(0, 4).map(product => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          </div>
-        )}
-
         <div className="mt-16 text-center">
           <Link href="/products">
             <Button variant="outline" className="rounded-full border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 gap-2 h-12 px-8 font-medium">
