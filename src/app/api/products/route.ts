@@ -1,8 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAllProducts, createProduct } from "@/lib/products";
+import { getAllProducts, getProductBySlug, getProductsByCategory, createProduct } from "@/lib/products";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const { searchParams } = new URL(request.url);
+    const category = searchParams.get("category");
+    const slug = searchParams.get("slug");
+
+    if (slug) {
+      const product = await getProductBySlug(slug);
+      if (!product) {
+        return NextResponse.json({ error: "Product not found" }, { status: 404 });
+      }
+      return NextResponse.json(product);
+    }
+
+    if (category && category !== "ALL") {
+      const products = await getProductsByCategory(category);
+      return NextResponse.json(products);
+    }
+
     const products = await getAllProducts();
     return NextResponse.json(products);
   } catch (error: any) {

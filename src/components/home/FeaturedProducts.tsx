@@ -36,7 +36,7 @@ export default async function FeaturedProducts() {
         </div>
 
         <div className="mt-16 text-center">
-          <Link href="/products">
+          <Link href="/product">
             <Button variant="outline" className="rounded-full border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 gap-2 h-12 px-8 font-medium">
               View Complete Catalog
               <ArrowRight className="w-4 h-4" />

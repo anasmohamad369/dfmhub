@@ -7,6 +7,7 @@ import Link from "next/link";
 interface ProductCardProps {
   product: {
     id: string;
+    slug?: string;
     title: string;
     description: string;
     price: number | null;
@@ -45,9 +46,17 @@ export function ProductCard({ product }: ProductCardProps) {
         </div>
       </div>
       <div className="p-5 flex-1 flex flex-col mt-0">
-        <h3 className="font-bold text-lg text-slate-900 dark:text-white line-clamp-2 mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-          {product.title}
-        </h3>
+        {product.slug ? (
+          <Link href={`/product/${product.slug}`} className="block">
+            <h3 className="font-bold text-lg text-slate-900 dark:text-white line-clamp-2 mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+              {product.title}
+            </h3>
+          </Link>
+        ) : (
+          <h3 className="font-bold text-lg text-slate-900 dark:text-white line-clamp-2 mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+            {product.title}
+          </h3>
+        )}
         <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-4 flex-1">
           {product.description}
         </p>
