@@ -29,40 +29,44 @@ export interface CategoryInfo {
   description: string;
   badgeLabel: string;
   badgeClass: string;
+  image: string;
   highlights: string[];
+  ctaLabel: string;
 }
 
 export const PRODUCT_CATEGORIES: CategoryInfo[] = [
   {
     key: "LIGHTNING_PROTECTION",
     title: "Lightning Protection",
-    tagline: "IS/IEC 62305 & IEC 62561 Compliant Systems",
+    tagline: "Air-Termination & Surge Protection",
     description:
-      "Complete lightning protection solutions designed to protect buildings, infrastructure, and critical systems from lightning-related damage.",
-    badgeLabel: "IS/IEC 62305",
-    badgeClass:
-      "bg-amber-500/10 text-amber-600 border-amber-500/30 dark:text-amber-400 dark:border-amber-500/30",
+      "Engineered external LPS components and surge protection systems designed to protect infrastructure against direct lightning strikes.",
+    badgeLabel: "Lightning Protection",
+    badgeClass: "bg-amber-500/20 text-amber-300 border-amber-500/40",
+    image: "/images/lps-hero.png",
     highlights: [
-      "Air Terminals & Finials",
-      "Down Conductors & Clamps",
-      "Test Joints & Disconnectors",
-      "Surge Protection Devices",
+      "IS/IEC 62305 Risk Assessment Compliance",
+      "Type-Tested to IEC 62561 with Batch Traceability",
+      "Air Terminals, Down Conductors & Fixing Clamps",
+      "Coordinated Surge Protection Devices (SPDs)",
     ],
+    ctaLabel: "Explore Lightning Protection",
   },
   {
     key: "STRUCTURAL_EARTHING",
     title: "Structural Earthing",
-    tagline: "IS 3043 & IEC 62561 Compliant Systems",
+    tagline: "Foundation Rebar & Grounding Networks",
     description:
-      "Reliable structural earthing solutions designed for safe electrical grounding, fault dissipation, and long-term infrastructure protection.",
-    badgeLabel: "IS 3043",
-    badgeClass:
-      "bg-blue-500/10 text-blue-600 border-blue-500/30 dark:text-blue-400 dark:border-blue-500/30",
+      "Reliable structural earthing and chemical electrode systems designed for safe electrical grounding and fault dissipation.",
+    badgeLabel: "Structural Earthing",
+    badgeClass: "bg-blue-500/20 text-blue-300 border-blue-500/40",
+    image: "/images/earthing-hero.png",
     highlights: [
-      "Foundation Rebar Bonding",
-      "Chemical Earth Electrodes",
-      "Copper Bonded Conductors",
-      "Equipotential Earth Bars",
+      "IS 3043:2018 Indian Earthing Standard",
+      "Foundation Rebar Bonding & Equipotential Bars",
+      "High Conductivity Chemical Earth Electrodes",
+      "Exothermic Welding Kits & Test Pits",
     ],
+    ctaLabel: "Explore Structural Earthing",
   },
 ];

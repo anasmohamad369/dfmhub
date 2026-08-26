@@ -175,19 +175,19 @@ export default function Header() {
           </nav>
 
           {/* Action Buttons: Theme Switcher & CTA */}
-          <div className="hidden sm:flex items-center space-x-3">
+          {/* <div className="hidden sm:flex items-center space-x-3"> */}
             {/* Admin Portal Button */}
-            <Link
+            {/* <Link
               href="/admin/login"
               className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex items-center gap-1.5 text-xs font-bold"
               title="Admin Portal Login"
             >
               <Shield className="w-4 h-4 text-amber-500" />
               <span className="hidden md:inline">Admin</span>
-            </Link>
+            </Link> */}
 
             {/* Theme Switcher Button */}
-            <button
+            {/* <button
               onClick={toggleTheme}
               aria-label="Toggle White/Black Theme"
               className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex items-center gap-1.5 text-xs font-semibold"
@@ -208,8 +208,8 @@ export default function Header() {
                   <span className="hidden md:inline">Light</span>
                 </>
               )}
-            </button>
-          </div>
+            </button> */}
+          {/* </div> */}
 
           {/* Mobile buttons: Theme Switcher & Mobile menu */}
           <div className="flex lg:hidden items-center space-x-2">

@@ -8,7 +8,7 @@ import { Zap, Phone, Mail, MapPin, Clock, ShieldCheck } from "lucide-react";
 export default function Footer() {
   const pathname = usePathname();
 
-  if (pathname === "/register" || pathname?.startsWith("/dashboard") || pathname?.startsWith("/admin")) {
+  if (pathname === "/register" || pathname?.startsWith("/dashboard") || pathname?.startsWith("/admin") || pathname?.startsWith("/product")) {
     return null;
   }
 

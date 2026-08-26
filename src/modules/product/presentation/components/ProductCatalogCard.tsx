@@ -68,13 +68,13 @@ export default function ProductCatalogCard({ product }: ProductCatalogCardProps)
             className={`text-[11px] font-semibold backdrop-blur-md shadow-sm ${
               isLightning
                 ? "bg-amber-50/90 dark:bg-amber-950/90 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-800"
-                : "bg-blue-50/90 dark:bg-blue-950/90 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-800"
+                : "bg-orange-50/90 dark:bg-orange-950/90 text-orange-700 dark:text-orange-300 border-orange-300 dark:border-orange-800"
             }`}
           >
             {isLightning ? (
               <Zap className="w-3 h-3 mr-1 text-amber-500" />
             ) : (
-              <ShieldCheck className="w-3 h-3 mr-1 text-blue-500" />
+              <ShieldCheck className="w-3 h-3 mr-1 text-orange-500" />
             )}
             <span>{categoryLabel}</span>
           </Badge>
@@ -158,7 +158,7 @@ export default function ProductCatalogCard({ product }: ProductCatalogCardProps)
           <Link href={`/product/${product.slug}`}>
             <Button
               size="sm"
-              className="bg-slate-900 hover:bg-slate-800 dark:bg-amber-600 dark:hover:bg-amber-700 text-white font-semibold text-xs h-9 px-3.5 rounded-lg group/btn shadow-sm"
+              className="bg-amber-500 hover:bg-amber-600 dark:bg-amber-500 dark:hover:bg-amber-600 text-white font-semibold text-xs h-9 px-3.5 rounded-lg group/btn shadow-sm shadow-amber-500/20"
             >
               <span>View Product</span>
               <ArrowRight className="w-3.5 h-3.5 ml-1.5 group-hover/btn:translate-x-1 transition-transform" />
