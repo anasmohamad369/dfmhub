@@ -7,19 +7,47 @@ export const CATEGORY_OPTIONS = [
 ];
 
 export const productFormSchema = z.object({
-  title: z.string().min(2, "Title must be at least 2 characters"),
+  title: z.string().min(1, "Product name is required"),
   slug: z.string().optional(),
-  description: z.string().min(10, "Description must be at least 10 characters"),
+  description: z.string().min(1, "Product description is required"),
   price: z.number().optional().nullable(),
   category: z.string().min(1, "Category is required"),
-  imageUrl: z.string().optional().nullable(),
+  brand: z.string().min(1, "Brand is required"),
+  primaryApplication: z.string().min(1, "Primary application is required"),
+  imageUrl: z.string().min(1, "At least one product image is required"),
+  images: z.array(z.string()).optional().default([]),
   inStock: z.boolean().default(true),
-  brand: z.string().optional().nullable(),
-  primaryApplication: z.string().optional().nullable(),
-  specifications: z.any().optional(),
-  features: z.any().optional(),
-  useCases: z.any().optional(),
-  faqs: z.any().optional(),
+  specifications: z
+    .array(
+      z.object({
+        property: z.string().min(1, "Property name is required"),
+        value: z.string().min(1, "Property value is required"),
+      })
+    )
+    .min(1, "At least one technical specification is required"),
+  features: z
+    .array(
+      z.object({
+        value: z.string().min(1, "Feature point cannot be empty"),
+      })
+    )
+    .min(1, "At least one key feature is required"),
+  useCases: z
+    .array(
+      z.object({
+        value: z.string().min(1, "Application area cannot be empty"),
+      })
+    )
+    .min(1, "At least one use case / application area is required"),
+  faqs: z
+    .array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      })
+    )
+    .optional()
+    .default([]),
 });
 
 export type ProductFormValues = z.infer<typeof productFormSchema>;

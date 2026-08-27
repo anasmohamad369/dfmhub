@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
   Phone,
@@ -124,16 +125,15 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 group">
-            <div className="bg-[#0b1329] p-2.5 rounded-lg border border-amber-500/30 group-hover:border-amber-500 transition-colors">
-              <Zap className="w-6 h-6 text-amber-500 fill-amber-500/20" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-xl tracking-tight text-slate-900 dark:text-white leading-tight">
-                DFMHUB
-              </span>
-              <span className="text-[10px] font-bold tracking-wider text-amber-600 dark:text-amber-400 uppercase">
-                ARK MAKE SYSTEMS
-              </span>
+            <div className="relative h-12 w-auto flex items-center">
+              <Image
+                src="/image.png"
+                alt="DFMHUB Logo"
+                width={160}
+                height={48}
+                priority
+                className="h-18 w-auto object-contain"
+              />
             </div>
           </Link>
 

@@ -6,6 +6,7 @@ export interface ProductRecord {
   price: number | null;
   category: ProductCategory | string;
   imageUrl: string | null;
+  images?: string[] | null;
   inStock: boolean;
   brand?: string | null;
   primaryApplication?: string | null;

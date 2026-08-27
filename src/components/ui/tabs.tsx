@@ -5,7 +5,9 @@ interface TabsContextValue {
   onValueChange: (value: string) => void;
 }
 
-const TabsContext = React.createContext<TabsContextValue | undefined>(undefined);
+const TabsContext = React.createContext<TabsContextValue | undefined>(
+  undefined,
+);
 
 export interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: string;
@@ -13,8 +15,17 @@ export interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
   onValueChange?: (value: string) => void;
 }
 
-export function Tabs({ value: valueProp, defaultValue, onValueChange, className = "", children, ...props }: TabsProps) {
-  const [selectedValue, setSelectedValue] = React.useState(valueProp || defaultValue || "");
+export function Tabs({
+  value: valueProp,
+  defaultValue,
+  onValueChange,
+  className = "",
+  children,
+  ...props
+}: TabsProps) {
+  const [selectedValue, setSelectedValue] = React.useState(
+    valueProp || defaultValue || "",
+  );
 
   const currentVal = valueProp !== undefined ? valueProp : selectedValue;
 
@@ -25,22 +36,27 @@ export function Tabs({ value: valueProp, defaultValue, onValueChange, className 
       }
       onValueChange?.(val);
     },
-    [valueProp, onValueChange]
+    [valueProp, onValueChange],
   );
 
   return (
-    <TabsContext.Provider value={{ value: currentVal, onValueChange: handleValueChange }}>
+    <TabsContext.Provider
+      value={{ value: currentVal, onValueChange: handleValueChange }}
+    >
       <div className={`w-full ${className}`} {...props}>
         {children}
       </div>
     </TabsContext.Provider>
   );
 }
-
-export function TabsList({ className = "", children, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+export function TabsList({
+  className = "",
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={`inline-flex items-center justify-start rounded-full bg-slate-100 dark:bg-slate-900/90 p-1 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-800 ${className}`}
+      className={`inline-flex items-center justify-start rounded-full p-1 text-slate-500 dark:text-slate-400 ${className}`}
       {...props}
     >
       {children}
@@ -52,7 +68,12 @@ export interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonE
   value: string;
 }
 
-export function TabsTrigger({ value, className = "", children, ...props }: TabsTriggerProps) {
+export function TabsTrigger({
+  value,
+  className = "",
+  children,
+  ...props
+}: TabsTriggerProps) {
   const context = React.useContext(TabsContext);
   if (!context) throw new Error("TabsTrigger must be used within Tabs");
 
@@ -63,12 +84,9 @@ export function TabsTrigger({ value, className = "", children, ...props }: TabsT
       type="button"
       role="tab"
       aria-selected={isActive}
+      data-state={isActive ? "active" : "inactive"}
       onClick={() => context.onValueChange(value)}
-      className={`inline-flex items-center justify-center whitespace-nowrap rounded-full px-4 py-1.5 text-xs font-semibold transition-colors disabled:pointer-events-none disabled:opacity-50 cursor-pointer ${
-        isActive
-          ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900"
-          : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-slate-800/60"
-      } ${className}`}
+      className={`inline-flex items-center justify-center whitespace-nowrap text-sm font-semibold transition-all disabled:pointer-events-none disabled:opacity-50 cursor-pointer ${className}`}
       {...props}
     >
       {children}
@@ -80,7 +98,12 @@ export interface TabsContentProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
 }
 
-export function TabsContent({ value, className = "", children, ...props }: TabsContentProps) {
+export function TabsContent({
+  value,
+  className = "",
+  children,
+  ...props
+}: TabsContentProps) {
   const context = React.useContext(TabsContext);
   if (!context) throw new Error("TabsContent must be used within Tabs");
 

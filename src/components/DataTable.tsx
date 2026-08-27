@@ -34,7 +34,7 @@ export function TablePaginationBar({ table }: { table: ReactTableInstance<any> }
     const pages: number[] = [];
     const maxVisible = 5;
     let start = Math.max(0, pageIndex - Math.floor(maxVisible / 2));
-    let end = Math.min(pageCount, start + maxVisible);
+    const end = Math.min(pageCount, start + maxVisible);
 
     if (end - start < maxVisible) {
       start = Math.max(0, end - maxVisible);

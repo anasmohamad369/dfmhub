@@ -7,6 +7,7 @@ export interface CreateProductInput {
   price?: number;
   category: string;
   imageUrl?: string;
+  images?: string[];
   inStock?: boolean;
   brand?: string;
   primaryApplication?: string;
@@ -80,6 +81,7 @@ export async function createProduct(input: CreateProductInput) {
       price: input.price,
       category: input.category,
       imageUrl: input.imageUrl,
+      images: input.images || [],
       inStock: input.inStock ?? true,
       brand: input.brand,
       primaryApplication: input.primaryApplication,

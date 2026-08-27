@@ -92,6 +92,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://dfmhub.vercel.app",
   },
+  icons: {
+    icon: [{ url: "/favicon.png", href: "/favicon.png" }],
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 const jsonLdSchema = {
@@ -189,7 +194,11 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <Script
+          id="theme-script"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: themeScript }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
