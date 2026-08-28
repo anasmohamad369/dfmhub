@@ -596,12 +596,12 @@ export async function generateMetadata({
     description: pageDesc,
     keywords: pageKeywords,
     alternates: {
-      canonical: `https://dfmhub.vercel.app/lightning-protection-system/${city.slug}`,
+      canonical: `https://www.dfmhub.com/lightning-protection-system/${city.slug}`,
     },
     openGraph: {
       title: pageTitle,
       description: pageDesc,
-      url: `https://dfmhub.vercel.app/lightning-protection-system/${city.slug}`,
+      url: `https://www.dfmhub.com/lightning-protection-system/${city.slug}`,
       siteName: "DFMHUB - ARK Lightning Protection Systems",
       locale: "en_IN",
       type: "website",
@@ -685,19 +685,19 @@ export default async function LightningProtectionCityPage({
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://dfmhub.vercel.app/",
+        item: "https://www.dfmhub.com/",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Lightning Protection System",
-        item: "https://dfmhub.vercel.app/lightning-protection-system",
+        item: "https://www.dfmhub.com/lightning-protection-system",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: city.name,
-        item: `https://dfmhub.vercel.app/lightning-protection-system/${city.slug}`,
+        item: `https://www.dfmhub.com/lightning-protection-system/${city.slug}`,
       },
     ],
   };
@@ -707,7 +707,7 @@ export default async function LightningProtectionCityPage({
     "@type": "LocalBusiness",
     name: `DFMHUB - Lightning Protection System in ${city.name}`,
     description: city.metaDescription || city.desc,
-    url: `https://dfmhub.vercel.app/lightning-protection-system/${city.slug}`,
+    url: `https://www.dfmhub.com/lightning-protection-system/${city.slug}`,
     telephone: "+919483564777",
     address: {
       "@type": "PostalAddress",

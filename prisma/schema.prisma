@@ -86,3 +86,23 @@ model Product {
 
   @@map("products")
 }
+
+model ProductInquiry {
+  id            String   @id @default(cuid())
+  productTitle  String
+  productSlug   String?
+  category      String?
+  contactPerson String
+  companyName   String
+  phoneNumber   String
+  email         String
+  message       String?
+  status        String   @default("NEW")
+  assignedTo    String?
+  remarks       String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("product_inquiries")
+}
+

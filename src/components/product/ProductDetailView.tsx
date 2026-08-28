@@ -27,6 +27,7 @@ import {
   Send,
   Loader2,
   AlertCircle,
+  MessageCircle,
 } from "lucide-react";
 
 interface ProductDetailViewProps {
@@ -143,6 +144,8 @@ export default function ProductDetailView({
     product.imageUrl ||
     "/products/copper_electrode.png";
 
+  const [whatsappLink, setWhatsappLink] = useState("");
+
   const handleInquirySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (
@@ -157,19 +160,19 @@ export default function ProductDetailView({
     setFormError(null);
     setIsSubmitting(true);
     try {
-      const res = await fetch("/api/registrations", {
+      // 1. Save lead to dedicated Product Inquiries Database API & Trigger Automated Server-Side WhatsApp Dispatch
+      const res = await fetch("/api/product-inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          fullName: contactPerson.trim(),
+          productTitle: product.title,
+          productSlug: product.slug || "",
+          category: categoryName,
+          contactPerson: contactPerson.trim(),
+          companyName: companyName.trim(),
           phoneNumber: phone.trim(),
           email: email.trim(),
-          companyName: companyName.trim(),
-          requirement: message.trim()
-            ? `[Product Inquiry: ${product.title}] - ${message.trim()}`
-            : `Product Inquiry for ${product.title}`,
-          source: "WEBSITE_CONTACT",
-          status: "NEW",
+          message: message.trim(),
         }),
       });
 
@@ -501,18 +504,17 @@ export default function ProductDetailView({
               </p>
 
               {submitted ? (
-                <div className="text-center py-8 space-y-4">
+                <div className="text-center py-6 space-y-4">
                   <CheckCircle2 className="w-14 h-14 text-emerald-500 mx-auto" />
                   <div>
                     <h4 className="text-base font-bold text-slate-900 dark:text-white mb-1">
-                      Inquiry Submitted!
+                      Quotation Request Submitted!
                     </h4>
                     <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                      Your quotation request has been sent successfully. Our
-                      engineering team will review your inquiry and reach out
-                      shortly.
+                      Your inquiry for <strong className="text-slate-900 dark:text-white">{product.title}</strong> has been received and automatically dispatched to our sales and technical team via WhatsApp & Admin Console.
                     </p>
                   </div>
+
                   <Button
                     type="button"
                     variant="outline"

@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
 import QueryProvider from "@/components/QueryProvider";
+import JsonLd from "@/components/JsonLd";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,8 +29,10 @@ const poppins = Poppins({
 const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-DFMHUB2026";
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "google-site-verification-dfmhub";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.dfmhub.com";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://dfmhub.vercel.app"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "ARK Make Lightning Protection & Earthing Systems | DFMHUB",
     template: "%s | DFMHUB",
@@ -43,7 +46,7 @@ export const metadata: Metadata = {
     "DFMHUB lightning protection",
     "Copper bonded earth rods manufacturer",
   ],
-  authors: [{ name: "DFMHUB Technical Team", url: "https://dfmhub.vercel.app" }],
+  authors: [{ name: "DFMHUB Technical Team", url: siteUrl }],
   creator: "DFMHUB Systems",
   publisher: "DFMHUB Engineering",
   formatDetection: {
@@ -68,7 +71,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://dfmhub.vercel.app",
+    url: siteUrl,
     siteName: "DFMHUB Systems",
     title: "ARK Make Lightning Protection & Earthing Systems | DFMHUB",
     description:
@@ -90,7 +93,7 @@ export const metadata: Metadata = {
     images: ["/images/lps-hero.png"],
   },
   alternates: {
-    canonical: "https://dfmhub.vercel.app",
+    canonical: siteUrl,
   },
   icons: {
     icon: [{ url: "/favicon.png", href: "/favicon.png" }],
@@ -104,11 +107,11 @@ const jsonLdSchema = {
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://dfmhub.vercel.app/#organization",
+      "@id": "https://www.dfmhub.com/#organization",
       name: "DFMHUB Systems",
       alternateName: ["DFM HUB", "DFMHUB", "DFM HUB Systems", "DFMHUB Engineering", "DFM HUB ARK Make"],
-      url: "https://dfmhub.vercel.app",
-      logo: "https://dfmhub.vercel.app/images/logo.png",
+      url: "https://www.dfmhub.com",
+      logo: "https://www.dfmhub.com/images/logo.png",
       description:
         "DFMHUB (DFM HUB) is a manufacturer of ARK Make lightning protection systems and structural earthing components compliant with IS/IEC 62305 and IS 3043.",
       address: {
@@ -129,10 +132,10 @@ const jsonLdSchema = {
     },
     {
       "@type": "LocalBusiness",
-      "@id": "https://dfmhub.vercel.app/#localbusiness",
+      "@id": "https://www.dfmhub.com/#localbusiness",
       name: "DFMHUB (DFM HUB) Engineering",
       alternateName: ["DFM HUB", "DFMHUB"],
-      url: "https://dfmhub.vercel.app",
+      url: "https://www.dfmhub.com",
       telephone: "+91-94835-64777",
       priceRange: "₹₹₹",
       address: {
@@ -157,13 +160,13 @@ const jsonLdSchema = {
     },
     {
       "@type": "WebSite",
-      "@id": "https://dfmhub.vercel.app/#website",
-      url: "https://dfmhub.vercel.app",
+      "@id": "https://www.dfmhub.com/#website",
+      url: "https://www.dfmhub.com",
       name: "DFMHUB (DFM HUB)",
       alternateName: ["DFM HUB", "DFMHUB"],
       description: "Official site of DFMHUB (DFM HUB) — IS/IEC 62305 & IS 3043 compliant lightning protection and structural earthing systems.",
       publisher: {
-        "@id": "https://dfmhub.vercel.app/#organization",
+        "@id": "https://www.dfmhub.com/#organization",
       },
     },
   ],
@@ -199,10 +202,7 @@ export default function RootLayout({
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: themeScript }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
-        />
+        <JsonLd data={jsonLdSchema["@graph"]} />
         {/* Google Analytics Script Setup */}
         {gaMeasurementId && (
           <>

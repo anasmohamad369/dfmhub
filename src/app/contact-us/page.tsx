@@ -35,13 +35,13 @@ export const metadata = {
     "Earth resistance testing contact",
   ],
   alternates: {
-    canonical: "https://dfmhub.vercel.app/contact-us",
+    canonical: "https://www.dfmhub.com/contact-us",
   },
   openGraph: {
     title: "Contact DFMHUB | Lightning Protection & Structural Earthing Systems",
     description:
       "Reach DFMHUB engineering team for CAD drawing review, risk assessment, factory direct quotes, and pan-India installation services.",
-    url: "https://dfmhub.vercel.app/contact-us",
+    url: "https://www.dfmhub.com/contact-us",
   },
 };
 
@@ -78,8 +78,8 @@ const contactPageSchema = {
   "@graph": [
     {
       "@type": "ContactPage",
-      "@id": "https://dfmhub.vercel.app/contact-us/#webpage",
-      url: "https://dfmhub.vercel.app/contact-us",
+      "@id": "https://www.dfmhub.com/contact-us/#webpage",
+      url: "https://www.dfmhub.com/contact-us",
       name: "Contact DFMHUB Engineering & Manufacturing",
       description: "Official contact page for DFMHUB ARK Make lightning protection and structural earthing systems.",
       breadcrumb: {
@@ -89,22 +89,22 @@ const contactPageSchema = {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://dfmhub.vercel.app",
+            item: "https://www.dfmhub.com",
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Contact Us",
-            item: "https://dfmhub.vercel.app/contact-us",
+            item: "https://www.dfmhub.com/contact-us",
           },
         ],
       },
     },
     {
       "@type": "LocalBusiness",
-      "@id": "https://dfmhub.vercel.app/#localbusiness",
+      "@id": "https://www.dfmhub.com/#localbusiness",
       name: "DFMHUB Systems HQ",
-      image: "https://dfmhub.vercel.app/images/logo.png",
+      image: "https://www.dfmhub.com/images/logo.png",
       telephone: "+91-94835-64777",
       email: "partner@dfmhub.com",
       address: {

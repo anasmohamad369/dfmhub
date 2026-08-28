@@ -32,7 +32,7 @@ export const metadata = {
     "Copper bonded earth rods manufacturer",
   ],
   alternates: {
-    canonical: "https://dfmhub.vercel.app",
+    canonical: "https://www.dfmhub.com",
   },
 };
 

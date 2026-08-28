@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     google: structuralEarthingVerification,
   },
   alternates: {
-    canonical: "https://dfmhub.vercel.app/structural-earthing",
+    canonical: "https://www.dfmhub.com/structural-earthing",
   },
 };
 

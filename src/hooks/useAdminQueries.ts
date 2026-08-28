@@ -35,12 +35,37 @@ export interface ProjectRecord {
   createdAt: string;
 }
 
+export interface ProductInquiryRecord {
+  id: string;
+  productTitle: string;
+  productSlug?: string;
+  category?: string;
+  contactPerson: string;
+  companyName: string;
+  phoneNumber: string;
+  email: string;
+  message?: string;
+  status?: string;
+  assignedTo?: string;
+  remarks?: string;
+  createdAt: string;
+}
+
 // API Service Fetchers
 async function fetchRegistrations(): Promise<RegistrationRecord[]> {
   const res = await fetch("/api/registrations");
   const json = await res.json();
   if (!json.success || !Array.isArray(json.data)) {
     throw new Error(json.error || "Failed to fetch registrations");
+  }
+  return json.data;
+}
+
+async function fetchProductInquiries(): Promise<ProductInquiryRecord[]> {
+  const res = await fetch("/api/product-inquiries");
+  const json = await res.json();
+  if (!Array.isArray(json.data)) {
+    throw new Error(json.error || "Failed to fetch product inquiries");
   }
   return json.data;
 }
@@ -63,11 +88,27 @@ async function updateRegistrationApi(payload: { id: string; status?: string; ass
   return res.json();
 }
 
+async function updateProductInquiryApi(payload: { id: string; status?: string; assignedTo?: string; remarks?: string }) {
+  const res = await fetch("/api/product-inquiries", {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  return res.json();
+}
+
 // Custom TanStack Query Hooks
 export function useRegistrationsQuery() {
   return useQuery({
     queryKey: ["registrations"],
     queryFn: fetchRegistrations,
+  });
+}
+
+export function useProductInquiriesQuery() {
+  return useQuery({
+    queryKey: ["product-inquiries"],
+    queryFn: fetchProductInquiries,
   });
 }
 
@@ -87,3 +128,14 @@ export function useUpdateRegistrationMutation() {
     },
   });
 }
+
+export function useUpdateProductInquiryMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: updateProductInquiryApi,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["product-inquiries"] });
+    },
+  });
+}
+

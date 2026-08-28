@@ -475,12 +475,12 @@ export async function generateMetadata({
     description: pageDesc,
     keywords: pageKeywords,
     alternates: {
-      canonical: `https://dfmhub.vercel.app/structural-earthing/${city.slug}`,
+      canonical: `https://www.dfmhub.com/structural-earthing/${city.slug}`,
     },
     openGraph: {
       title: pageTitle,
       description: pageDesc,
-      url: `https://dfmhub.vercel.app/structural-earthing/${city.slug}`,
+      url: `https://www.dfmhub.com/structural-earthing/${city.slug}`,
       siteName: "DFMHUB - ARK Structural Earthing Systems",
       locale: "en_IN",
       type: "website",
@@ -531,19 +531,19 @@ export default async function StructuralEarthingCityPage({
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://dfmhub.vercel.app/",
+        item: "https://www.dfmhub.com/",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Structural Earthing",
-        item: "https://dfmhub.vercel.app/structural-earthing",
+        item: "https://www.dfmhub.com/structural-earthing",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: city.name,
-        item: `https://dfmhub.vercel.app/structural-earthing/${city.slug}`,
+        item: `https://www.dfmhub.com/structural-earthing/${city.slug}`,
       },
     ],
   };
@@ -553,7 +553,7 @@ export default async function StructuralEarthingCityPage({
     "@type": "LocalBusiness",
     name: `DFMHUB - Structural Earthing System in ${city.name}`,
     description: city.metaDescription || city.desc,
-    url: `https://dfmhub.vercel.app/structural-earthing/${city.slug}`,
+    url: `https://www.dfmhub.com/structural-earthing/${city.slug}`,
     telephone: "+919483564777",
     address: {
       "@type": "PostalAddress",

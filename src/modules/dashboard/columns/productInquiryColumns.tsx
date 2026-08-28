@@ -1,38 +1,50 @@
 import React from "react";
+import Link from "next/link";
 import { ColumnDef } from "@tanstack/react-table";
-import { Building2, Phone, Mail, MapPin, MessageCircle } from "lucide-react";
+import { Building2, Phone, Mail, Package, MessageCircle, FileText } from "lucide-react";
 import { Select, SelectOption } from "@/components/ui/select";
 import { AssignedToCell } from "../components/AssignedToCell";
-import { RegistrationRecord } from "@/hooks/useAdminQueries";
+import { ProductInquiryRecord } from "@/hooks/useAdminQueries";
 
-interface RegistrationColumnsProps {
+interface ProductInquiryColumnsProps {
   onUpdateStatus: (id: string, status: string) => Promise<void>;
   onUpdateAssigned: (id: string, assignedTo: string) => Promise<void>;
 }
 
-export function getRegistrationColumns({
+export function getProductInquiryColumns({
   onUpdateStatus,
   onUpdateAssigned,
-}: RegistrationColumnsProps): ColumnDef<RegistrationRecord>[] {
+}: ProductInquiryColumnsProps): ColumnDef<ProductInquiryRecord>[] {
   return [
     {
       accessorKey: "id",
       header: "Ref ID",
       cell: ({ row }) => (
-        <span className="font-semibold uppercase text-slate-900 dark:text-white flex flex-col gap-2">
-          {row.original.id}
-          <p className="text-xs font-semibold text-slate-600 dark:text-slate-400">{new Date(row.original.createdAt).toLocaleDateString()}</p>
+        <span className="font-semibold uppercase text-slate-900 dark:text-white flex flex-col gap-1">
+          <span className="text-amber-600 font-bold">{row.original.id}</span>
+          <p className="text-xs text-slate-500">{new Date(row.original.createdAt).toLocaleDateString()}</p>
         </span>
       ),
     },
-    
     {
-      accessorKey: "fullName",
-      header: "Full Name",
+      accessorKey: "productTitle",
+      header: "Product Inquired",
       cell: ({ row }) => (
-        <span className="font-bold text-slate-900 dark:text-white text-sm">
-          {row.original.fullName}
-        </span>
+        <div className="flex flex-col gap-1">
+          <Link
+            href={row.original.productSlug ? `/product/${row.original.productSlug}` : "/product"}
+            target="_blank"
+            className="font-bold text-slate-900 dark:text-white text-xs hover:text-amber-600 flex items-center gap-1.5"
+          >
+            <Package className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+            <span>{row.original.productTitle}</span>
+          </Link>
+          {row.original.category && (
+            <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">
+              {row.original.category}
+            </span>
+          )}
+        </div>
       ),
     },
     {
@@ -40,14 +52,23 @@ export function getRegistrationColumns({
       header: "Company Name",
       cell: ({ row }) => (
         <span className="text-slate-800 dark:text-slate-200 font-semibold text-xs flex items-center gap-1">
-          <Building2 className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+          <Building2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
           {row.original.companyName}
         </span>
       ),
     },
     {
+      accessorKey: "contactPerson",
+      header: "Contact Person",
+      cell: ({ row }) => (
+        <span className="font-bold text-slate-900 dark:text-white text-xs">
+          {row.original.contactPerson}
+        </span>
+      ),
+    },
+    {
       accessorKey: "phoneNumber",
-      header: "Phone Number",
+      header: "Phone & WhatsApp",
       cell: ({ row }) => {
         const cleanPhone = row.original.phoneNumber.replace(/[^\d+]/g, "");
         const formattedWaPhone = cleanPhone.startsWith("+")
@@ -57,14 +78,14 @@ export function getRegistrationColumns({
             : cleanPhone;
 
         const waText = encodeURIComponent(
-          `Hello ${row.original.fullName}, thank you for your inquiry on DFMHUB regarding: ${row.original.requirement || "Product Quotation"}. How can we assist you today?`
+          `Hello ${row.original.contactPerson}, thank you for your inquiry on DFMHUB regarding *${row.original.productTitle}*. How can we assist you with technical specs and quotation?`
         );
 
         return (
-          <div className="flex flex-col gap-1 text-slate-900 dark:text-slate-200 font-bold text-xs">
-            <div className="flex items-center gap-1.5">
+          <div className="flex flex-col gap-1 text-xs">
+            <div className="flex items-center gap-1.5 font-bold text-slate-900 dark:text-slate-200">
               <Phone className="w-3.5 h-3.5 text-amber-600 dark:text-amber-500 shrink-0" />
-              <a href={`tel:${row.original.phoneNumber}`} className="hover:text-amber-700 dark:hover:text-amber-400">
+              <a href={`tel:${row.original.phoneNumber}`} className="hover:text-amber-700">
                 {row.original.phoneNumber}
               </a>
             </div>
@@ -86,29 +107,19 @@ export function getRegistrationColumns({
       header: "Email",
       cell: ({ row }) => (
         <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 font-medium text-xs">
-          <Mail className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-          <a href={`mailto:${row.original.email}`} className="hover:text-slate-900 dark:hover:text-slate-100">
+          <Mail className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+          <a href={`mailto:${row.original.email}`} className="hover:underline">
             {row.original.email}
           </a>
         </div>
       ),
     },
     {
-      accessorKey: "location",
-      header: "Location",
+      accessorKey: "message",
+      header: "Details / Notes",
       cell: ({ row }) => (
-        <span className="text-amber-700 dark:text-amber-400 font-extrabold text-xs flex items-center gap-1">
-          <MapPin className="w-3.5 h-3.5 shrink-0" />
-          {row.original.location || "—"}
-        </span>
-      ),
-    },
-    {
-      accessorKey: "requirement",
-      header: "Requirement",
-      cell: ({ row }) => (
-        <span className="text-slate-900 dark:text-slate-100 text-xs font-bold">
-          {row.original.requirement || "General Registration"}
+        <span className="text-slate-700 dark:text-slate-300 text-xs font-medium max-w-[200px] truncate block" title={row.original.message || ""}>
+          {row.original.message || "No additional requirements specified"}
         </span>
       ),
     },
@@ -121,11 +132,10 @@ export function getRegistrationColumns({
           { value: "NEW", label: "NEW", badgeClass: "bg-amber-100 dark:bg-amber-950 text-amber-900 dark:text-amber-300 border-amber-400" },
           { value: "CONTACTED", label: "CONTACTED", badgeClass: "bg-indigo-100 dark:bg-indigo-950 text-indigo-900 dark:text-indigo-300 border-indigo-400" },
           { value: "QUOTATION_SENT", label: "QUOTATION SENT", badgeClass: "bg-sky-100 dark:bg-sky-950 text-sky-900 dark:text-sky-300 border-sky-400" },
-          { value: "PAID", label: "PAID", badgeClass: "bg-emerald-100 dark:bg-emerald-950 text-emerald-900 dark:text-emerald-300 border-emerald-400" },
-          { value: "DID_NOT_BUY", label: "DID NOT BUY", badgeClass: "bg-rose-100 dark:bg-rose-950 text-rose-900 dark:text-rose-300 border-rose-400" },
+          { value: "CLOSED", label: "CLOSED", badgeClass: "bg-emerald-100 dark:bg-emerald-950 text-emerald-900 dark:text-emerald-300 border-emerald-400" },
+          { value: "REJECTED", label: "REJECTED", badgeClass: "bg-rose-100 dark:bg-rose-950 text-rose-900 dark:text-rose-300 border-rose-400" },
         ];
 
-        // Lower rows open dropdown upwards to prevent clipping under pagination
         const isLowerRow = row.index >= 2;
 
         return (

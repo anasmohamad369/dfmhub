@@ -1,0 +1,49 @@
+# Earthing Mart / DFMHUB — Lightning Protection & Grounding Engineering
+
+> DFMHUB is an Indian manufacturer and engineering consultancy specializing in ARK Make Lightning Protection Systems (LPS), Chemical Earthing Electrodes, Copper Bonded Grounding Rods, and Structural Earthing solutions compliant with IS 3043:2018, IEC 62305, IEEE 80, and NBC 2016 standards.
+
+## Target Audience & Solutions
+- **Solar EPC Owners & Project Heads:** Heavy-duty grounding systems for Utility-Scale (10MW–500MW) and Commercial Rooftop Solar installations.
+- **Electrical & MEP Consultants:** Risk assessment, surge protection (Type 1+2 SPD coordination), and earth grid impedance calculations under IEC 62305 & IEEE 80.
+- **Facility Engineers & Data Centre Directors:** Low-impedance (<1.0 Ohm) maintenance-free chemical earthing for sensitive server infrastructure and telecommunications towers.
+- **Contractors & Procurement Teams:** Pan-India delivery, factory test reports (CPRI / NABL accredited), and B2B pricing.
+
+## Core Products & Engineering Specifications
+
+### 1. Chemical Earthing Electrodes (Maintenance-Free)
+- **Material:** High-tensile low-carbon steel pipe electro-plated with 254-micron molecular copper layer (or SS304/SS316 variant).
+- **Backfill Compound:** High-performance conductive Bentonite compound with hygroscopic moisture-retention properties.
+- **Compliance:** IS 3043:2018, IEC 62561-2, IEEE Std 80, UL 467.
+- **Performance:** Earth resistance < 1.0 Ohm; 30+ year maintenance-free operational life.
+- **Primary Applications:** Solar inverter rooms, transformer substations, telecommunication towers, high-voltage switchyards.
+- **URL:** https://www.dfmhub.com/product
+
+### 2. Early Streamer Emission (ESE) Lightning Arrester (ARK Make)
+- **Technology:** Active air terminal with early streamer emission triggering mechanism.
+- **Protection Radius:** Up to 107 meters (Level I protection at delta t = 60µs).
+- **Compliance:** NFC 17-102 (2011 Edition), IEC 62305-3, NBC 2016.
+- **Applications:** Solar power plants, industrial factories, high-rise commercial complexes, open sports stadiums.
+- **URL:** https://www.dfmhub.com/lightning-protection-system
+
+### 3. Structural Earthing & Down Conductors
+- **Material:** Hot-dip galvanized iron (GI) strips, copper bonded tapes, and exothermic weld connections.
+- **Application:** Rebar integration for lightning current dispersion into building foundations.
+- **Compliance:** IS 3043, NBC 2016 (Part 8), IEEE 80.
+- **URL:** https://www.dfmhub.com/structural-earthing
+
+### 4. Surge Protection Devices (SPD)
+- **Classifications:** Type 1, Type 2, and Type 1+2 Combined AC/DC Surge Protectors.
+- **Voltage Ratings:** 1000V DC (Solar String Inverters) to 415V AC (Main LT Panels).
+- **Response Time:** < 25 nanoseconds.
+- **Compliance:** IEC 61643-11, EN 50539-11.
+
+## Key Engineering Calculations & Standards Reference
+- **Earth Grid Resistance Formula (IEEE Std 80):** $R_g = \rho \cdot \left( \frac{1}{L} + \frac{1}{\sqrt{20A}} \right)$
+- **Lightning Protection Level (LPL) Risk Assessment:** IEC 62305-2 (Evaluating $L1$ human loss, $L2$ essential service loss, $L3$ cultural heritage loss, and $L4$ economic loss).
+- **Soil Resistivity Measurement:** Fall-of-Potential Method and Wenner 4-Pin Method as specified in IS 3043:2018.
+
+## Documentation & B2B Procurement Channels
+- [Product Catalog](https://www.dfmhub.com/product): Complete technical specifications, dimensions, and factory test parameters.
+- [Engineering Installation Services](https://www.dfmhub.com/installation-services): Turnkey earthing pit installation, soil testing, and audit services.
+- [Technical Blog](https://www.dfmhub.com/blog): In-depth technical articles on IEC 62305 design, earth resistance testing, and SPD coordination.
+- [Contact & B2B RFQ Portal](https://www.dfmhub.com/contact-us): Submit BOQs for bulk dealer pricing, procurement queries, and custom engineering requests.

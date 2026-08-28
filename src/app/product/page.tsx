@@ -18,7 +18,7 @@ export const metadata = {
     "DFMHUB Catalog",
   ],
   alternates: {
-    canonical: "https://dfmhub.vercel.app/product",
+    canonical: "https://www.dfmhub.com/product",
   },
 };
 

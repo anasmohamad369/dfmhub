@@ -15,13 +15,13 @@ export const metadata = {
   keywords:
     "lightning protection system, lightning protection system manufacturer, lightning protection system India, ARK lightning protection system, external lightning protection system, conventional lightning protection system, IEC 62305 lightning protection, IEC 62561 components, lightning protection products, DFMHUB lightning protection",
   alternates: {
-    canonical: "https://dfmhub.vercel.app/lightning-protection-system",
+    canonical: "https://www.dfmhub.com/lightning-protection-system",
   },
   openGraph: {
     title: "Lightning Protection System Manufacturer in India | ARK Make by DFMHUB",
     description:
       "ARK Make Lightning Protection System by DFMHUB offers engineered air terminals, conductors, clamps, connectors and LPS components for industrial, commercial and infrastructure projects in India.",
-    url: "https://dfmhub.vercel.app/lightning-protection-system",
+    url: "https://www.dfmhub.com/lightning-protection-system",
     siteName: "DFMHUB - ARK Lightning Protection Systems",
     locale: "en_IN",
     type: "website",
@@ -294,13 +294,13 @@ export default async function LightningProtectionPage() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://dfmhub.vercel.app/",
+        "item": "https://www.dfmhub.com/",
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Lightning Protection System",
-        "item": "https://dfmhub.vercel.app/lightning-protection-system",
+        "item": "https://www.dfmhub.com/lightning-protection-system",
       },
     ],
   };
@@ -309,7 +309,7 @@ export default async function LightningProtectionPage() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "DFMHUB",
-    "url": "https://dfmhub.vercel.app/",
+    "url": "https://www.dfmhub.com/",
     "description": "ARK Make Lightning Protection System by DFMHUB offers engineered air terminals, conductors, clamps, connectors and LPS components.",
     "address": {
       "@type": "PostalAddress",
