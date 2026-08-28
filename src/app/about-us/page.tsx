@@ -11,8 +11,10 @@ import {
 } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 
-export const metadata = {
-  title: "ARK Make Lightning Protection & Earthing Systems | DFMHUB",
+import { getDynamicMetadata } from "@/lib/seo";
+
+const defaultMetadata = {
+  title: "About Us | DFMHUB Premier Earthing & Protection",
   description:
     "DFMHUB is India's premier manufacturer of ARK Make Lightning Protection and Structural Earthing Systems in Bengaluru. Engineered to IS 3043 & IEC 62305 standards. Connect with our pan-India dealer network for reliable B2B procurement.",
   keywords: [
@@ -26,6 +28,11 @@ export const metadata = {
     canonical: "https://www.dfmhub.com/about-us",
   },
 };
+
+export async function generateMetadata() {
+  return await getDynamicMetadata("/about-us", defaultMetadata);
+}
+
 
 export default function AboutUsPage() {
   const trustPillars = [

@@ -87,7 +87,7 @@ export default function AddBlogForm({
         });
         setSuccessMsg("Blog post updated successfully!");
         setTimeout(() => {
-          router.push("/dashboard");
+          router.push("/admin/blogs/editor");
         }, 1000);
       } else {
         await createBlogMutation.mutateAsync(values);
@@ -122,7 +122,7 @@ export default function AddBlogForm({
             type="button"
             variant="outline"
             size="sm"
-            onClick={() => router.push("/dashboard")}
+            onClick={() => router.push("/admin/blogs/editor")}
             className="h-9 px-3 border-slate-300 dark:border-slate-800 text-slate-700 dark:text-slate-200 bg-slate-100/80 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700 font-semibold text-xs flex items-center gap-1.5 shrink-0 cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4 text-slate-700 dark:text-slate-200" />

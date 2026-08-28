@@ -20,13 +20,24 @@ import { Testing } from "@/components/Testing";
 import ProductCarousel from "@/components/ProductCarousel";
 import { getProductsByCategory } from "@/lib/products";
 
-export const metadata = {
+import { getDynamicMetadata, getDynamicHeroImage } from "@/lib/seo";
+
+const defaultMetadata = {
   title: "Structural Earthing & Chemical Earthing (IS 3043) | DFMHUB",
   description:
     "Foundation rebar bonding, copper bonded and chemical electrodes, earth bars and enhancement compound sized from a Wenner soil resistivity survey to IS 3043:2018.",
+  alternates: {
+    canonical: "https://www.dfmhub.com/structural-earthing",
+  },
 };
 
+export async function generateMetadata() {
+  return await getDynamicMetadata("/structural-earthing", defaultMetadata);
+}
+
+
 export default async function StructuralEarthingPage() {
+  const heroImage = await getDynamicHeroImage("/structural-earthing", "/images/earthing-hero.png");
   const products = await getProductsByCategory("STRUCTURAL_EARTHING");
 
   const lplMatrix = [
@@ -255,7 +266,7 @@ export default async function StructuralEarthingPage() {
       <section className="relative bg-[#081021] text-white overflow-hidden py-16 sm:py-20 lg:py-24 border-b border-slate-800">
         <div className="absolute inset-0 z-0 opacity-80">
           <Image
-            src="/images/earthing-hero.png"
+            src={heroImage}
             alt="Structural Earthing foundation rod installation"
             fill
             className="object-cover object-center"

@@ -20,7 +20,9 @@ import FAQAccordion from "@/components/FAQAccordion";
 import ContactForm from "@/components/ContactForm";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
 
-export const metadata = {
+import { getDynamicMetadata, getDynamicHeroImage } from "@/lib/seo";
+
+const defaultMetadata = {
   title: "ARK Make Lightning Protection & Earthing Systems | DFMHUB",
   description:
     "DFMHUB is India's premier manufacturer of ARK Make Lightning Protection and Structural Earthing Systems in Bengaluru. Engineered to IS 3043 & IEC 62305 standards. Connect with our pan-India dealer network for reliable B2B procurement.",
@@ -36,7 +38,14 @@ export const metadata = {
   },
 };
 
-export default function HomePage() {
+export async function generateMetadata() {
+  return await getDynamicMetadata("/", defaultMetadata);
+}
+
+
+export default async function HomePage() {
+  const heroImage = await getDynamicHeroImage("/", "/images/lps-hero.png");
+
   const coreFeatures = [
     {
       icon: ShieldCheck,
@@ -136,7 +145,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#070d19] via-[#091325]/90 to-slate-900/60 z-10" />
         <div className="absolute inset-0 z-0 opacity-50">
           <Image
-            src="/images/lps-hero.png"
+            src={heroImage}
             alt="Lightning Protection Systems & Structural Earthing"
             fill
             className="object-cover object-center"

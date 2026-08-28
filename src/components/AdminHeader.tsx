@@ -25,7 +25,7 @@ export default function AdminHeader({ title }: { title?: string }) {
 
   return (
     <header className="w-full sticky top-0 z-50 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 transition-colors shadow-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      <div className="w-full px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
         {/* Left: Logo & Context Title */}
         <div className="flex items-center gap-4 sm:gap-6">
           <Link href="/" className="flex items-center group shrink-0">
@@ -58,8 +58,41 @@ export default function AdminHeader({ title }: { title?: string }) {
           )}
         </div>
 
+        {/* Middle/Center: Navigation Tabs */}
+        <nav className="hidden lg:flex items-center gap-1 bg-slate-100 dark:bg-slate-850 p-1 rounded-xl border border-slate-200/80 dark:border-slate-800">
+          <Link
+            href="/admin/products"
+            className="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 transition-all flex items-center gap-1.5"
+          >
+            <span>Products</span>
+          </Link>
+          <Link
+            href="/admin/blogs/editor"
+            className="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 transition-all flex items-center gap-1.5"
+          >
+            <span>Blogs</span>
+          </Link>
+          <Link
+            href="/admin/seo"
+            className="px-3 py-1.5 rounded-lg text-xs font-semibold text-amber-700 dark:text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 transition-all flex items-center gap-1.5"
+          >
+            <ShieldCheck className="w-3.5 h-3.5 text-amber-500" />
+            <span>SEO Portal</span>
+          </Link>
+        </nav>
+
         {/* Right: Actions */}
         <div className="flex items-center gap-2.5 shrink-0">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => router.push("/admin/seo")}
+            className="h-9 border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300 font-semibold text-xs flex lg:hidden items-center gap-1.5 hover:bg-amber-500/20 rounded-xl cursor-pointer"
+          >
+            <ShieldCheck className="w-3.5 h-3.5 text-amber-500" />
+            <span>SEO</span>
+          </Button>
+
           <Button
             variant="outline"
             size="sm"
@@ -69,6 +102,7 @@ export default function AdminHeader({ title }: { title?: string }) {
             <Globe className="w-3.5 h-3.5 text-amber-500" />
             <span>Landing Page</span>
           </Button>
+
 
           <Button
             variant="outline"

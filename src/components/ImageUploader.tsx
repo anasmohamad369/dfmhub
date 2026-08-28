@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { UploadCloud, CheckCircle2, AlertCircle, Loader2, X } from "lucide-react";
 
 interface ImageUploaderProps {
@@ -21,6 +21,11 @@ export default function ImageUploader({
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState<string | null>(value || null);
   const [statusMessage, setStatusMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
+
+  useEffect(() => {
+    setPreview(value || null);
+  }, [value]);
+
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

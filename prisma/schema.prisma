@@ -106,3 +106,38 @@ model ProductInquiry {
   @@map("product_inquiries")
 }
 
+model SeoMetadata {
+  id            String   @id @default(cuid())
+  path          String   @unique
+  title         String
+  description   String?
+  keywords      String?
+  ogTitle       String?
+  ogDescription String?
+  ogImage       String?
+  canonicalUrl  String?
+  noIndex       Boolean  @default(false)
+  structuredData Json?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("seo_metadata")
+}
+
+model PageView {
+  id        String   @id @default(cuid())
+  path      String
+  title     String?
+  referrer  String?
+  userAgent String?
+  device    String?  @default("desktop")
+  country   String?  @default("India")
+  createdAt DateTime @default(now())
+
+  @@index([path])
+  @@index([createdAt])
+  @@map("page_views")
+}
+
+
+

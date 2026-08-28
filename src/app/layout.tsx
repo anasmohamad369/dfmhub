@@ -1,3 +1,4 @@
+import React, { Suspense } from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import Script from "next/script";
@@ -8,6 +9,8 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
 import QueryProvider from "@/components/QueryProvider";
 import JsonLd from "@/components/JsonLd";
+import PageViewTracker from "@/components/analytics/PageViewTracker";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -224,8 +227,12 @@ export default function RootLayout({
         )}
       </head>
       <body className="min-h-full flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200">
+
         <QueryProvider>
           <ThemeProvider>
+            <Suspense fallback={null}>
+              <PageViewTracker />
+            </Suspense>
             <Header />
             <main className="flex-grow">{children}</main>
             <Footer />
@@ -233,6 +240,7 @@ export default function RootLayout({
           </ThemeProvider>
         </QueryProvider>
       </body>
+
     </html>
   );
 }

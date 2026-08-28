@@ -8,6 +8,8 @@ interface Props {
   params: Promise<{ slug: string }> | { slug: string };
 }
 
+import { getDynamicMetadata } from "@/lib/seo";
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await Promise.resolve(params);
   const product = await getProductBySlug(resolvedParams.slug);
@@ -19,10 +21,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.dfmhub.com";
-  const canonicalUrl = `${baseUrl}/product/${product.slug}`;
+  const path = `/product/${product.slug}`;
+  const canonicalUrl = `${baseUrl}${path}`;
   const ogImageUrl = product.imageUrl || `${baseUrl}/images/lps-hero.png`;
 
-  return {
+  const defaultMeta: Metadata = {
     title: `${product.title} (IS 3043 / IEC 62305 Certified)`,
     description: `${product.description.slice(0, 160)} Engineered for Solar EPC & MEP projects. Request B2B quotes.`,
     keywords: [
@@ -59,7 +62,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [ogImageUrl],
     },
   };
+
+  return await getDynamicMetadata(path, defaultMeta);
 }
+
 
 export default async function ProductPage({ params }: Props) {
   const resolvedParams = await Promise.resolve(params);

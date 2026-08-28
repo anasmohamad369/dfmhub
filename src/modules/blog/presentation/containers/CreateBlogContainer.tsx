@@ -18,7 +18,7 @@ export default function CreateBlogContainer() {
             isEdit={false}
             readonly={false}
             onSuccessCallback={() => {
-              router.push("/dashboard");
+              router.push("/admin/blogs/editor");
             }}
           />
         </div>

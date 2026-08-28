@@ -35,7 +35,7 @@ export default function EditBlogContainer({ slug }: EditBlogContainerProps) {
           <h2 className="text-lg font-bold text-slate-900 dark:text-white">Blog Article Not Found</h2>
           <Button
             variant="outline"
-            onClick={() => router.push("/dashboard")}
+            onClick={() => router.push("/admin/blogs/editor")}
             className="mt-4 text-xs font-bold"
           >
             Return to Dashboard
@@ -56,7 +56,7 @@ export default function EditBlogContainer({ slug }: EditBlogContainerProps) {
             isEdit={true}
             readonly={false}
             onSuccessCallback={() => {
-              router.push("/dashboard");
+              router.push("/admin/blogs/editor");
             }}
           />
         </div>

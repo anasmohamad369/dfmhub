@@ -25,7 +25,7 @@ export default function AdminLoginPage() {
       if (typeof window !== "undefined") {
         const session = localStorage.getItem("dfm_admin_session");
         if (session === "authenticated") {
-          router.push("/dashboard");
+          router.push("/admin");
         }
       }
     } catch (e) {}
@@ -51,7 +51,7 @@ export default function AdminLoginPage() {
           localStorage.setItem("dfm_admin_username", username.trim());
           localStorage.setItem("dfm_admin_token", data.token);
         }
-        router.push("/dashboard");
+        router.push("/admin");
       } else {
         setErrorMsg(data.error || "Invalid Admin credentials. Please try again.");
       }

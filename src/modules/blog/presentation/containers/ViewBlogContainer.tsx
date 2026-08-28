@@ -35,7 +35,7 @@ export default function ViewBlogContainer({ slug }: ViewBlogContainerProps) {
           <h2 className="text-lg font-bold text-slate-900 dark:text-white">Blog Article Not Found</h2>
           <Button
             variant="outline"
-            onClick={() => router.push("/dashboard")}
+            onClick={() => router.push("/admin/blogs/editor")}
             className="mt-4 text-xs font-bold"
           >
             Return to Dashboard

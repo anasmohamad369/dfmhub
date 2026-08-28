@@ -5,11 +5,21 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import FAQAccordion from "@/components/FAQAccordion";
 
-export const metadata = {
+import { getDynamicMetadata } from "@/lib/seo";
+
+const defaultMetadata = {
   title: "LPS & Earthing Installation Services | DFMHUB",
   description:
     "Directly employed installation crews for roof, facade and foundation lightning protection work with height-safety compliance, Fall-of-Potential testing & handover certification across India.",
+  alternates: {
+    canonical: "https://www.dfmhub.com/installation-services",
+  },
 };
+
+export async function generateMetadata() {
+  return await getDynamicMetadata("/installation-services", defaultMetadata);
+}
+
 
 export default function InstallationServicesPage() {
   const stages = [

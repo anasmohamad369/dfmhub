@@ -4,11 +4,21 @@ import { ArrowRight } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import BlogListClient from "@/components/BlogListClient";
 
-export const metadata = {
+import { getDynamicMetadata } from "@/lib/seo";
+
+const defaultMetadata = {
   title: "Technical Blog | Lightning Protection & Structural Earthing | DFMHUB",
   description:
     "Standards interpretation, field test methods and design decisions — written for facility managers, consultants and electrical contractors working in India.",
+  alternates: {
+    canonical: "https://www.dfmhub.com/blog",
+  },
 };
+
+export async function generateMetadata() {
+  return await getDynamicMetadata("/blog", defaultMetadata);
+}
+
 
 export default function BlogIndexPage() {
   return (

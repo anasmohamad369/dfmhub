@@ -21,7 +21,9 @@ import InteractiveMap from "@/components/InteractiveMap";
 import ContactForm from "@/components/ContactForm";
 import FAQAccordion from "@/components/FAQAccordion";
 
-export const metadata = {
+import { getDynamicMetadata } from "@/lib/seo";
+
+const defaultMetadata = {
   title: "Contact Us | DFMHUB - Lightning Protection & Earthing Systems India",
   description:
     "Get in touch with DFMHUB for IS/IEC 62305 & IS 3043 compliant lightning protection systems, structural earthing components, earth resistance testing, and turnkey installations across India. Headquarters in Kamakshipalya, Bengaluru.",
@@ -44,6 +46,11 @@ export const metadata = {
     url: "https://www.dfmhub.com/contact-us",
   },
 };
+
+export async function generateMetadata() {
+  return await getDynamicMetadata("/contact-us", defaultMetadata);
+}
+
 
 const contactFaqs = [
   {

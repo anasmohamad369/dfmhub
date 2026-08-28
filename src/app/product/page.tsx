@@ -4,7 +4,9 @@ import ProductCatalogClient from "@/components/product/ProductCatalogClient";
 import { getAllProducts } from "@/lib/products";
 import { ProductRecord } from "@/modules/product";
 
-export const metadata = {
+import { getDynamicMetadata } from "@/lib/seo";
+
+const defaultMetadata = {
   title: "Product Catalog | Lightning Protection & Structural Earthing | DFMHUB",
   description:
     "Explore certified ARK Make lightning protection systems and structural earthing products manufactured to IS 3043 and IEC 62305 standards.",
@@ -21,6 +23,11 @@ export const metadata = {
     canonical: "https://www.dfmhub.com/product",
   },
 };
+
+export async function generateMetadata() {
+  return await getDynamicMetadata("/product", defaultMetadata);
+}
+
 
 export default async function ProductCatalogPage({
   searchParams,

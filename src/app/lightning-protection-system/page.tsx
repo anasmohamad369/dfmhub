@@ -8,7 +8,9 @@ import {Testing} from "@/components/Testing";
 import ProductCarousel from "@/components/ProductCarousel";
 import { getProductsByCategory } from "@/lib/products";
 
-export const metadata = {
+import { getDynamicMetadata, getDynamicHeroImage } from "@/lib/seo";
+
+const defaultMetadata = {
   title: "Lightning Protection System Manufacturer in India | ARK Make by DFMHUB",
   description:
     "ARK Make Lightning Protection System by DFMHUB offers engineered air terminals, conductors, clamps, connectors and LPS components for industrial, commercial and infrastructure projects in India.",
@@ -34,7 +36,13 @@ export const metadata = {
   },
 };
 
+export async function generateMetadata() {
+  return await getDynamicMetadata("/lightning-protection-system", defaultMetadata);
+}
+
+
 export default async function LightningProtectionPage() {
+  const heroImage = await getDynamicHeroImage("/lightning-protection-system", "/images/lps-hero.png");
   const products = await getProductsByCategory("LIGHTNING_PROTECTION");
 
   const standards = [
@@ -337,7 +345,7 @@ export default async function LightningProtectionPage() {
       <section className="relative bg-[#081021] text-white overflow-hidden py-16 sm:py-20 lg:py-24 border-b border-slate-800">
         <div className="absolute inset-0 z-0 opacity-30">
           <Image
-            src="/images/lps-hero.png"
+            src={heroImage}
             alt="Lightning protection roof system"
             fill
             className="object-cover object-center"

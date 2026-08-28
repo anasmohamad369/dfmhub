@@ -2,26 +2,40 @@
 
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
 import { useReactTable, getCoreRowModel, getPaginationRowModel } from "@tanstack/react-table";
 import {
+  BarChart3,
+  ShoppingBag,
   Users,
-  Search,
   FolderCheck,
   BookOpen,
   Sparkles,
+  Search,
   RefreshCw,
-  ShoppingBag,
+  LogOut,
+  Globe,
+  Sun,
+  Moon,
+  ShieldCheck,
+  ChevronLeft,
+  ChevronRight,
+  Menu,
+  X,
+  Sliders,
   Package,
 } from "lucide-react";
 import AdminBlogManager from "@/components/AdminBlogManager";
-import AdminHeader from "@/components/AdminHeader";
 import ProductsClient from "@/app/admin/products/ProductsClient";
+import SeoManagerClient from "@/components/admin/SeoManagerClient";
+import AdminAnalyticsView from "@/components/admin/AdminAnalyticsView";
 import { DataTable } from "@/components/DataTable";
 import { useTheme } from "@/components/ThemeProvider";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import {
   useRegistrationsQuery,
   useProductInquiriesQuery,
@@ -33,17 +47,22 @@ import { getRegistrationColumns } from "@/modules/dashboard/columns/registration
 import { getProductInquiryColumns } from "@/modules/dashboard/columns/productInquiryColumns";
 import { getProjectColumns } from "@/modules/dashboard/columns/projectColumns";
 
-const ADMIN_NAV_TABS = [
-  { id: "product-inquiries", label: "Product Inquiries", icon: ShoppingBag },
-  { id: "registrations", label: "General Registrations", icon: Users },
-  { id: "projects", label: "Tool Projects", icon: FolderCheck },
-  { id: "blog", label: "Blog Management", icon: BookOpen },
-  { id: "products", label: "Products Catalog", icon: Sparkles },
+const ADMIN_NAV_ITEMS = [
+  { id: "analytics", label: "Analytics & Traffic", icon: BarChart3, category: "Overview" },
+  { id: "product-inquiries", label: "Product Inquiries", icon: ShoppingBag, category: "Leads" },
+  { id: "registrations", label: "General Registrations", icon: Users, category: "Leads" },
+  { id: "projects", label: "Tool Projects", icon: FolderCheck, category: "Calculations" },
+  { id: "products", label: "Products Catalog", icon: Package, category: "Management" },
+  { id: "blog", label: "Blog Articles", icon: BookOpen, category: "Management" },
+  { id: "seo", label: "SEO Portal", icon: Sliders, category: "Management" },
 ] as const;
 
 export default function EarthLineApp() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<string>("product-inquiries");
+  const { theme, toggleTheme } = useTheme();
+  const [activeTab, setActiveTab] = useState<string>("analytics");
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Admin Auth State
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -65,6 +84,17 @@ export default function EarthLineApp() {
     }
   }, [router]);
 
+  const handleLogout = () => {
+    try {
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("dfm_admin_session");
+        localStorage.removeItem("dfm_admin_token");
+        localStorage.removeItem("dfm_admin_username");
+      }
+    } catch (e) {}
+    router.push("/admin/login");
+  };
+
   // Filter States
   const [inqSearchQuery, setInqSearchQuery] = useState("");
   const [inqStatusFilter, setInqStatusFilter] = useState("ALL");
@@ -73,25 +103,13 @@ export default function EarthLineApp() {
   const [projSearchQuery, setProjSearchQuery] = useState("");
 
   // TanStack Query Hooks
-  const {
-    data: productInquiries = [],
-    isLoading: loadingInquiries,
-  } = useProductInquiriesQuery();
-
-  const {
-    data: registrations = [],
-    isLoading: loadingRegs,
-  } = useRegistrationsQuery();
-
-  const {
-    data: projects = [],
-    isLoading: loadingProjects,
-  } = useProjectsQuery();
+  const { data: productInquiries = [], isLoading: loadingInquiries } = useProductInquiriesQuery();
+  const { data: registrations = [], isLoading: loadingRegs } = useRegistrationsQuery();
+  const { data: projects = [], isLoading: loadingProjects } = useProjectsQuery();
 
   const updateInquiryMutation = useUpdateProductInquiryMutation();
   const updateRegMutation = useUpdateRegistrationMutation();
 
-  // Product Inquiry Handlers
   const handleUpdateInquiryStatus = useCallback(
     async (id: string, newStatus: string) => {
       await updateInquiryMutation.mutateAsync({ id, status: newStatus });
@@ -106,7 +124,6 @@ export default function EarthLineApp() {
     [updateInquiryMutation]
   );
 
-  // General Registration Handlers
   const handleUpdateRegStatus = useCallback(
     async (id: string, newStatus: string) => {
       await updateRegMutation.mutateAsync({ id, status: newStatus });
@@ -121,8 +138,8 @@ export default function EarthLineApp() {
     [updateRegMutation]
   );
 
-  // Columns Configuration
-  const productInquiryColumns = useMemo(
+  // Column definitions
+  const inquiryColumns = useMemo(
     () =>
       getProductInquiryColumns({
         onUpdateStatus: handleUpdateInquiryStatus,
@@ -131,7 +148,7 @@ export default function EarthLineApp() {
     [handleUpdateInquiryStatus, handleUpdateInquiryAssigned]
   );
 
-  const registrationColumns = useMemo(
+  const regColumns = useMemo(
     () =>
       getRegistrationColumns({
         onUpdateStatus: handleUpdateRegStatus,
@@ -142,262 +159,374 @@ export default function EarthLineApp() {
 
   const projectColumns = useMemo(() => getProjectColumns(), []);
 
-  // Filtered Product Inquiries
-  const filteredProductInquiries = useMemo(() => {
-    return productInquiries.filter((inq) => {
-      const matchesStatus =
-        inqStatusFilter === "ALL" || (inq.status || "NEW") === inqStatusFilter;
+
+  // Filtered Lists
+  const filteredInquiries = useMemo(() => {
+    return productInquiries.filter((inq: any) => {
+      const matchesStatus = inqStatusFilter === "ALL" || inq.status === inqStatusFilter;
       const q = inqSearchQuery.toLowerCase();
-      const matchesQuery =
-        !q ||
-        inq.productTitle?.toLowerCase().includes(q) ||
+      const matchesSearch =
+        q === "" ||
         inq.contactPerson?.toLowerCase().includes(q) ||
         inq.companyName?.toLowerCase().includes(q) ||
-        inq.phoneNumber?.toLowerCase().includes(q) ||
-        inq.email?.toLowerCase().includes(q);
+        inq.phoneNumber?.includes(q) ||
+        inq.email?.toLowerCase().includes(q) ||
+        inq.productTitle?.toLowerCase().includes(q);
 
-      return matchesStatus && matchesQuery;
+      return matchesStatus && matchesSearch;
     });
   }, [productInquiries, inqStatusFilter, inqSearchQuery]);
 
-  // Filtered Registrations
   const filteredRegistrations = useMemo(() => {
-    return registrations.filter((r) => {
-      const matchesStatus =
-        regStatusFilter === "ALL" || (r.status || "NEW") === regStatusFilter;
+    return registrations.filter((reg: any) => {
+      const matchesStatus = regStatusFilter === "ALL" || reg.status === regStatusFilter;
       const q = regSearchQuery.toLowerCase();
-      const matchesQuery =
-        !q ||
-        r.fullName?.toLowerCase().includes(q) ||
-        r.companyName?.toLowerCase().includes(q) ||
-        r.phoneNumber?.toLowerCase().includes(q) ||
-        r.email?.toLowerCase().includes(q) ||
-        r.location?.toLowerCase().includes(q);
+      const matchesSearch =
+        q === "" ||
+        reg.fullName?.toLowerCase().includes(q) ||
+        reg.companyName?.toLowerCase().includes(q) ||
+        reg.phoneNumber?.includes(q) ||
+        reg.email?.toLowerCase().includes(q);
 
-      return matchesStatus && matchesQuery;
+      return matchesStatus && matchesSearch;
     });
   }, [registrations, regStatusFilter, regSearchQuery]);
 
-  // Filtered Projects
   const filteredProjects = useMemo(() => {
-    return projects.filter((p) => {
+    return projects.filter((proj: any) => {
       const q = projSearchQuery.toLowerCase();
       return (
-        !q ||
-        p.siteName?.toLowerCase().includes(q) ||
-        p.location?.toLowerCase().includes(q) ||
-        p.userFullName?.toLowerCase().includes(q) ||
-        p.userPhone?.toLowerCase().includes(q)
+        q === "" ||
+        proj.siteName?.toLowerCase().includes(q) ||
+        proj.userFullName?.toLowerCase().includes(q) ||
+        proj.userEmail?.toLowerCase().includes(q) ||
+        proj.location?.toLowerCase().includes(q)
       );
     });
   }, [projects, projSearchQuery]);
 
-  // Table Instances
-  const inqTable = useReactTable({
-    data: filteredProductInquiries,
-    columns: productInquiryColumns,
+  // Tables
+  const inquiryTable = useReactTable({
+    data: filteredInquiries,
+    columns: inquiryColumns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    initialState: { pagination: { pageSize: 10 } },
   });
 
   const regTable = useReactTable({
     data: filteredRegistrations,
-    columns: registrationColumns,
+    columns: regColumns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    initialState: { pagination: { pageSize: 10 } },
   });
 
-  const projTable = useReactTable({
+  const projectTable = useReactTable({
     data: filteredProjects,
     columns: projectColumns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    initialState: { pagination: { pageSize: 10 } },
   });
 
-  // Auth Protection Check
-  if (authChecking || !isAuthenticated) {
+  if (authChecking) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#070d19] text-amber-400 text-xs font-mono tracking-widest">
-        <RefreshCw className="w-5 h-5 animate-spin mr-2" />
-        <span>AUTHENTICATING EXECUTIVE CONSOLE...</span>
+      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center space-y-4">
+        <div className="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
+        <span className="text-xs font-mono text-slate-400">Verifying Admin Access...</span>
       </div>
     );
   }
 
+  if (!isAuthenticated) return null;
+
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#070d19] text-slate-900 dark:text-slate-100 font-poppins transition-colors duration-200 relative overflow-hidden pb-16">
-      {/* Background Glow */}
-      <div className="absolute top-0 left-1/4 w-[600px] h-[300px] bg-amber-500/5 rounded-full blur-[140px] pointer-events-none" />
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex overflow-x-hidden font-poppins">
+      {/* Mobile Drawer Overlay */}
+      {mobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-slate-950/70 backdrop-blur-xs lg:hidden"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
 
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
-        {/* Full-width Executive Navbar */}
-        <AdminHeader />
+      {/* Sidebar Navigation */}
+      <aside
+        className={`fixed top-0 left-0 z-50 h-screen bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 transition-all duration-300 flex flex-col justify-between ${
+          sidebarCollapsed ? "w-20" : "w-64"
+        } ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
+      >
+        {/* Top Sidebar Header */}
+        <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-3 overflow-hidden">
+            <Image
+              src="/image.png"
+              alt="DFMHUB Logo"
+              width={140}
+              height={40}
+              priority
+              className="h-9 w-auto object-contain shrink-0"
+            />
+          </Link>
+          <button
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+            className="hidden lg:flex p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+            title={sidebarCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+          >
+            {sidebarCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
+          </button>
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            className="lg:hidden p-1.5 rounded-xl text-slate-400 hover:text-slate-600"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
 
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-          {/* Clean Navigation Tabs */}
-          <div>
-            <TabsList className="w-full sm:w-auto inline-flex flex-wrap items-center gap-1 p-1 bg-white dark:bg-slate-900 rounded-full border border-slate-200 dark:border-slate-800 shadow-xs">
-              {ADMIN_NAV_TABS.map((tab) => {
-                const Icon = tab.icon;
-                return (
-                  <TabsTrigger
-                    key={tab.id}
-                    value={tab.id}
-                    className="flex items-center gap-1.5 py-2 px-4 rounded-full font-semibold text-xs transition-all cursor-pointer text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/80 data-[state=active]:bg-slate-900 data-[state=active]:text-white dark:data-[state=active]:bg-white dark:data-[state=active]:text-slate-900 data-[state=active]:shadow-sm"
-                  >
-                    <Icon className="w-3.5 h-3.5" />
-                    <span>{tab.label}</span>
-                  </TabsTrigger>
-                );
-              })}
-            </TabsList>
+        {/* Sidebar Nav Items */}
+        <div className="flex-1 overflow-y-auto px-3 py-4 space-y-6">
+          <div className="space-y-1">
+            {!sidebarCollapsed && (
+              <div className="px-3 text-[10px] font-mono font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-2 flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span>Admin Console</span>
+              </div>
+            )}
+
+            {ADMIN_NAV_ITEMS.map((item) => {
+              const Icon = item.icon;
+              const isActive = activeTab === item.id;
+              let badgeCount = 0;
+              if (item.id === "product-inquiries") badgeCount = productInquiries.length;
+              if (item.id === "registrations") badgeCount = registrations.length;
+              if (item.id === "projects") badgeCount = projects.length;
+
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    setActiveTab(item.id);
+                    setMobileMenuOpen(false);
+                  }}
+                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-2xl text-xs font-semibold transition-all cursor-pointer ${
+                    isActive
+                      ? "bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/30 shadow-xs"
+                      : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-slate-100"
+                  }`}
+                  title={item.label}
+                >
+                  <div className="flex items-center gap-3 truncate">
+                    <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-amber-500" : "text-slate-400"}`} />
+                    {!sidebarCollapsed && <span className="truncate">{item.label}</span>}
+                  </div>
+
+                  {!sidebarCollapsed && badgeCount > 0 && (
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                      {badgeCount}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Sidebar Footer User Info */}
+        <div className="p-3 border-t border-slate-100 dark:border-slate-800 space-y-2">
+          {!sidebarCollapsed && (
+            <div className="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200/60 dark:border-slate-800 text-xs">
+              <div className="font-bold text-slate-900 dark:text-white">DFMHUB Admin</div>
+              <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate">admin@dfmhub.com</div>
+            </div>
+          )}
+          <Button
+            variant="destructive"
+            size="sm"
+            onClick={handleLogout}
+            className={`w-full h-9 text-xs rounded-xl font-semibold flex items-center justify-center gap-2 cursor-pointer ${
+              sidebarCollapsed ? "p-0" : ""
+            }`}
+            title="Logout Admin Session"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            {!sidebarCollapsed && <span>Logout</span>}
+          </Button>
+        </div>
+      </aside>
+
+      {/* Main Right Content Panel */}
+      <div
+        className={`flex-1 flex flex-col min-w-0 transition-all duration-300 ${
+          sidebarCollapsed ? "lg:pl-20" : "lg:pl-64"
+        }`}
+      >
+        {/* Top Navbar Header */}
+        <header className="sticky top-0 z-30 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-4 sm:px-8 h-16 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="lg:hidden p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+
+            <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
+              <span className="hidden sm:inline">Admin Console</span>
+              <span className="hidden sm:inline">&gt;</span>
+              <span className="text-amber-600 dark:text-amber-400 font-bold capitalize">
+                {ADMIN_NAV_ITEMS.find((i) => i.id === activeTab)?.label || activeTab}
+              </span>
+            </div>
           </div>
 
-          {/* TAB CONTENT 1: PRODUCT INQUIRIES */}
-          <TabsContent value="product-inquiries">
+          <div className="flex items-center gap-3">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => router.push("/")}
+              className="h-9 border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center gap-1.5 hover:border-amber-500 rounded-xl cursor-pointer"
+            >
+              <Globe className="w-3.5 h-3.5 text-amber-500" />
+              <span className="hidden sm:inline">View Site</span>
+            </Button>
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={toggleTheme}
+              className="p-2 h-9 w-9 min-w-0 border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 hover:border-amber-500 rounded-xl cursor-pointer"
+              title={`Switch to ${theme === "dark" ? "Light" : "Dark"} Mode`}
+            >
+              {theme === "dark" ? (
+                <Sun className="w-3.5 h-3.5 text-amber-400" />
+              ) : (
+                <Moon className="w-3.5 h-3.5 text-slate-800" />
+              )}
+            </Button>
+          </div>
+        </header>
+
+        {/* Content Body */}
+        <main className="p-4 sm:p-6 lg:p-8 w-full space-y-8">
+          {/* TAB 1: Analytics */}
+          {activeTab === "analytics" && <AdminAnalyticsView />}
+
+          {/* TAB 2: Product Inquiries */}
+          {activeTab === "product-inquiries" && (
             <div className="space-y-6">
-              <Card className="p-5 flex flex-col md:flex-row justify-between items-center gap-4 bg-white dark:bg-slate-900/90 border-slate-200 dark:border-slate-800 rounded-2xl backdrop-blur-md">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <h2 className="text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-600 dark:text-amber-400">
-                      <ShoppingBag className="w-3.5 h-3.5" />
-                    </div>
-                    <span>Product Quotation Requests (/api/product-inquiries)</span>
-                  </h2>
+                  <h2 className="text-xl font-bold text-slate-900 dark:text-white">Product Inquiries</h2>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                    B2B customer quotes and product inquiry submissions.
+                  </p>
                 </div>
 
-                <div className="flex items-center gap-3 w-full md:w-auto">
-                  <Input
-                    type="text"
-                    placeholder="Search product, company, person..."
-                    value={inqSearchQuery}
-                    onChange={(e) => setInqSearchQuery(e.target.value)}
-                    icon={<Search className="w-4 h-4" />}
-                    className="w-full sm:w-64 text-xs"
-                  />
-
+                <div className="flex flex-wrap items-center gap-3">
+                  <div className="relative">
+                    <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <Input
+                      placeholder="Search inquiries..."
+                      value={inqSearchQuery}
+                      onChange={(e) => setInqSearchQuery(e.target.value)}
+                      className="pl-9 h-9 text-xs w-60 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-xl"
+                    />
+                  </div>
                   <Select
                     value={inqStatusFilter}
                     onChange={(val) => setInqStatusFilter(val)}
-                    placeholder="All Statuses"
                     options={[
                       { value: "ALL", label: "All Statuses" },
                       { value: "NEW", label: "New" },
-                      { value: "CONTACTED", label: "Contacted" },
-                      { value: "QUOTATION_SENT", label: "Quotation Sent" },
-                      { value: "CLOSED", label: "Closed" },
-                      { value: "REJECTED", label: "Rejected" },
+                      { value: "IN_PROGRESS", label: "In Progress" },
+                      { value: "RESOLVED", label: "Resolved" },
                     ]}
+                    className="h-9 text-xs bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-xl"
                   />
                 </div>
-              </Card>
+              </div>
 
-              <DataTable
-                table={inqTable}
-                isLoading={loadingInquiries}
-                loadingText="Loading Product Inquiries..."
-                emptyText="No product inquiries submitted yet. Submissions from product quotation forms will appear here."
-              />
+              <DataTable table={inquiryTable} isLoading={loadingInquiries} />
             </div>
-          </TabsContent>
+          )}
 
-          {/* TAB CONTENT 2: GENERAL REGISTRATIONS */}
-          <TabsContent value="registrations">
+          {/* TAB 3: General Registrations */}
+          {activeTab === "registrations" && (
             <div className="space-y-6">
-              <Card className="p-5 flex flex-col md:flex-row justify-between items-center gap-4 bg-white dark:bg-slate-900/90 border-slate-200 dark:border-slate-800 rounded-2xl backdrop-blur-md">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <h2 className="text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-600 dark:text-amber-400">
-                      <Users className="w-3.5 h-3.5" />
-                    </div>
-                    <span>General Website Contact Registrations (/api/registrations)</span>
-                  </h2>
+                  <h2 className="text-xl font-bold text-slate-900 dark:text-white">General Registrations</h2>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                    Calculations and risk assessment registration submissions.
+                  </p>
                 </div>
 
-                <div className="flex items-center gap-3 w-full md:w-auto">
-                  <Input
-                    type="text"
-                    placeholder="Search user, email, phone..."
-                    value={regSearchQuery}
-                    onChange={(e) => setRegSearchQuery(e.target.value)}
-                    icon={<Search className="w-4 h-4" />}
-                    className="w-full sm:w-64 text-xs"
-                  />
-
+                <div className="flex flex-wrap items-center gap-3">
+                  <div className="relative">
+                    <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <Input
+                      placeholder="Search registrations..."
+                      value={regSearchQuery}
+                      onChange={(e) => setRegSearchQuery(e.target.value)}
+                      className="pl-9 h-9 text-xs w-60 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-xl"
+                    />
+                  </div>
                   <Select
                     value={regStatusFilter}
                     onChange={(val) => setRegStatusFilter(val)}
-                    placeholder="All Statuses"
                     options={[
                       { value: "ALL", label: "All Statuses" },
                       { value: "NEW", label: "New" },
-                      { value: "CONTACTED", label: "Contacted" },
-                      { value: "QUOTATION_SENT", label: "Quotation Sent" },
-                      { value: "PAID", label: "Paid" },
-                      { value: "DID_NOT_BUY", label: "Did Not Buy" },
+                      { value: "IN_PROGRESS", label: "In Progress" },
+                      { value: "RESOLVED", label: "Resolved" },
                     ]}
+                    className="h-9 text-xs bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-xl"
                   />
                 </div>
-              </Card>
+              </div>
 
-              <DataTable
-                table={regTable}
-                isLoading={loadingRegs}
-                loadingText="Loading Registrations..."
-                emptyText="No general contact registrations found."
-              />
+              <DataTable table={regTable} isLoading={loadingRegs} />
             </div>
-          </TabsContent>
+          )}
 
-          {/* TAB CONTENT 3: TOOL PROJECTS */}
-          <TabsContent value="projects">
+          {/* TAB 4: Tool Projects */}
+          {activeTab === "projects" && (
             <div className="space-y-6">
-              <Card className="p-5 flex flex-col md:flex-row justify-between items-center gap-4 bg-white dark:bg-slate-900/90 border-slate-200 dark:border-slate-800 rounded-2xl backdrop-blur-md">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <h2 className="text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-600 dark:text-amber-400">
-                      <FolderCheck className="w-3.5 h-3.5" />
-                    </div>
-                    <span>Engineering Tool Projects Database</span>
-                  </h2>
+                  <h2 className="text-xl font-bold text-slate-900 dark:text-white">Tool Projects</h2>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                    Saved engineering calculations & site audits.
+                  </p>
                 </div>
 
-                <div className="flex items-center gap-3 w-full md:w-auto">
+                <div className="relative">
+                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                   <Input
-                    type="text"
-                    placeholder="Search project, email..."
+                    placeholder="Search projects..."
                     value={projSearchQuery}
                     onChange={(e) => setProjSearchQuery(e.target.value)}
-                    icon={<Search className="w-4 h-4" />}
-                    className="w-full sm:w-64 text-xs"
+                    className="pl-9 h-9 text-xs w-60 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-xl"
                   />
                 </div>
-              </Card>
+              </div>
 
-              <DataTable
-                table={projTable}
-                isLoading={loadingProjects}
-                loadingText="Loading Tool Projects..."
-                emptyText="No tool calculation projects recorded yet."
-              />
+              <DataTable table={projectTable} isLoading={loadingProjects} />
             </div>
-          </TabsContent>
+          )}
 
-          {/* TAB CONTENT 4: BLOG POST MANAGEMENT */}
-          <TabsContent value="blog">
-            <div>
-              <AdminBlogManager />
-            </div>
-          </TabsContent>
 
-          {/* TAB CONTENT 5: PRODUCTS CATALOG MANAGEMENT */}
-          <TabsContent value="products">
-            <div>
-              <ProductsClient />
-            </div>
-          </TabsContent>
+          {/* TAB 5: Products Catalog */}
+          {activeTab === "products" && <ProductsClient />}
+
+          {/* TAB 6: Blog Management */}
+          {activeTab === "blog" && <AdminBlogManager />}
+
+          {/* TAB 7: SEO Management */}
+          {activeTab === "seo" && <SeoManagerClient />}
         </main>
-      </Tabs>
+      </div>
     </div>
   );
 }
