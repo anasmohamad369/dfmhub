@@ -622,7 +622,6 @@ export default async function LightningProtectionCityPage({
   const resolvedParams = await params;
   const citySlug = resolvedParams.city.toLowerCase();
   const city = cityRegistry[citySlug];
-
   if (!city) {
     notFound();
   }
@@ -810,10 +809,13 @@ export default async function LightningProtectionCityPage({
               </p>
             )}
             <div className="flex w-full">
-              <button className="bg-[#d97706] hover:bg-[#b45309] text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-4 rounded-md shadow-lg transition-all flex items-center justify-center space-x-2">
+              <Link
+                href="/tool"
+                className="bg-[#d97706] hover:bg-[#b45309] text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-4 rounded-md shadow-lg transition-all flex items-center justify-center space-x-2"
+              >
                 <span>CLICK HERE TO GET A FREE DESIGN CONSULTATION</span>
                 <ArrowRight className="w-4 h-4" />
-              </button>
+              </Link>
             </div>
           </div>
           <div className="max-w-4xl space-y-6 text-sm sm:text-base text-slate-600 leading-relaxed font-normal">

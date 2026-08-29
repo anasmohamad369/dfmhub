@@ -22,6 +22,8 @@ import {
 import { CheckCircle2, AlertCircle, Send, Edit3, ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 
+import ImageUploader from "@/components/ImageUploader";
+
 export interface AddBlogFormProps {
   initialData?: BlogRecord;
   isEdit?: boolean;
@@ -53,6 +55,7 @@ export default function AddBlogForm({
       readTime: initialData?.readTime || "5 MIN READ",
       summary: initialData?.summary || "",
       content: initialData?.content || "",
+      imageUrl: initialData?.imageUrl || "",
       author: initialData?.author || "DFMHUB Engineering Team",
     },
   });
@@ -67,6 +70,7 @@ export default function AddBlogForm({
         readTime: initialData.readTime || "5 MIN READ",
         summary: initialData.summary || "",
         content: initialData.content || "",
+        imageUrl: initialData.imageUrl || "",
         author: initialData.author || "DFMHUB Engineering Team",
       });
     }
@@ -122,7 +126,7 @@ export default function AddBlogForm({
             type="button"
             variant="outline"
             size="sm"
-            onClick={() => router.push("/admin/blogs/editor")}
+            onClick={() => router.push("/admin")}
             className="h-9 px-3 border-slate-300 dark:border-slate-800 text-slate-700 dark:text-slate-200 bg-slate-100/80 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700 font-semibold text-xs flex items-center gap-1.5 shrink-0 cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4 text-slate-700 dark:text-slate-200" />
@@ -264,6 +268,29 @@ export default function AddBlogForm({
               )}
             />
           </div>
+
+          {/* Cover / Banner Image Uploader */}
+          <FormField
+            control={form.control}
+            name="imageUrl"
+            render={({ field }) => (
+              <FormItem className="space-y-1.5">
+                <FormLabel className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+                  Featured Cover Image (Optional)
+                </FormLabel>
+                <FormControl>
+                  <ImageUploader
+                    label="Upload Article Cover Image"
+                    value={field.value || ""}
+                    onChange={field.onChange}
+                    disabled={readonly}
+                    description="Upload a high-quality banner image for this blog post."
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           {/* Short Summary */}
           <FormField

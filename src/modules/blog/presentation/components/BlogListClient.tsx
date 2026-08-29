@@ -78,9 +78,19 @@ export default function BlogListClient() {
             <Link
               key={post.id || post.slug}
               href={`/blog/${post.slug}`}
-              className="bg-white dark:bg-slate-900 rounded-2xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 hover:border-amber-400/80 transition-all block group flex flex-col justify-between"
+              className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-7 border border-slate-200/80 dark:border-slate-800 hover:border-amber-400/80 transition-all block group flex flex-col justify-between overflow-hidden shadow-xs hover:shadow-md"
             >
               <div>
+                {post.imageUrl && (
+                  <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden mb-5 bg-slate-900 border border-slate-200/60 dark:border-slate-800">
+                    <img
+                      src={post.imageUrl}
+                      alt={post.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                )}
+
                 <div className="flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider mb-3">
                   <span
                     className={`px-2.5 py-0.5 rounded-full border text-[11px] font-medium ${getCategoryBadgeColor(
@@ -99,7 +109,7 @@ export default function BlogListClient() {
                   {post.title}
                 </h2>
 
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal mb-6">
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal mb-6 line-clamp-3">
                   {post.summary}
                 </p>
               </div>

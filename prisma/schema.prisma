@@ -57,6 +57,7 @@ model BlogPost {
   readTime  String   @default("5 min read")
   summary   String
   content   String
+  imageUrl  String?
   author    String   @default("DFMHUB Engineering Team")
   published Boolean  @default(true)
   createdAt DateTime @default(now())

@@ -309,7 +309,7 @@ export default function ContactUsPage() {
                 Active construction sites requiring urgent grounding compliance or post-surge diagnostics.
               </p>
               <a
-                href="tel:+919483564777"
+                href="/tool"
                 className="inline-flex items-center space-x-1.5 text-xs font-bold text-amber-400 hover:text-amber-300 underline pt-1"
               >
                 <span>Dispatch Inspection Team</span>

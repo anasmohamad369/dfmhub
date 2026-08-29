@@ -107,6 +107,7 @@ async function ensureBlogTableExists() {
         "readTime" TEXT DEFAULT '5 min read',
         "summary" TEXT NOT NULL,
         "content" TEXT NOT NULL,
+        "imageUrl" TEXT,
         "author" TEXT DEFAULT 'DFMHUB Engineering Team',
         "published" BOOLEAN DEFAULT true,
         "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -193,7 +194,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { title, slug, category, readTime, summary, content, author } = validation.data;
+    const { title, slug, category, readTime, summary, content, imageUrl, author } = validation.data;
     const finalSlug = slug && slug.trim() !== "" ? generateSlug(slug) : generateSlug(title);
     const id = `blog-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
 
@@ -203,8 +204,8 @@ export async function POST(request: Request) {
     // Strategy 1: Direct SQL Execution
     try {
       const sqlResult: any = await (prisma as any).$queryRawUnsafe(
-        `INSERT INTO "blog_posts" ("id", "slug", "title", "category", "readTime", "summary", "content", "author", "published", "createdAt", "updatedAt")
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, true, NOW(), NOW())
+        `INSERT INTO "blog_posts" ("id", "slug", "title", "category", "readTime", "summary", "content", "imageUrl", "author", "published", "createdAt", "updatedAt")
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, true, NOW(), NOW())
          RETURNING *`,
         id,
         finalSlug,
@@ -213,6 +214,7 @@ export async function POST(request: Request) {
         readTime || "5 min read",
         summary,
         content,
+        imageUrl || null,
         author || "DFMHUB Engineering Team"
       );
 
@@ -236,6 +238,7 @@ export async function POST(request: Request) {
             readTime: readTime || "5 min read",
             summary,
             content,
+            imageUrl: imageUrl || null,
             author: author || "DFMHUB Engineering Team",
             published: true,
           },
@@ -314,7 +317,7 @@ export async function PATCH(request: Request) {
   try {
     await ensureBlogTableExists();
     const body = await request.json();
-    const { id, title, slug, category, readTime, summary, content, author } = body;
+    const { id, title, slug, category, readTime, summary, content, imageUrl, author } = body;
 
     if (!id && !slug) {
       return NextResponse.json({ error: "Blog ID or Slug is required for update" }, { status: 400 });
@@ -334,11 +337,12 @@ export async function PATCH(request: Request) {
                "readTime" = COALESCE($5, "readTime"),
                "summary" = COALESCE($6, "summary"),
                "content" = COALESCE($7, "content"),
-               "author" = COALESCE($8, "author"),
+               "imageUrl" = COALESCE($8, "imageUrl"),
+               "author" = COALESCE($9, "author"),
                "updatedAt" = NOW()
            WHERE "id" = $1
            RETURNING *`,
-          id, title, finalSlug, category, readTime, summary, content, author
+          id, title, finalSlug, category, readTime, summary, content, imageUrl, author
         );
         if (Array.isArray(sqlResult) && sqlResult.length > 0) {
           updatedRecord = sqlResult[0];
@@ -360,6 +364,7 @@ export async function PATCH(request: Request) {
             ...(readTime && { readTime }),
             ...(summary && { summary }),
             ...(content && { content }),
+            ...(imageUrl !== undefined && { imageUrl }),
             ...(author && { author }),
           },
         });

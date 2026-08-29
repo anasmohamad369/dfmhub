@@ -6,6 +6,7 @@ export interface BlogRecord {
   readTime: string;
   summary: string;
   content: string;
+  imageUrl?: string | null;
   author: string;
   published: boolean;
   createdAt: string;

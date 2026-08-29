@@ -9,20 +9,20 @@ export default function CreateBlogContainer() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#070d19] text-slate-900 dark:text-slate-100 p-4 sm:p-6 lg:p-8 font-poppins">
-      <div className="max-w-7xl mx-auto space-y-6">
-        <AdminHeader />
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 pb-16 font-poppins">
+      <AdminHeader title="Create Blog Article" />
 
-        <div className="max-w-4xl mx-auto">
+      <main className="w-full px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-4xl mx-auto space-y-6">
           <AddBlogForm
             isEdit={false}
             readonly={false}
             onSuccessCallback={() => {
-              router.push("/admin/blogs/editor");
+              router.push("/admin");
             }}
           />
         </div>
-      </div>
+      </main>
     </div>
   );
 }
