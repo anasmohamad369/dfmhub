@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { supabaseAdmin } from "@/lib/supabase";
 import { blogSchema, generateSlug } from "@/lib/schemas/blogSchema";
 
 export interface BlogItem {
@@ -150,13 +149,7 @@ export async function GET(request: Request) {
           orderBy: { createdAt: "desc" },
         });
       } catch (e2) {
-        // Supabase fallback
-        const query = supabaseAdmin.from("blog_posts").select("*").eq("published", true);
-        if (category && category !== "ALL") {
-          query.eq("category", category);
-        }
-        const { data } = await query.order("createdAt", { ascending: false });
-        dbRecords = data || [];
+        console.error("Prisma blog fetch error:", e2);
       }
     }
 
@@ -245,37 +238,7 @@ export async function POST(request: Request) {
         });
       } catch (prismaErr: any) {
         console.error("Blog Prisma create error:", prismaErr?.message || prismaErr);
-      }
-    }
-
-    // Strategy 3: Supabase REST API Fallback
-    if (!savedRecord) {
-      try {
-        const { data: supaData, error: supaError } = await supabaseAdmin
-          .from("blog_posts")
-          .insert([
-            {
-              id,
-              slug: finalSlug,
-              title,
-              category,
-              readTime: readTime || "5 min read",
-              summary,
-              content,
-              author: author || "DFMHUB Engineering Team",
-              published: true,
-            },
-          ])
-          .select()
-          .single();
-
-        if (!supaError && supaData) {
-          savedRecord = supaData;
-        } else if (supaError) {
-          dbErrorDetails = supaError;
-        }
-      } catch (supaErr: any) {
-        console.error("Blog Supabase REST error:", supaErr);
+        dbErrorDetails = prismaErr?.message || String(prismaErr);
       }
     }
 
@@ -368,28 +331,9 @@ export async function PATCH(request: Request) {
             ...(author && { author }),
           },
         });
-      } catch (prismaErr) {}
-    }
-
-    // Strategy 3: Supabase REST Fallback
-    if (!updatedRecord && id) {
-      try {
-        const { data } = await supabaseAdmin
-          .from("blog_posts")
-          .update({
-            ...(title && { title }),
-            ...(finalSlug && { slug: finalSlug }),
-            ...(category && { category }),
-            ...(readTime && { readTime }),
-            ...(summary && { summary }),
-            ...(content && { content }),
-            ...(author && { author }),
-          })
-          .eq("id", id)
-          .select()
-          .single();
-        updatedRecord = data;
-      } catch (e) {}
+      } catch (prismaErr) {
+        console.error("Blog Prisma update error:", prismaErr);
+      }
     }
 
     if (!updatedRecord) {
@@ -421,11 +365,7 @@ export async function DELETE(request: Request) {
     try {
       await (prisma as any).$queryRawUnsafe(`DELETE FROM "blog_posts" WHERE "id" = $1`, id);
     } catch (e) {
-      try {
-        await (prisma as any).blogPost.delete({ where: { id } });
-      } catch (e2) {
-        await supabaseAdmin.from("blog_posts").delete().eq("id", id);
-      }
+      await (prisma as any).blogPost.delete({ where: { id } });
     }
 
     return NextResponse.json({ success: true, message: "Blog post deleted" });

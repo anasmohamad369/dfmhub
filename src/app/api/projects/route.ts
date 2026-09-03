@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { supabaseAdmin } from "@/lib/supabase";
 
 function generatePrjId(): string {
   const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -66,39 +65,31 @@ export async function POST(request: Request) {
       console.error("Project SQL insert error:", sqlErr);
     }
 
-    // Strategy 2: Supabase REST Fallback
+    // Strategy 2: Prisma Client Fallback
     if (!savedRecord) {
       try {
-        const { data: supaData, error: supaError } = await supabaseAdmin
-          .from("project_details")
-          .insert([
-            {
-              id: customId,
-              registrationId: registrationId || null,
-              userFullName: userFullName || "Guest User",
-              userPhone: userPhone || "N/A",
-              userEmail: userEmail || "N/A",
-              siteName: siteName || "Unnamed Project",
-              location: location || "Unspecified Location",
-              occupancy: occupancy || "General",
-              dimensions: dimensions || "—",
-              soilType: soilType || "Standard",
-              climateZone: climateZone || "Standard",
-              avgResistance: avgResistance || "—",
-              targetResistance: targetResistance || "—",
-              checklistScore: checklistScore || "—",
-              lplClass: lplClass || "Class IV",
-              riskR1: riskR1 || "—",
-            },
-          ])
-          .select()
-          .single();
-
-        if (!supaError && supaData) {
-          savedRecord = supaData;
-        }
-      } catch (supaErr: any) {
-        console.error("Supabase REST insert error:", supaErr);
+        savedRecord = await (prisma as any).projectDetail.create({
+          data: {
+            id: customId,
+            registrationId: registrationId || null,
+            userFullName: userFullName || "Guest User",
+            userPhone: userPhone || "N/A",
+            userEmail: userEmail || "N/A",
+            siteName: siteName || "Unnamed Project",
+            location: location || "Unspecified Location",
+            occupancy: occupancy || "General",
+            dimensions: dimensions || "—",
+            soilType: soilType || "Standard",
+            climateZone: climateZone || "Standard",
+            avgResistance: avgResistance || "—",
+            targetResistance: targetResistance || "—",
+            checklistScore: checklistScore || "—",
+            lplClass: lplClass || "Class IV",
+            riskR1: riskR1 || "—",
+          },
+        });
+      } catch (prismaErr: any) {
+        console.error("Prisma client insert error:", prismaErr);
       }
     }
 
@@ -134,11 +125,9 @@ export async function GET() {
         `SELECT * FROM "project_details" ORDER BY "createdAt" DESC`
       );
     } catch (e) {
-      const { data } = await supabaseAdmin
-        .from("project_details")
-        .select("*")
-        .order("createdAt", { ascending: false });
-      records = data || [];
+      records = await (prisma as any).projectDetail.findMany({
+        orderBy: { createdAt: "desc" },
+      });
     }
 
     return NextResponse.json({ success: true, data: records });

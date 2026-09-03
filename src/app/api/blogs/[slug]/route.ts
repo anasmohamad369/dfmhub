@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { supabaseAdmin } from "@/lib/supabase";
 import { SEED_BLOG_POSTS } from "../route";
 
 export async function GET(
@@ -32,19 +31,11 @@ export async function GET(
           where: { slug },
         });
       } catch (e2) {
-        // Strategy 3: Supabase REST API
-        try {
-          const { data } = await supabaseAdmin
-            .from("blog_posts")
-            .select("*")
-            .eq("slug", slug)
-            .single();
-          post = data;
-        } catch (e3) {}
+        console.error("Prisma blog fetch error:", e2);
       }
     }
 
-    // Strategy 4: Fallback to seed posts
+    // Strategy 3: Fallback to seed posts
     if (!post) {
       post = SEED_BLOG_POSTS.find((seed) => seed.slug === slug);
     }

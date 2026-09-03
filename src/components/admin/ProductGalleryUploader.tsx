@@ -37,7 +37,7 @@ export default function ProductGalleryUploader({
   const mainFileInputRef = useRef<HTMLInputElement>(null);
   const galleryFileInputRef = useRef<HTMLInputElement>(null);
 
-  // Upload single file to Supabase via backend API
+  // Upload single file via backend API
   const uploadSingleFile = async (file: File): Promise<string> => {
     if (!file.type.startsWith("image/")) {
       throw new Error("Only image files (PNG, JPG, WEBP, GIF, SVG) are allowed.");

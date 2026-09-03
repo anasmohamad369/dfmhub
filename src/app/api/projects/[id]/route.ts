@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { supabaseAdmin } from "@/lib/supabase";
 
 export async function GET(
   request: Request,
@@ -24,19 +23,14 @@ export async function GET(
       console.error("Single project SQL fetch error:", sqlErr);
     }
 
-    // Strategy 2: Supabase REST Fallback
+    // Strategy 2: Prisma Client Fallback
     if (!record) {
       try {
-        const { data: supaData } = await supabaseAdmin
-          .from("project_details")
-          .select("*")
-          .eq("id", id)
-          .single();
-        if (supaData) {
-          record = supaData;
-        }
-      } catch (supaErr) {
-        console.error("Supabase single project fetch error:", supaErr);
+        record = await (prisma as any).projectDetail.findUnique({
+          where: { id },
+        });
+      } catch (prismaErr) {
+        console.error("Prisma single project fetch error:", prismaErr);
       }
     }
 

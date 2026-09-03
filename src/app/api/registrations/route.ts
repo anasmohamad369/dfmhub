@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { supabaseAdmin } from "@/lib/supabase";
 import { registrationSchema } from "@/modules/registration/domain/validation/registrationSchema";
 
 // Simple, clean short ID generator: dmf-7random_chars (e.g., dmf-7a39k21)
@@ -93,39 +92,7 @@ export async function POST(request: Request) {
         });
       } catch (prismaErr: any) {
         console.error("Prisma client create error:", prismaErr?.message || prismaErr);
-      }
-    }
-
-    // Strategy 3: Supabase REST API Fallback
-    if (!savedRecord) {
-      try {
-        const { data: supaData, error: supaError } = await supabaseAdmin
-          .from("project_registrations")
-          .insert([
-            {
-              id: customId,
-              fullName,
-              phoneNumber,
-              email,
-              companyName,
-              location: location || null,
-              requirement: requirement || null,
-              source: source || "WEBSITE_CONTACT",
-              status: status || "NEW",
-              assignedTo: assignedTo || null,
-              remarks: remarks || null,
-            },
-          ])
-          .select()
-          .single();
-
-        if (!supaError && supaData) {
-          savedRecord = supaData;
-        } else if (supaError) {
-          dbErrorDetails = supaError;
-        }
-      } catch (supaErr: any) {
-        console.error("Supabase REST error:", supaErr);
+        dbErrorDetails = prismaErr?.message || String(prismaErr);
       }
     }
 
@@ -166,17 +133,9 @@ export async function GET() {
         `SELECT * FROM "project_registrations" ORDER BY "createdAt" DESC`
       );
     } catch (e) {
-      try {
-        records = await (prisma as any).projectRegistration.findMany({
-          orderBy: { createdAt: "desc" },
-        });
-      } catch (e2) {
-        const { data } = await supabaseAdmin
-          .from("project_registrations")
-          .select("*")
-          .order("createdAt", { ascending: false });
-        records = data || [];
-      }
+      records = await (prisma as any).projectRegistration.findMany({
+        orderBy: { createdAt: "desc" },
+      });
     }
 
     return NextResponse.json({ success: true, data: records });
