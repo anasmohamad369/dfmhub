@@ -295,36 +295,54 @@ export default function SeoManagerClient() {
               })}
 
               {/* Custom Non-preset records in DB */}
-              {seoRecords
-                .filter((r) => !DEFAULT_PRESET_PAGES.some((p) => p.path === r.path))
-                .map((record) => {
-                  const isSelected = selectedPath === record.path;
-                  return (
-                    <button
-                      key={record.path}
-                      onClick={() => handleSelectPage(record.path)}
-                      type="button"
-                      className={`w-full text-left px-3.5 py-3 rounded-2xl text-xs transition-all flex items-center justify-between cursor-pointer border ${
-                        isSelected
-                          ? "bg-amber-500/10 border-amber-500/40 text-amber-800 dark:text-amber-200 font-semibold shadow-xs"
-                          : "bg-slate-50/50 dark:bg-slate-950/50 border-slate-200/60 dark:border-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60"
-                      }`}
-                    >
-                      <div className="space-y-0.5 truncate pr-2">
-                        <div className="font-semibold flex items-center gap-1.5">
-                          <span>{record.title}</span>
-                          <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                        </div>
-                        <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 truncate">
-                          {record.path}
-                        </div>
-                      </div>
-                      <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-medium bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 shrink-0">
-                        Custom Path
-                      </span>
-                    </button>
+              {(() => {
+                const customRecords = seoRecords
+                  .filter((r) => !DEFAULT_PRESET_PAGES.some((p) => p.path === r.path))
+                  .filter(
+                    (r) =>
+                      r.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                      r.path.toLowerCase().includes(searchQuery.toLowerCase())
                   );
-                })}
+                if (customRecords.length === 0) return null;
+                return (
+                  <>
+                    <div className="pt-3 pb-1 px-1">
+                      <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+                        <PlusCircle className="w-3 h-3" />
+                        <span>Custom Routes ({customRecords.length})</span>
+                      </div>
+                    </div>
+                    {customRecords.map((record) => {
+                      const isSelected = selectedPath === record.path;
+                      return (
+                        <button
+                          key={record.path}
+                          onClick={() => handleSelectPage(record.path)}
+                          type="button"
+                          className={`w-full text-left px-3.5 py-3 rounded-2xl text-xs transition-all flex items-center justify-between cursor-pointer border ${
+                            isSelected
+                              ? "bg-amber-500/10 border-amber-500/40 text-amber-800 dark:text-amber-200 font-semibold shadow-xs"
+                              : "bg-slate-50/50 dark:bg-slate-950/50 border-slate-200/60 dark:border-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60"
+                          }`}
+                        >
+                          <div className="space-y-0.5 truncate pr-2">
+                            <div className="font-semibold flex items-center gap-1.5">
+                              <span>{record.title}</span>
+                              <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                            </div>
+                            <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 truncate">
+                              {record.path}
+                            </div>
+                          </div>
+                          <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-medium bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 shrink-0">
+                            Custom Path
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </>
+                );
+              })()}
             </CardContent>
           </Card>
         </div>

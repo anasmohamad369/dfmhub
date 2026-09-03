@@ -24,7 +24,25 @@ const defaultMetadata = {
   },
 };
 
-export async function generateMetadata() {
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams?: Promise<{ type?: string; category?: string }> | { type?: string; category?: string };
+}) {
+  const resolvedParams = searchParams ? await Promise.resolve(searchParams) : {};
+  const category = resolvedParams.category || resolvedParams.type;
+
+  // Try category-specific SEO first (e.g. "/product?category=LIGHTNING_PROTECTION")
+  if (category) {
+    const categoryPath = `/product?category=${category}`;
+    const categoryMeta = await getDynamicMetadata(categoryPath, defaultMetadata);
+    // If a category-specific record was found, it will differ from defaultMetadata
+    if (categoryMeta.title !== defaultMetadata.title) {
+      return categoryMeta;
+    }
+  }
+
+  // Fall back to the generic /product SEO
   return await getDynamicMetadata("/product", defaultMetadata);
 }
 
