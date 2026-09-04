@@ -69,6 +69,7 @@ model BlogPost {
 model Product {
   id                 String   @id @default(cuid())
   slug               String   @unique
+  productCode        String?  @unique
   title              String
   description        String
   price              Float?

@@ -1,6 +1,7 @@
 export interface ProductRecord {
   id: string;
   slug: string;
+  productCode?: string | null;
   title: string;
   description: string;
   price: number | null;

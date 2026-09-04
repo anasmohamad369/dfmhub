@@ -80,6 +80,7 @@ export default function ProductsClient() {
       const matchesSearch =
         q === "" ||
         product.title.toLowerCase().includes(q) ||
+        (product.productCode && product.productCode.toLowerCase().includes(q)) ||
         (product.description && product.description.toLowerCase().includes(q));
 
       return matchesCategory && matchesSearch;
@@ -114,6 +115,21 @@ export default function ProductsClient() {
             >
               {row.original.title}
             </div>
+          </div>
+        ),
+      },
+      {
+        accessorKey: "productCode",
+        header: "Product Code",
+        cell: ({ row }) => (
+          <div className="text-sm font-mono text-slate-700 dark:text-slate-300">
+            {row.original.productCode ? (
+              <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold tracking-wide bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                {row.original.productCode}
+              </span>
+            ) : (
+              <span className="text-slate-400 text-xs">—</span>
+            )}
           </div>
         ),
       },

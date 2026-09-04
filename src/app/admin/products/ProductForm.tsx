@@ -43,6 +43,7 @@ const CATEGORY_OPTIONS = [
 
 const productSchema = z.object({
   title: z.string().trim().min(1, "Product name is required"),
+  productCode: z.string().trim().optional(),
   description: z.string().trim().min(1, "Product description is required"),
   category: z.string().min(1, "Category is required"),
   brand: z.string().trim().min(1, "Brand is required"),
@@ -136,6 +137,7 @@ export default function ProductForm({
     resolver: zodResolver(productSchema),
     defaultValues: {
       title: initialData?.title || "",
+      productCode: initialData?.productCode || "",
       description: initialData?.description || "",
       category: initialData?.category || "LIGHTNING_PROTECTION",
       brand: initialData?.brand || "",
@@ -165,6 +167,7 @@ export default function ProductForm({
     if (initialData) {
       reset({
         title: initialData.title || "",
+        productCode: initialData.productCode || "",
         description: initialData.description || "",
         category: initialData.category || "LIGHTNING_PROTECTION",
         brand: initialData.brand || "",
@@ -347,7 +350,21 @@ export default function ProductForm({
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+                <FormField
+                  control={control}
+                  name="productCode"
+                  render={({ field }) => (
+                    <FormItem className="space-y-1.5">
+                      <FormLabel className="text-xs font-semibold text-slate-800 dark:text-slate-200">Product Code</FormLabel>
+                      <FormControl>
+                        <Input {...field} disabled={readonly} placeholder="e.g. EQ-001" className="text-xs" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
                 <FormField
                   control={control}
                   name="brand"

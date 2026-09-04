@@ -3,6 +3,7 @@ import { prisma } from "./prisma";
 export interface CreateProductInput {
   title: string;
   slug?: string;
+  productCode?: string;
   description: string;
   price?: number;
   category: string;
@@ -76,6 +77,7 @@ export async function createProduct(input: CreateProductInput) {
   return await prisma.product.create({
     data: {
       title: input.title,
+      productCode: input.productCode || null,
       slug,
       description: input.description,
       price: input.price,

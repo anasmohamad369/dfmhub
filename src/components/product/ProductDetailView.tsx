@@ -269,6 +269,12 @@ export default function ProductDetailView({
                         {product.brand ? `| ${product.brand}` : ""}
                       </span>
 
+                      {product.productCode && (
+                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 dark:text-slate-300 bg-amber-50 dark:bg-amber-950/40 px-2.5 py-0.5 rounded-full border border-amber-200 dark:border-amber-900 font-mono tracking-wide">
+                          Code: {product.productCode}
+                        </span>
+                      )}
+
                       {product.inStock ? (
                         <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-900">
                           <CheckCircle2 className="h-3.5 w-3.5" />

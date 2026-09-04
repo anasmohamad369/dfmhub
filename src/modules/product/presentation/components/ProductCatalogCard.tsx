@@ -98,8 +98,13 @@ export default function ProductCatalogCard({ product }: ProductCatalogCardProps)
       {/* Content Section */}
       <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
         <div className="space-y-2.5">
-          {/* Brand & Application Meta */}
+          {/* Brand, Code & Application Meta */}
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500 dark:text-slate-400">
+            {product.productCode && (
+              <span className="font-mono text-[11px] font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700">
+                {product.productCode}
+              </span>
+            )}
             {product.brand && (
               <span className="font-semibold text-amber-600 dark:text-amber-400">
                 {product.brand}
