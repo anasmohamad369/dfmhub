@@ -785,7 +785,7 @@ export default async function LightningProtectionCityPage({
 
             <div className="pt-2 flex flex-col sm:flex-row gap-4">
               <Link
-                href="/contact-us"
+                href="/tool"
                 className="bg-[#d97706] hover:bg-[#b45309] text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-4 rounded-md shadow-lg transition-all flex items-center justify-center space-x-2"
               >
                 <span>GET A FREE DESIGN CONSULTATION</span>
