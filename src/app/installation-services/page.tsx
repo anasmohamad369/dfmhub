@@ -307,13 +307,15 @@ export default function InstallationServicesPage() {
                  If your project already has an approved Structural Earthing and Lightning Protection System design, share the BOQ.
                </p>
                <div className="pt-4">
-                 <Link
-                   href="/contact-us"
-                   className="inline-flex items-center space-x-2 bg-[#d97706] hover:bg-[#b45309] text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-md transition-all shadow-lg"
+                 <a
+                   href="https://wa.me/919483564777?text=%2AINSTALLATION%20%26%20TESTING%20SERVICES%20INQUIRY%20%E2%80%94%20DFMHUB%2A%0A%0AHello%20DFMHUB%20Team%2C%20I%20would%20like%20to%20get%20technical%20details%2C%20scope%20breakdown%2C%20and%20pricing%20quotation%20for%20Installation%20%26%20Testing%20Services.%0A%0A%2APage%3A%2A%20https%3A%2F%2Fwww.dfmhub.com%2Finstallation-services"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   className="inline-flex items-center space-x-2 bg-[#d97706] hover:bg-[#b45309] text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-md transition-all shadow-lg cursor-pointer"
                  >
                    <span>Request Installation Quote</span>
                    <ArrowRight className="w-4 h-4" />
-                 </Link>
+                 </a>
                </div>
              </div>
           </div>
