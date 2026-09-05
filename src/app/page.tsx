@@ -395,6 +395,25 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="w-full bg-slate-50 text-slate-900 py-20 sm:py-28 border-t border-slate-200/80">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          <div className="text-center space-y-3 max-w-3xl mx-auto">
+            <span className="text-xs font-bold text-amber-600 uppercase tracking-widest block">
+              FREQUENTLY ASKED QUESTIONS
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+              Lightning Protection & Structural Earthing FAQs
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed">
+              Everything you need to know about DFMHUB ARK Make products, standards compliance, design and services.
+            </p>
+          </div>
+
+          <FAQAccordion />
+        </div>
+      </section>
+
       {/* Form Section */}
       <section className="w-full bg-[#f1f5f9] text-slate-900 py-16 sm:py-24 border-t border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

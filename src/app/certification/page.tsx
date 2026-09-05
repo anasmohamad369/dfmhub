@@ -1,14 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import {
-  ShieldCheck,
-  CheckCircle2,
-  Award,
-  FileCheck2,
-  ArrowRight,
-  ChevronRight,
-  Lock,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import JsonLd from "@/components/JsonLd";
 import { getDynamicMetadata } from "@/lib/seo";
@@ -74,21 +66,18 @@ export default async function CertificationPage() {
       image: "/images/certifications/iec.png",
       desc: "Backfill Conductive Mixture Test",
     },
-
     {
-      title: "RoHS",
-      // subtitle: "TCLP Leaching Procedure",
+      title: "RoHS Compliant",
+      subtitle: "Hazardous Substance Free",
       image: "/images/certifications/rohs.png",
-     
+      desc: "Environmental Safety Standards",
     },
     {
       title: "Eco Friendly",
-      // subtitle: "TCLP Leaching Procedure",
+      subtitle: "Non-Leaching Tested",
       image: "/images/certifications/eco.png",
-      
-    }
-  
-    
+      desc: "Eco Non-Hazardous Compound",
+    },
   ];
 
   const schemas = [
@@ -118,67 +107,97 @@ export default async function CertificationPage() {
   ];
 
   return (
-    <div className="w-full bg-[#f4f8fb] dark:bg-slate-950 text-slate-900 dark:text-white transition-colors duration-200">
+    <div className="w-full transition-colors duration-200">
       <JsonLd data={schemas} />
 
-      {/* Light Theme Banner Header */}
-      <section className="relative bg-gradient-to-b from-sky-100/70 via-blue-50/50 to-[#f4f8fb] dark:from-slate-900 dark:via-slate-900 dark:to-slate-950 py-14 sm:py-20 border-b border-slate-200/80 dark:border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 text-center">
-          <div className="flex items-center justify-center space-x-2 text-xs font-semibold text-slate-500 dark:text-slate-400">
-            <Link href="/" className="hover:text-blue-600 dark:hover:text-amber-400">
+      {/* Section 1: Hero Section (DARK NAVY) */}
+      <section className="relative bg-[#081021] text-white py-16 sm:py-20 lg:py-24 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          <div className="flex items-center space-x-2 text-xs font-semibold text-slate-400">
+            <Link href="/" className="hover:text-amber-400">
               Home
             </Link>
-            <span>/</span>
-            <span className="text-blue-600 dark:text-amber-400 font-bold">Our Certifications</span>
+            <span>&gt;</span>
+            <span className="text-amber-400 font-bold">Certifications</span>
           </div>
 
-          <div className="max-w-3xl mx-auto space-y-3">
-            <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              Our Certifications
-            </h1>
-            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 font-medium">
-              Recognized and Accredited Achievements
-            </p>
+          <span className="text-amber-500 font-bold text-xs uppercase tracking-widest block">
+            QUALITY ASSURANCE &amp; ACCREDITATIONS
+          </span>
+
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight max-w-4xl">
+            Recognized and Accredited Quality Certifications
+          </h1>
+
+          <p className="text-sm sm:text-base lg:text-lg text-slate-300 leading-relaxed max-w-3xl font-normal">
+            DFMHUB ARK Make Lightning Protection and Earthing Systems are certified to ISO 9001:2015, CPRI type-tested, UL classified, and compliant with IS 3043 &amp; IEC 62305 standards.
+          </p>
+
+          <div className="pt-2 flex flex-col sm:flex-row gap-4">
+            <Link
+              href="/contact-us"
+              className="bg-[#d97706] hover:bg-[#b45309] text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-4 rounded-md shadow-lg transition-all flex items-center justify-center space-x-2"
+            >
+              <span>GET A FREE DESIGN CONSULTATION</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/installation-services"
+              className="bg-slate-800/90 hover:bg-slate-700 text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-4 rounded-md border border-slate-700 transition-all flex items-center justify-center"
+            >
+              INSTALLATION SERVICES
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Main Certification Cards Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          {certificationLogos.map((item, idx) => (
-            <div
-              key={idx}
-              className="bg-white dark:bg-slate-900 rounded-2xl p-6 sm:p-8 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-between text-center space-y-4 group"
-            >
-              <div className="w-full space-y-4 flex flex-col items-center">
-                {/* Logo Box */}
-                <div className="w-full h-28 flex items-center justify-center p-2">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
+      {/* Section 2: Certification Cards Grid */}
+      <section className="w-full bg-[#f8fafc] dark:bg-[#070d19] text-slate-900 dark:text-slate-100 py-16 sm:py-20 lg:py-24 border-b border-slate-200/60 dark:border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            {certificationLogos.map((item, idx) => (
+              <div
+                key={idx}
+                className="bg-white dark:bg-slate-900 rounded-2xl p-6 sm:p-8 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-between text-center space-y-4 group"
+              >
+                <div className="w-full space-y-4 flex flex-col items-center">
+                  {/* Logo Box */}
+                  <div className="w-full h-28 flex items-center justify-center p-2">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
 
-                {/* Info */}
-                <div className="space-y-1">
-                  <h3 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs font-semibold text-blue-600 dark:text-amber-400">
-                    {item.subtitle}
-                  </p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 pt-1 leading-relaxed">
-                    {item.desc}
-                  </p>
+                  {/* Info */}
+                  <div className="space-y-1">
+                    <h3 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">
+                      {item.title}
+                    </h3>
+                    {item.subtitle && (
+                      <p className="text-xs font-semibold text-amber-600 dark:text-amber-400">
+                        {item.subtitle}
+                      </p>
+                    )}
+                    {item.desc && (
+                      <p className="text-xs text-slate-500 dark:text-slate-400 pt-1 leading-relaxed">
+                        {item.desc}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+      </section>
 
-    
+      {/* Section 3: Contact Form Section */}
+      <section className="w-full bg-[#f1f5f9] dark:bg-[#040914] text-slate-900 py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ContactForm />
+        </div>
       </section>
     </div>
   );
