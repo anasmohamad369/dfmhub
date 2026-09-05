@@ -1,27 +1,31 @@
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { getProductBySlug } from "@/lib/products";
+import { notFound, redirect } from "next/navigation";
+import { getProductBySlug, categoryToSlug, getProductUrl } from "@/lib/products";
 import ProductDetailView from "@/components/product/ProductDetailView";
 import JsonLd from "@/components/JsonLd";
+import { getDynamicMetadata } from "@/lib/seo";
 
 interface Props {
-  params: Promise<{ slug: string }> | { slug: string };
+  params: Promise<{ slug: string[] }> | { slug: string[] };
 }
-
-import { getDynamicMetadata } from "@/lib/seo";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await Promise.resolve(params);
-  const product = await getProductBySlug(resolvedParams.slug);
+  const slugSegments = resolvedParams.slug || [];
 
+  // Extract the product slug (last segment)
+  const productSlug = slugSegments[slugSegments.length - 1];
+  if (!productSlug) {
+    return { title: "Product Not Found | DFMHUB Systems" };
+  }
+
+  const product = await getProductBySlug(productSlug);
   if (!product) {
-    return {
-      title: "Product Not Found | DFMHUB Systems",
-    };
+    return { title: "Product Not Found | DFMHUB Systems" };
   }
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.dfmhub.com";
-  const path = `/product/${product.slug}`;
+  const path = getProductUrl(product);
   const canonicalUrl = `${baseUrl}${path}`;
   const ogImageUrl = product.imageUrl || `${baseUrl}/images/lps-hero.png`;
 
@@ -66,17 +70,49 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return await getDynamicMetadata(path, defaultMeta);
 }
 
-
-export default async function ProductPage({ params }: Props) {
+export default async function ProductCatchAllPage({ params }: Props) {
   const resolvedParams = await Promise.resolve(params);
-  const product = await getProductBySlug(resolvedParams.slug);
+  const slugSegments = resolvedParams.slug || [];
+
+  if (slugSegments.length === 0) {
+    redirect("/product");
+  }
+
+  // 1. Single Segment URL: /product/diagonal-clamp -> Redirect to /product/structural-earthing/diagonal-clamp
+  if (slugSegments.length === 1) {
+    const singleSlug = slugSegments[0];
+    const product = await getProductBySlug(singleSlug);
+    if (!product) {
+      notFound();
+    }
+    const targetUrl = getProductUrl(product);
+    redirect(targetUrl);
+  }
+
+  // 2. Multi Segment URL: /product/[category]/[product-slug]
+  const [urlCategorySlug, productSlug] = slugSegments;
+  const product = await getProductBySlug(productSlug);
 
   if (!product) {
     notFound();
   }
 
+  const expectedCategorySlug = categoryToSlug(product.category);
+
+  // If category in URL does not match product's real category, redirect to canonical URL
+  if (urlCategorySlug !== expectedCategorySlug) {
+    redirect(getProductUrl(product));
+  }
+
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.dfmhub.com";
-  const productUrl = `${baseUrl}/product/${product.slug}`;
+  const productUrl = `${baseUrl}${getProductUrl(product)}`;
+
+  const categoryName =
+    product.category === "LIGHTNING_PROTECTION"
+      ? "Lightning Protection"
+      : product.category === "STRUCTURAL_EARTHING"
+        ? "Structural Earthing"
+        : "Accessories";
 
   // Stacked JSON-LD Schema Graphs for LLM Extraction & Knowledge Graphs
   const schemas: Record<string, any>[] = [
@@ -100,6 +136,12 @@ export default async function ProductPage({ params }: Props) {
         {
           "@type": "ListItem",
           position: 3,
+          name: categoryName,
+          item: `${baseUrl}/product?category=${product.category}`,
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
           name: product.title,
           item: productUrl,
         },
@@ -116,7 +158,7 @@ export default async function ProductPage({ params }: Props) {
         "@type": "Brand",
         name: product.brand || "ARK Make",
       },
-      category: product.category,
+      category: categoryName,
       offers: {
         "@type": "Offer",
         priceCurrency: "INR",

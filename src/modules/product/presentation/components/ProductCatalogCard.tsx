@@ -14,6 +14,8 @@ import {
   Check,
 } from "lucide-react";
 import { ProductRecord } from "../../domain/entities/product.entity";
+import { getProductUrl } from "@/lib/products";
+
 
 interface ProductCatalogCardProps {
   product: ProductRecord;
@@ -120,7 +122,7 @@ export default function ProductCatalogCard({ product }: ProductCatalogCardProps)
           </div>
 
           {/* Product Title */}
-          <Link href={`/product/${product.slug}`} className="block">
+          <Link href={getProductUrl(product)} className="block">
             <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors leading-snug line-clamp-2">
               {product.title}
             </h3>
@@ -160,7 +162,7 @@ export default function ProductCatalogCard({ product }: ProductCatalogCardProps)
             </span>
           </div>
 
-          <Link href={`/product/${product.slug}`}>
+          <Link href={getProductUrl(product)}>
             <Button
               size="sm"
               className="bg-amber-500 hover:bg-amber-600 dark:bg-amber-500 dark:hover:bg-amber-600 text-white font-semibold text-xs h-9 px-3.5 rounded-lg group/btn shadow-sm shadow-amber-500/20"

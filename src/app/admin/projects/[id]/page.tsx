@@ -237,7 +237,7 @@ export default function ProjectDetailPage({
 
                 <div>
                   <span className="text-slate-500 dark:text-slate-400 text-[11px] block font-medium">
-                    Email Address
+                    Work Mail Address
                   </span>
                   <span className="text-slate-800 dark:text-slate-200 flex items-center gap-1.5 mt-0.5">
                     <Mail className="w-3.5 h-3.5 text-amber-500" />

@@ -1,5 +1,4 @@
 import React from "react";
-import AuthGuard from "@/components/AuthGuard";
 
 export const metadata = {
   title: "ARK-Guard Engineering Console | DFMHUB",
@@ -13,8 +12,9 @@ export default function ToolLayout({
   children: React.ReactNode;
 }) {
   return (
-    <AuthGuard>
-      <div className="font-poppins min-h-screen">{children}</div>
-    </AuthGuard>
+    <div className="font-poppins min-h-screen">
+      <style>{`footer { display: none !important; }`}</style>
+      {children}
+    </div>
   );
 }

@@ -57,7 +57,7 @@ export default function Header() {
       localStorage.setItem("isAuthenticated", "false");
       setIsAuth(false);
     }
-    router.push("/register");
+    router.push("/tool");
   };
 
   const navLinks = [
@@ -133,6 +133,7 @@ export default function Header() {
       ],
     },
     { name: "Installation", href: "/installation-services" },
+    // { name: "Certification", href: "/certification" },
     { name: "Blog", href: "/blog" },
     { name: "Contact Us", href: "/contact-us" },
   ];
@@ -213,7 +214,7 @@ export default function Header() {
               className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold text-xs uppercase tracking-wider px-4 py-2.5 rounded-full shadow-sm hover:shadow-md transition-all flex items-center gap-2 cursor-pointer border border-amber-400/60"
             >
               <Wrench className="w-3.5 h-3.5 text-slate-950" />
-              <span>Risk Assessment Tool</span>
+              <span>Risk Calculator</span>
             </Link>
 
             <button
@@ -334,12 +335,12 @@ export default function Header() {
               </button>
             ) : (
               <Link
-                href="/register"
+                href="/tool"
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700 font-bold text-sm uppercase py-3 rounded-md shadow transition-colors"
               >
                 <UserCheck className="w-4 h-4 text-amber-500" />
-                <span>REGISTER</span>
+                <span>RISK ASSESSMENT TOOL</span>
               </Link>
             )}
           </div>

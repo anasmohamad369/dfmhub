@@ -29,6 +29,7 @@ import {
   AlertCircle,
   MessageCircle,
 } from "lucide-react";
+import { getProductUrl } from "@/lib/products";
 
 interface ProductDetailViewProps {
   product: any;
@@ -144,8 +145,6 @@ export default function ProductDetailView({
     product.imageUrl ||
     "/products/copper_electrode.png";
 
-  const [whatsappLink, setWhatsappLink] = useState("");
-
   const handleInquirySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (
@@ -160,7 +159,6 @@ export default function ProductDetailView({
     setFormError(null);
     setIsSubmitting(true);
     try {
-      // 1. Save lead to dedicated Product Inquiries Database API & Trigger Automated Server-Side WhatsApp Dispatch
       const res = await fetch("/api/product-inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -196,18 +194,32 @@ export default function ProductDetailView({
     }
   };
 
+  const canonicalPath = getProductUrl(product);
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.dfmhub.com";
+  const currentProductUrl = `${baseUrl}${canonicalPath}`;
+
+  const whatsappMessage = `*PRODUCT INQUIRY — DFMHUB* ⚡\n\n*Product:* ${product.title}\n*Code:* ${product.productCode || "N/A"}\n*Category:* ${categoryName}\n${product.brand ? `*Brand:* ${product.brand}\n` : ""}${product.primaryApplication ? `*Application:* ${product.primaryApplication}\n` : ""}\n*Product Page:* ${currentProductUrl}\n\nHello DFMHUB Team, I would like to get technical details, datasheets, and pricing quotation for this product.`;
+
+  const whatsappProductUrl = `https://wa.me/919483564777?text=${encodeURIComponent(whatsappMessage)}`;
+
   return (
     <div className="min-h-screen bg-slate-50/70 dark:bg-slate-950 pb-20">
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 pb-12 space-y-8">
-        {/* Breadcrumb / Back Link */}
-        <div>
-          <Link
-            href="/product"
-            className="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Back to Catalog</span>
+        {/* Perfect 4-Level Breadcrumb */}
+        <div className="flex items-center space-x-2 text-xs font-medium text-slate-500 dark:text-slate-400 flex-wrap gap-y-1">
+          <Link href="/" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+            Home
           </Link>
+          <span>&gt;</span>
+          <Link href="/product" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+            Products
+          </Link>
+          <span>&gt;</span>
+          <Link href={`/product?category=${product.category}`} className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+            {categoryName}
+          </Link>
+          <span>&gt;</span>
+          <span className="text-slate-900 dark:text-white font-semibold">{product.title}</span>
         </div>
 
         {/* 2-Column Main Layout */}
@@ -346,14 +358,23 @@ export default function ProductDetailView({
                 </div>
               </div>
 
-              {/* Full-width Compliance Footer */}
-              <div className="pt-4 mt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                <span className="text-xs text-slate-400 font-medium">
-                  IS 3043 & IEC 62305 Compliant
-                </span>
-                <span className="text-xs text-amber-600 dark:text-amber-400 font-semibold">
-                  Direct Manufacturer Supply
-                </span>
+              {/* Full-width Compliance Footer & Direct WhatsApp CTA */}
+              <div className="pt-4 mt-6 border-t border-slate-100 dark:border-slate-800 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <span className="text-xs text-slate-400 font-medium">
+                    IS 3043 & IEC 62305 Compliant · <span className="text-amber-600 dark:text-amber-400 font-semibold">Direct Manufacturer Supply</span>
+                  </span>
+
+                  <a
+                    href={whatsappProductUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="h-12 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-lg hover:shadow-emerald-900/30 transition-all flex items-center justify-center space-x-2 border border-emerald-400/30 shrink-0 cursor-pointer"
+                  >
+                    <MessageCircle className="w-5 h-5 fill-white/20" />
+                    <span>BUY / INQUIRE ON WHATSAPP</span>
+                  </a>
+                </div>
               </div>
             </section>
 

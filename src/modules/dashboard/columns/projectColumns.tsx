@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { MapPin, Eye, Building2, User, Calendar, ShieldAlert, Smartphone } from "lucide-react";
 import { ProjectRecord } from "@/hooks/useAdminQueries";
@@ -90,15 +91,17 @@ export function getProjectColumns({
       id: "actions",
       header: "Action",
       cell: ({ row }) => (
-        <Button
-          variant="secondary"
-          size="sm"
-          onClick={() => onViewDetails?.(row.original)}
-          className="h-8 px-3 text-xs font-bold bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-500/30 hover:border-amber-500/50 flex items-center gap-1.5 cursor-pointer"
-        >
-          <Eye className="w-3.5 h-3.5" />
-          <span>View Details</span>
-        </Button>
+        <Link href={`/admin/projects/${row.original.id}`} className="inline-block">
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => onViewDetails?.(row.original)}
+            className="h-8 px-3 text-xs font-bold bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-500/30 hover:border-amber-500/50 flex items-center gap-1.5 cursor-pointer"
+          >
+            <Eye className="w-3.5 h-3.5" />
+            <span>View Details</span>
+          </Button>
+        </Link>
       ),
     },
   ];

@@ -5,6 +5,7 @@ import { Building2, Phone, Mail, Package, MessageCircle, FileText } from "lucide
 import { Select, SelectOption } from "@/components/ui/select";
 import { AssignedToCell } from "../components/AssignedToCell";
 import { ProductInquiryRecord } from "@/hooks/useAdminQueries";
+import { getProductUrl } from "@/lib/products";
 
 interface ProductInquiryColumnsProps {
   onUpdateStatus: (id: string, status: string) => Promise<void>;
@@ -32,7 +33,7 @@ export function getProductInquiryColumns({
       cell: ({ row }) => (
         <div className="flex flex-col gap-1">
           <Link
-            href={row.original.productSlug ? `/product/${row.original.productSlug}` : "/product"}
+            href={row.original.productSlug ? getProductUrl({ slug: row.original.productSlug, category: row.original.category }) : "/product"}
             target="_blank"
             className="font-bold text-slate-900 dark:text-white text-xs hover:text-amber-600 flex items-center gap-1.5"
           >

@@ -157,7 +157,15 @@ export default function EarthLineApp() {
     [handleUpdateRegStatus, handleUpdateRegAssigned]
   );
 
-  const projectColumns = useMemo(() => getProjectColumns(), []);
+  const projectColumns = useMemo(
+    () =>
+      getProjectColumns({
+        onViewDetails: (project) => {
+          router.push(`/admin/projects/${project.id}`);
+        },
+      }),
+    [router]
+  );
 
 
   // Filtered Lists

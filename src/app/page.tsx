@@ -336,6 +336,65 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Certifications & Accreditation Showcase */}
+      <section className="w-full bg-[#eef4f8] py-16 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+          <div className="text-center space-y-2">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+              Our Certifications
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 font-medium">
+              Recognized and Accredited Achievements
+            </p>
+          </div>
+
+          {/* Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-white rounded-2xl p-6 sm:p-8 flex items-center justify-center shadow-sm border border-slate-100 h-44 sm:h-48 group hover:shadow-md transition-shadow">
+              <img
+                src="/images/certifications/iso.png"
+                alt="ISO 9001:2015 Certified Company"
+                className="max-h-28 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+
+            <div className="bg-white rounded-2xl p-6 sm:p-8 flex items-center justify-center shadow-sm border border-slate-100 h-44 sm:h-48 group hover:shadow-md transition-shadow">
+              <img
+                src="/images/certifications/ul.png"
+                alt="UL Classified Grounding Conformance"
+                className="max-h-28 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+
+            <div className="bg-white rounded-2xl p-6 sm:p-8 flex items-center justify-center shadow-sm border border-slate-100 h-44 sm:h-48 group hover:shadow-md transition-shadow">
+              <img
+                src="/images/certifications/cpri.png"
+                alt="CPRI Type Tested High Power Lab"
+                className="max-h-28 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+
+            <div className="bg-white rounded-2xl p-6 sm:p-8 flex items-center justify-center shadow-sm border border-slate-100 h-44 sm:h-48 group hover:shadow-md transition-shadow">
+              <img
+                src="/images/certifications/msme.png"
+                alt="MSME Registered Govt of India"
+                className="max-h-28 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+          </div>
+
+          {/* View All Button */}
+          <div className="flex justify-end pt-2">
+            <Link
+              href="/certification"
+              className="inline-flex items-center justify-center bg-[#0052cc] hover:bg-[#0041b3] text-white font-semibold text-sm px-7 py-2.5 rounded-full shadow transition-colors"
+            >
+              View All
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Form Section */}
       <section className="w-full bg-[#f1f5f9] text-slate-900 py-16 sm:py-24 border-t border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

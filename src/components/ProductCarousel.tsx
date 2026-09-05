@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { getProductUrl } from "@/lib/products";
 import { ArrowRight, ChevronRight, CheckCircle2 } from "lucide-react";
 import {
   Carousel,
@@ -96,7 +97,7 @@ export default function ProductCarousel({
 
                     <div className="p-5 flex flex-col flex-grow border-t border-slate-100">
                       <div className="flex-grow">
-                        <Link href={`/product/${product.slug}`} className="block">
+                        <Link href={getProductUrl(product)} className="block">
                           <h3 className="font-bold text-slate-900 text-sm sm:text-base leading-tight mb-2 group-hover:text-amber-600 transition-colors line-clamp-2">
                             {product.title}
                           </h3>

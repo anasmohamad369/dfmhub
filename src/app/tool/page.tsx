@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useRef, useEffect } from "react";
+import React, { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import {
   ShieldAlert,
   Zap,
@@ -26,15 +26,16 @@ import {
   Compass,
   Sparkles,
   Lock,
-  LogOut,
-  KeyRound,
-  ShieldCheck,
   UserCheck,
   AlertCircle,
+  User,
+  Mail,
+  Phone,
+  Calculator,
 } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
-import AuthGuard, { useAuth } from "@/components/AuthGuard";
 import { Poppins } from "next/font/google";
+import Image from "next/image";
 
 const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700", "800"],
@@ -253,7 +254,6 @@ function statusWord(s: StatusKind): string {
 /* ---------------- Main Component ---------------- */
 export default function EarthLineConsolePage() {
   const { theme, toggleTheme } = useTheme();
-  const { logout } = useAuth();
 
   // Navigation State
   const [tab, setTab] = useState<StepItem["id"]>("site");
@@ -280,6 +280,12 @@ export default function EarthLineConsolePage() {
   const [r2, setR2] = useState<string>("");
   const [r3, setR3] = useState<string>("");
   const [checks, setChecks] = useState<boolean[]>(Array(checklistItems.length).fill(false));
+
+  // Project Contact Details (collected inside the tool as part of calculator flow)
+  const [contactName, setContactName] = useState<string>("");
+  const [contactEmail, setContactEmail] = useState<string>("");
+  const [companyname , setCompanyname] = useState<string>("")
+  const [contactPhone, setContactPhone] = useState<string>("");
 
   // Project submission state
   const [submittingProject, setSubmittingProject] = useState(false);
@@ -581,6 +587,75 @@ export default function EarthLineConsolePage() {
     return list;
   }, [data]);
 
+  // Project submission handler
+  const submitProjectAudit = useCallback(async () => {
+    if (submittingProject || projectSubmitted) return;
+    setSubmittingProject(true);
+    try {
+      // 1. Save project details in project_details table
+      await fetch("/api/projects", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userFullName: contactName || "Tool User",
+          userPhone: contactPhone || "N/A",
+          userEmail: contactEmail || "N/A",
+          siteName: siteName || "Unnamed Project",
+          location: siteLoc || "Unspecified Location",
+          occupancy: data.occ.name,
+          dimensions: `${data.L}m × ${data.W}m × ${data.H}m`,
+          soilType: data.soil.name,
+          climateZone: data.climate.name,
+          avgResistance: data.rAvg !== null ? `${fmt(data.rAvg, 2)} Ω` : "Not recorded",
+          targetResistance: `${fmt(data.target, 1)} Ω`,
+          checklistScore: `${fmt(data.checklistPct, 0)}%`,
+          lplClass: data.lplText,
+          riskR1: data.R1.toExponential(2),
+          status: "NEW",
+        }),
+      });
+
+      // 2. Store in user registrations table
+      await fetch("/api/registrations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: contactName || "Tool User",
+          phoneNumber: contactPhone || "N/A",
+          email: contactEmail || "N/A",
+          companyName: companyname || siteName || "Tool Audit",
+          location: siteLoc || "Unspecified Location",
+          requirement: "Tool Audit Calculation",
+          source: "TOOL_AUDIT",
+          status: "NEW",
+          remarks: `Tool Audit for ${siteName || "Project"} (${siteLoc || "N/A"})`,
+        }),
+      });
+      setProjectSubmitted(true);
+    } catch (err) {
+      console.warn("Auto-save project error:", err);
+    } finally {
+      setSubmittingProject(false);
+    }
+  }, [
+    submittingProject,
+    projectSubmitted,
+    contactName,
+    contactPhone,
+    contactEmail,
+    companyname,
+    siteName,
+    siteLoc,
+    data,
+  ]);
+
+  // Automatically submit calculation audit when reaching the consolidated report
+  useEffect(() => {
+    if (tab === "report" && isStep3Valid && !projectSubmitted && !submittingProject) {
+      submitProjectAudit();
+    }
+  }, [tab, isStep3Valid, projectSubmitted, submittingProject, submitProjectAudit]);
+
   const activeStepIdx = STEPS.findIndex((s) => s.id === tab);
 
   return (
@@ -633,11 +708,16 @@ export default function EarthLineConsolePage() {
             {/* Header controls inside sidebar */}
             <div className="flex items-center justify-between pb-3.5 border-b border-slate-100 dark:border-slate-800 mb-4">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-amber-500 text-slate-950 font-bold text-xs flex items-center justify-center shadow-sm">
-                  ARK
-                </div>
+                
+              <Image
+              src="/image.png"
+              className="w-7 h-7 rounded-lg"
+              alt="logo"
+              height={50}
+              width={50}
+              />
                 <span className="text-xs font-bold font-mono tracking-tight text-slate-900 dark:text-slate-100">
-                  EarthLine Console
+                 Risk Calculator
                 </span>
               </div>
 
@@ -656,13 +736,7 @@ export default function EarthLineConsolePage() {
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                 </button>
-                <button
-                  onClick={logout}
-                  className="p-1.5 rounded-lg border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/60 transition-colors cursor-pointer"
-                  title="Logout (Clear Auth)"
-                >
-                  <LogOut className="w-3.5 h-3.5" />
-                </button>
+
               </div>
             </div>
 
@@ -800,6 +874,81 @@ export default function EarthLineConsolePage() {
                 </p>
               </div>
 
+
+             {/* project registration  */}
+              <div className="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm">
+                <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 mb-1 flex items-center gap-2 border-b border-slate-100 dark:border-slate-800/80 pb-3">
+                  <UserCheck className="w-4 h-4 text-amber-500" /> Project Contact Details
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 mt-2">
+                  Contact details for the assessment report. These will appear on the generated PDF.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
+                      Contact Name
+                    </label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                      <input
+                        type="text"
+                        value={contactName}
+                        onChange={(e) => setContactName(e.target.value)}
+                        placeholder="e.g. Rajesh Kumar"
+                        className="w-full bg-slate-50 dark:bg-slate-800/60 border border-slate-300 dark:border-slate-700/80 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-amber-500 outline-none transition-colors"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
+                      Work Mail Address
+                    </label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                      <input
+                        type="email"
+                        value={contactEmail}
+                        onChange={(e) => setContactEmail(e.target.value)}
+                        placeholder="e.g. rajesh@company.com"
+                        className="w-full bg-slate-50 dark:bg-slate-800/60 border border-slate-300 dark:border-slate-700/80 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-amber-500 outline-none transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
+                      Company Name
+                    </label>
+                    <div className="relative">
+                      <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                      <input
+                        type="text"
+                        value={companyname}
+                        onChange={(e) => setCompanyname(e.target.value)}
+                        placeholder="e.g. Tata Steel"
+                        className="w-full bg-slate-50 dark:bg-slate-800/60 border border-slate-300 dark:border-slate-700/80 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-amber-500 outline-none transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
+                      Phone Number
+                    </label>
+                    <div className="relative">
+                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                      <input
+                        type="tel"
+                        value={contactPhone}
+                        onChange={(e) => setContactPhone(e.target.value)}
+                        placeholder="e.g. 98765 43210"
+                        className="w-full bg-slate-50 dark:bg-slate-800/60 border border-slate-300 dark:border-slate-700/80 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-amber-500 outline-none transition-colors"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Project Card */}
               <div className="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm">
                 <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2 border-b border-slate-100 dark:border-slate-800/80 pb-3">
@@ -863,6 +1012,9 @@ export default function EarthLineConsolePage() {
                   </p>
                 </div>
               </div>
+
+              {/* Project Contact Information Card */}
+              
 
               {/* Geometry Card */}
               <div className="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm">
@@ -1534,7 +1686,10 @@ export default function EarthLineConsolePage() {
                 <button
                   disabled={!isStep3Valid}
                   onClick={() => {
-                    if (isStep3Valid) setTab("report");
+                    if (isStep3Valid) {
+                      setTab("report");
+                      submitProjectAudit();
+                    }
                   }}
                   className={`px-6 py-3 rounded-xl font-semibold text-sm transition-all flex items-center gap-2 ${
                     isStep3Valid
@@ -1542,7 +1697,8 @@ export default function EarthLineConsolePage() {
                       : "bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 border border-slate-300 dark:border-slate-700 cursor-not-allowed opacity-60"
                   }`}
                 >
-                  <span>View Consolidated Report</span>
+                  <Calculator className="w-4 h-4" />
+                  <span>Calculate &amp; View Report</span>
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
@@ -1728,96 +1884,10 @@ export default function EarthLineConsolePage() {
                   <ChevronLeft className="w-4 h-4" /> Back to Step 03
                 </button>
 
-                <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-                  <button
-                    onClick={async () => {
-                      if (submittingProject || projectSubmitted) return;
-                      setSubmittingProject(true);
-                      try {
-                        let userInfo: any = null;
-                        try {
-                          if (typeof window !== "undefined") {
-                            const saved = localStorage.getItem("dfm_user_info");
-                            if (saved) userInfo = JSON.parse(saved);
-                          }
-                        } catch (e) {}
-
-                        // 1. Save project details linked with user info in project_details table
-                        await fetch("/api/projects", {
-                          method: "POST",
-                          headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify({
-                            userFullName: userInfo?.fullName || "Guest User",
-                            userPhone: userInfo?.phone || "N/A",
-                            userEmail: userInfo?.email || "N/A",
-                            siteName: siteName || "Unnamed Project",
-                            location: siteLoc || "Unspecified Location",
-                            occupancy: data.occ.name,
-                            dimensions: `${data.L}m × ${data.W}m × ${data.H}m`,
-                            soilType: data.soil.name,
-                            climateZone: data.climate.name,
-                            avgResistance: data.rAvg !== null ? `${fmt(data.rAvg, 2)} Ω` : "Not recorded",
-                            targetResistance: `${fmt(data.target, 1)} Ω`,
-                            checklistScore: `${fmt(data.checklistPct, 0)}%`,
-                            lplClass: data.lplText,
-                            riskR1: data.R1.toExponential(2),
-                            status: "NEW",
-                          }),
-                        });
-
-                        // 2. Store same location in user registrations table
-                        await fetch("/api/registrations", {
-                          method: "POST",
-                          headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify({
-                            fullName: userInfo?.fullName || "Tool User",
-                            phoneNumber: userInfo?.phone || "N/A",
-                            email: userInfo?.email || "N/A",
-                            companyName: userInfo?.company || siteName || "Tool Audit",
-                            location: siteLoc || "Unspecified Location",
-                            requirement: "Tool Audit BOQ Quote",
-                            source: "TOOL_AUDIT",
-                            status: "NEW",
-                            remarks: `Tool Audit for ${siteName || "Project"} (${siteLoc || "N/A"})`,
-                          }),
-                        });
-                      } catch (err) {
-                        console.warn("Save project error:", err);
-                      }
-                      setSubmittingProject(false);
-                      setProjectSubmitted(true);
-                      setTimeout(() => {
-                        logout();
-                      }, 2000);
-                    }}
-                    disabled={submittingProject}
-                    className={`w-full sm:w-auto px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer ${
-                      projectSubmitted
-                        ? "bg-emerald-600 text-white cursor-default"
-                        : "bg-emerald-600 hover:bg-emerald-500 text-white"
-                    }`}
-                  >
-                    {submittingProject ? (
-                      <>
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        <span>SENDING QUOTE REQUEST...</span>
-                      </>
-                    ) : projectSubmitted ? (
-                      <>
-                        <CheckCircle2 className="w-4 h-4 text-emerald-200" />
-                        <span>QUOTATION REQUEST SENT! LOGGING OUT... ✓</span>
-                      </>
-                    ) : (
-                      <>
-                        <Sparkles className="w-4 h-4 text-emerald-200" />
-                        <span>REQUEST OFFICIAL BOQ &amp; QUOTE</span>
-                      </>
-                    )}
-                  </button>
-
+                <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto justify-end">
                   <button
                     onClick={() => window.print()}
-                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold text-xs transition-colors flex items-center justify-center gap-2 shadow-md shadow-amber-500/20 cursor-pointer"
+                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-md shadow-amber-500/20 cursor-pointer"
                   >
                     <Printer className="w-4 h-4" /> Print / Save PDF
                   </button>

@@ -11,6 +11,9 @@ import {
 import FAQAccordion from "@/components/FAQAccordion";
 import ContactForm from "@/components/ContactForm";
 import { notFound } from "next/navigation";
+import { getDynamicMetadata, getDynamicHeroImage } from "@/lib/seo";
+
+export const dynamic = "force-dynamic";
 
 
 interface CityData {
@@ -471,7 +474,7 @@ export async function generateMetadata({
   const pageKeywords =
     city.keywords || `Structural Earthing System in ${city.name}`;
 
-  return {
+  const defaultMeta = {
     title: pageTitle,
     description: pageDesc,
     keywords: pageKeywords,
@@ -487,11 +490,16 @@ export async function generateMetadata({
       type: "website",
     },
     twitter: {
-      card: "summary_large_image",
+      card: "summary_large_image" as const,
       title: pageTitle,
       description: pageDesc,
     },
   };
+
+  return await getDynamicMetadata(
+    `/structural-earthing/${city.slug}`,
+    defaultMeta
+  );
 }
 
 export default async function StructuralEarthingCityPage({
@@ -506,6 +514,11 @@ export default async function StructuralEarthingCityPage({
   if (!city) {
     notFound();
   }
+
+  const heroImage = await getDynamicHeroImage(
+    `/structural-earthing/${city.slug}`,
+    "/images/earthing-hero.png"
+  );
 
   const otherCities = Object.values(cityRegistry).filter(
     (c) => c.slug !== city.slug
@@ -585,7 +598,7 @@ export default async function StructuralEarthingCityPage({
         <div className="absolute inset-0 bg-gradient-to-r from-[#070d19] via-[#091325]/90 to-transparent z-10" />
         <div className="absolute inset-0 z-0 opacity-30">
           <Image
-            src="/images/earthing-hero.png"
+            src={heroImage}
             alt={`Structural Earthing in ${city.name}`}
             fill
             className="object-cover object-center"

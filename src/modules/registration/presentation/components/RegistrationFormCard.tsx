@@ -2,11 +2,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  UserCheck,
+  Zap,
   User,
   Mail,
   Folder,
-  Clock,
+  Shield,
   ArrowRight,
   ChevronDown,
 } from "lucide-react";
@@ -70,14 +70,14 @@ export function RegistrationFormCard({
       {/* Form Header */}
       <div className="flex items-start gap-4 pb-4 border-b border-slate-200 dark:border-slate-800/80">
         <div className="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0">
-          <UserCheck className="w-6 h-6" />
+          <Zap className="w-6 h-6" />
         </div>
         <div>
           <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
-            Register
+            Start Your Assessment
           </h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Share your requirements and we'll connect with you shortly.
+            Enter your details to access the lightning risk assessment tool.
           </p>
         </div>
       </div>
@@ -135,7 +135,7 @@ export function RegistrationFormCard({
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel required>Email Address</FormLabel>
+                <FormLabel required> Work mail Address</FormLabel>
                 <FormControl>
                   <Input
                     type="email"
@@ -196,21 +196,21 @@ export function RegistrationFormCard({
               {isSubmitting ? (
                 <>
                   <div className="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
-                  <span>REGISTERING PROJECT...</span>
+                  <span>LOADING TOOL...</span>
                 </>
               ) : (
                 <>
-                  <span>REGISTER PROJECT</span>
+                  <span>START ASSESSMENT</span>
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}
             </Button>
           </div>
 
-          {/* Response Time Subtext */}
+          {/* Security Subtext */}
           <div className="flex items-center justify-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-normal pt-2">
-            <Clock className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-            <span>Typical response within 24 hours</span>
+            <Shield className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+            <span>Your data is secure and never shared with third parties</span>
           </div>
         </form>
       </Form>

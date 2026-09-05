@@ -8,7 +8,7 @@ import { Zap, Phone, Mail, MapPin, Clock, ShieldCheck } from "lucide-react";
 export default function Footer() {
   const pathname = usePathname();
 
-  if (pathname === "/register" || pathname?.startsWith("/dashboard") || pathname?.startsWith("/admin") || pathname?.startsWith("/product")) {
+  if (pathname === "/register" || pathname?.startsWith("/tool") || pathname?.startsWith("/dashboard") || pathname?.startsWith("/admin") || pathname?.startsWith("/product")) {
     return null;
   }
 
@@ -71,6 +71,15 @@ export default function Footer() {
                 >
                   <span className="text-amber-500 mr-2">›</span>
                   Installation Services
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/certification"
+                  className="hover:text-amber-400 transition-colors flex items-center"
+                >
+                  <span className="text-amber-500 mr-2">›</span>
+                  Certifications & Test Reports
                 </Link>
               </li>
               <li>

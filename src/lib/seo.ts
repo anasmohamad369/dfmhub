@@ -1,14 +1,37 @@
 import { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 
+function normalizePath(rawPath: string): { cleanPath: string; variations: string[] } {
+  const withLeading = rawPath.startsWith("/") ? rawPath : `/${rawPath}`;
+  const cleanPath = withLeading.length > 1 && withLeading.endsWith("/") ? withLeading.slice(0, -1) : withLeading;
+  const withTrailing = cleanPath + "/";
+  return {
+    cleanPath,
+    variations: [cleanPath, withTrailing, rawPath, withLeading],
+  };
+}
+
 export async function getDynamicMetadata(
   path: string,
   defaultMetadata: Metadata
 ): Promise<Metadata> {
   try {
-    const seoRecord = await prisma.seoMetadata.findUnique({
-      where: { path },
+    const { cleanPath, variations } = normalizePath(path);
+
+    let seoRecord = await prisma.seoMetadata.findUnique({
+      where: { path: cleanPath },
     });
+
+    if (!seoRecord) {
+      seoRecord = await prisma.seoMetadata.findFirst({
+        where: {
+          path: {
+            in: variations,
+            mode: "insensitive",
+          },
+        },
+      });
+    }
 
     if (!seoRecord) {
       return defaultMetadata;
@@ -65,10 +88,25 @@ export async function getDynamicHeroImage(
   defaultImage: string
 ): Promise<string> {
   try {
-    const seoRecord = await prisma.seoMetadata.findUnique({
-      where: { path },
+    const { cleanPath, variations } = normalizePath(path);
+
+    let seoRecord = await prisma.seoMetadata.findUnique({
+      where: { path: cleanPath },
       select: { ogImage: true },
     });
+
+    if (!seoRecord) {
+      seoRecord = await prisma.seoMetadata.findFirst({
+        where: {
+          path: {
+            in: variations,
+            mode: "insensitive",
+          },
+        },
+        select: { ogImage: true },
+      });
+    }
+
     return seoRecord?.ogImage || defaultImage;
   } catch (error) {
     return defaultImage;

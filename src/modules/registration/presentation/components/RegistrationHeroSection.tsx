@@ -6,21 +6,21 @@ export function RegistrationHeroSection() {
     <div className="lg:col-span-6 space-y-8">
       {/* Subheading Badge */}
       <div className="flex items-center gap-2">
-        <span className="text-amber-600 dark:text-amber-500 font-bold text-xs uppercase tracking-widest">
-          PROJECT REGISTRATION
+        <span className="text-amber-600 dark:text-amber-500  text-md uppercase tracking-widest">
+          Free Lightning Risk Assessment Tool
         </span>
         <div className="w-12 h-0.5 bg-amber-500/60 rounded-full" />
       </div>
 
       {/* Main Headline */}
       <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.1]">
-        Let’s Build <br />
-        <span className="text-amber-600 dark:text-amber-500">Safer</span> Infrastructure.
+        Assess Your Site&apos;s <br />
+        <span className="text-amber-600 dark:text-amber-500">Lightning</span> Risk.
       </h1>
 
       {/* Sub-paragraph */}
       <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed font-normal max-w-xl">
-        Register your project with DFMHUB and our engineering experts will get in touch to provide the right solution as per IS/IEC 62305 standards.
+        Use our free IS/IEC 62305 compliant tool to evaluate your site&apos;s lightning risk level and get instant engineering recommendations — no waiting, no callbacks.
       </p>
 
       {/* 3 Feature Badges */}
@@ -31,7 +31,7 @@ export function RegistrationHeroSection() {
           </div>
           <div>
             <span className="font-bold text-sm text-slate-900 dark:text-white block">IS/IEC 62305</span>
-            <span className="text-xs text-slate-500 dark:text-slate-400 block mt-0.5">Compliant Design</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400 block mt-0.5">Standard Compliant</span>
           </div>
         </div>
 
@@ -40,8 +40,8 @@ export function RegistrationHeroSection() {
             <Award className="w-5 h-5" />
           </div>
           <div>
-            <span className="font-bold text-sm text-slate-900 dark:text-white block">IEC 62561</span>
-            <span className="text-xs text-slate-500 dark:text-slate-400 block mt-0.5">Type Tested Components</span>
+            <span className="font-bold text-sm text-slate-900 dark:text-white block">Instant Results</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400 block mt-0.5">No Waiting Required</span>
           </div>
         </div>
 
@@ -50,8 +50,8 @@ export function RegistrationHeroSection() {
             <Headphones className="w-5 h-5" />
           </div>
           <div>
-            <span className="font-bold text-sm text-slate-900 dark:text-white block">End-to-End</span>
-            <span className="text-xs text-slate-500 dark:text-slate-400 block mt-0.5">Engineering Support</span>
+            <span className="font-bold text-sm text-slate-900 dark:text-white block">100% Free</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400 block mt-0.5">No Strings Attached</span>
           </div>
         </div>
       </div>
@@ -63,10 +63,10 @@ export function RegistrationHeroSection() {
         </div>
         <div>
           <h4 className="font-bold text-sm text-slate-900 dark:text-white">
-            From Risk Assessment to Documentation
+            Complete Risk Report in Minutes
           </h4>
           <p className="text-xs text-slate-600 dark:text-slate-300 mt-1">
-            We handle it all, so you can focus on building the future.
+            Get a detailed assessment with actionable recommendations, powered by IS/IEC 62305 standards.
           </p>
         </div>
       </div>

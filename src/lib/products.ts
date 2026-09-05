@@ -32,6 +32,31 @@ export function generateSlug(text: string): string {
     .replace(/\-\-+/g, "-"); // Replace multiple - with single -
 }
 
+export function categoryToSlug(category?: string | null): string {
+  if (!category) return "structural-earthing";
+  const norm = category.trim().toUpperCase().replace(/[-\s]+/g, "_");
+  if (norm === "LIGHTNING_PROTECTION") return "lightning-protection";
+  if (norm === "STRUCTURAL_EARTHING") return "structural-earthing";
+  if (norm === "ACCESSORIES") return "accessories";
+  return category.toLowerCase().trim().replace(/_/g, "-").replace(/\s+/g, "-");
+}
+
+export function slugToCategory(slug?: string | null): string {
+  if (!slug) return "STRUCTURAL_EARTHING";
+  const norm = slug.trim().toLowerCase().replace(/_/g, "-");
+  if (norm === "lightning-protection" || norm === "lightning-protection-system") return "LIGHTNING_PROTECTION";
+  if (norm === "structural-earthing") return "STRUCTURAL_EARTHING";
+  if (norm === "accessories") return "ACCESSORIES";
+  return slug.toUpperCase().trim().replace(/-/g, "_");
+}
+
+export function getProductUrl(product?: { slug?: string; category?: string | null } | null): string {
+  if (!product || !product.slug) return "/product";
+  const catSlug = categoryToSlug(product.category);
+  return `/product/${catSlug}/${product.slug}`;
+}
+
+
 export async function getAllProducts() {
   return await prisma.product.findMany({
     orderBy: { createdAt: "desc" },

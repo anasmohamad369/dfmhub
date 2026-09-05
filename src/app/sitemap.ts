@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { getAllProducts } from "@/lib/products";
+import { getAllProducts, getProductUrl } from "@/lib/products";
 
 export const revalidate = 86400; // Edge revalidation every 24 hours
 
@@ -23,6 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/lightning-protection-system",
     "/structural-earthing",
     "/installation-services",
+    "/certification",
     "/blog",
     "/product",
   ];
@@ -39,7 +40,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const products = await getAllProducts();
     dbProductEntries = products.map((prod) => ({
-      url: `${baseUrl}/product/${prod.slug}`,
+      url: `${baseUrl}${getProductUrl(prod)}`,
       lastModified: prod.updatedAt ? new Date(prod.updatedAt) : new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.9,

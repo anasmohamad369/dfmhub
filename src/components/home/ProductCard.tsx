@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
+import { getProductUrl } from "@/lib/products";
 
 interface ProductCardProps {
   product: {
@@ -47,7 +48,7 @@ export function ProductCard({ product }: ProductCardProps) {
       </div>
       <div className="p-5 flex-1 flex flex-col mt-0">
         {product.slug ? (
-          <Link href={`/product/${product.slug}`} className="block">
+          <Link href={getProductUrl(product)} className="block">
             <h3 className="font-bold text-lg text-slate-900 dark:text-white line-clamp-2 mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
               {product.title}
             </h3>
