@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getProductUrl } from "@/lib/products";
+import { stripHtml } from "@/components/product/RichDescription";
 import { ArrowRight, ChevronRight, CheckCircle2 } from "lucide-react";
 import {
   Carousel,
@@ -103,7 +104,7 @@ export default function ProductCarousel({
                           </h3>
                         </Link>
                         <p className="text-xs text-slate-500 font-normal line-clamp-2 leading-relaxed">
-                          {product.description}
+                          {stripHtml(product.description)}
                         </p>
                       </div>
                     </div>

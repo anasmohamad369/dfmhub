@@ -197,10 +197,10 @@ export default function Footer() {
             © {new Date().getFullYear()} DFMHUB Engineering. All rights reserved.
           </div>
           <div className="flex flex-wrap items-center justify-center gap-3 text-[11px] font-medium text-slate-400">
-            <Link href="/admin/login" className="text-slate-400 hover:text-amber-400 transition-colors font-semibold flex items-center gap-1">
+            {/* <Link href="/admin/login" className="text-slate-400 hover:text-amber-400 transition-colors font-semibold flex items-center gap-1">
               <ShieldCheck className="w-3 h-3 text-amber-500" />
               <span>Admin Portal</span>
-            </Link>
+            </Link> */}
             <span>·</span>
             <span className="bg-slate-800/80 px-2.5 py-1 rounded text-amber-400 border border-slate-700">ARK Make</span>
             <span>·</span>

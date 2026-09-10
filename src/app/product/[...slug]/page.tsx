@@ -4,6 +4,7 @@ import { getProductBySlug, categoryToSlug, getProductUrl } from "@/lib/products"
 import ProductDetailView from "@/components/product/ProductDetailView";
 import JsonLd from "@/components/JsonLd";
 import { getDynamicMetadata } from "@/lib/seo";
+import { stripHtml } from "@/components/product/RichDescription";
 
 interface Props {
   params: Promise<{ slug: string[] }> | { slug: string[] };
@@ -28,10 +29,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const path = getProductUrl(product);
   const canonicalUrl = `${baseUrl}${path}`;
   const ogImageUrl = product.imageUrl || `${baseUrl}/images/lps-hero.png`;
+  const cleanDescription = stripHtml(product.description);
 
   const defaultMeta: Metadata = {
     title: `${product.title} (IS 3043 / IEC 62305 Certified)`,
-    description: `${product.description.slice(0, 160)} Engineered for Solar EPC & MEP projects. Request B2B quotes.`,
+    description: `${cleanDescription.slice(0, 160)} Engineered for Solar EPC & MEP projects. Request B2B quotes.`,
     keywords: [
       product.title,
       product.category,
@@ -46,7 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     openGraph: {
       title: `${product.title} | DFMHUB Grounding & Lightning Systems`,
-      description: product.description.slice(0, 200),
+      description: cleanDescription.slice(0, 200),
       url: canonicalUrl,
       type: "article",
       siteName: "DFMHUB Systems",
@@ -62,7 +64,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     twitter: {
       card: "summary_large_image",
       title: product.title,
-      description: product.description.slice(0, 200),
+      description: cleanDescription.slice(0, 200),
       images: [ogImageUrl],
     },
   };
@@ -153,7 +155,7 @@ export default async function ProductCatchAllPage({ params }: Props) {
       "@id": `${productUrl}/#product`,
       name: product.title,
       image: product.imageUrl ? [product.imageUrl] : [`${baseUrl}/images/lps-hero.png`],
-      description: product.description,
+      description: stripHtml(product.description),
       brand: {
         "@type": "Brand",
         name: product.brand || "ARK Make",

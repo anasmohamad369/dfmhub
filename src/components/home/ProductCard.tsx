@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { getProductUrl } from "@/lib/products";
+import { stripHtml } from "@/components/product/RichDescription";
 
 interface ProductCardProps {
   product: {
@@ -59,7 +60,7 @@ export function ProductCard({ product }: ProductCardProps) {
           </h3>
         )}
         <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-4 flex-1">
-          {product.description}
+          {stripHtml(product.description)}
         </p>
         
         {featureList.length > 0 && (

@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { ProductRecord } from "../../domain/entities/product.entity";
 import { getProductUrl } from "@/lib/products";
+import { stripHtml } from "@/components/product/RichDescription";
 
 
 interface ProductCatalogCardProps {
@@ -130,7 +131,7 @@ export default function ProductCatalogCard({ product }: ProductCatalogCardProps)
 
           {/* Short Description */}
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed font-normal">
-            {product.description}
+            {stripHtml(product.description)}
           </p>
 
           {/* Feature Highlights Preview */}

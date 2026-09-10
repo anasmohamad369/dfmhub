@@ -34,6 +34,7 @@ import {
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ProductGalleryUploader from "@/components/admin/ProductGalleryUploader";
+import RichDescriptionEditor from "@/components/admin/RichDescriptionEditor";
 
 const CATEGORY_OPTIONS = [
   { value: "LIGHTNING_PROTECTION", label: "Lightning Protection" },
@@ -400,12 +401,12 @@ export default function ProductForm({
                   <FormItem className="space-y-1.5">
                     <FormLabel required className="text-xs font-semibold text-slate-800 dark:text-slate-200">Product Description</FormLabel>
                     <FormControl>
-                      <Textarea 
-                        {...field} 
+                      <RichDescriptionEditor 
+                        value={field.value} 
+                        onChange={field.onChange} 
                         disabled={readonly} 
-                        rows={4} 
-                        placeholder="Write a compelling description for this product..." 
-                        className="text-xs resize-none" 
+                        rows={5} 
+                        placeholder="Write a compelling description for this product. Use the toolbar to bold, highlight key features, or add line breaks..." 
                       />
                     </FormControl>
                     <FormMessage />
