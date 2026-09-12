@@ -38,7 +38,7 @@ export async function GET(request: Request) {
     ];
 
     const notSpamFilters = spamPatterns.map((pattern) => ({
-      path: { not: { contains: pattern, mode: "insensitive" as const } },
+      path: { not: { contains: pattern } },
     }));
 
     const whereCondition: any = {
