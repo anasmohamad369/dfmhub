@@ -17,7 +17,36 @@ export async function GET(request: Request) {
       startDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
     }
 
-    const whereCondition = startDate ? { createdAt: { gte: startDate } } : {};
+    const spamPatterns = [
+      ".php",
+      ".xml",
+      ".asp",
+      ".aspx",
+      "fuck",
+      "porn",
+      "xxx",
+      "casino",
+      "poker",
+      "essay",
+      "paper",
+      "cricket",
+      "jarvis",
+      "injection-molding",
+      "neighbors-wife",
+      "wp-admin",
+      "wp-content",
+    ];
+
+    const notSpamFilters = spamPatterns.map((pattern) => ({
+      path: { not: { contains: pattern, mode: "insensitive" as const } },
+    }));
+
+    const whereCondition: any = {
+      AND: [
+        ...(startDate ? [{ createdAt: { gte: startDate } }] : []),
+        ...notSpamFilters,
+      ],
+    };
 
     // 1. Total Page Views
     const totalViews = await prisma.pageView.count({
@@ -132,3 +161,33 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: error.message || "Failed to fetch analytics" }, { status: 500 });
   }
 }
+
+export async function DELETE() {
+  try {
+    const deleted = await prisma.pageView.deleteMany({
+      where: {
+        OR: [
+          { path: { contains: ".php", mode: "insensitive" } },
+          { path: { contains: ".xml", mode: "insensitive" } },
+          { path: { contains: ".asp", mode: "insensitive" } },
+          { path: { contains: ".aspx", mode: "insensitive" } },
+          { path: { contains: "fuck", mode: "insensitive" } },
+          { path: { contains: "porn", mode: "insensitive" } },
+          { path: { contains: "xxx", mode: "insensitive" } },
+          { path: { contains: "paper", mode: "insensitive" } },
+          { path: { contains: "cricket", mode: "insensitive" } },
+          { path: { contains: "jarvis", mode: "insensitive" } },
+          { path: { contains: "injection-molding", mode: "insensitive" } },
+          { path: { contains: "neighbors-wife", mode: "insensitive" } },
+          { path: { contains: "wp-", mode: "insensitive" } },
+        ],
+      },
+    });
+
+    return NextResponse.json({ success: true, count: deleted.count });
+  } catch (error: any) {
+    console.error("DELETE /api/admin/analytics error:", error);
+    return NextResponse.json({ error: error.message || "Failed to purge spam analytics" }, { status: 500 });
+  }
+}
+

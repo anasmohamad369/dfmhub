@@ -17,6 +17,7 @@ import {
   Sparkles,
   BarChart3,
   Layers,
+  Trash2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -58,6 +59,7 @@ export default function AdminAnalyticsView() {
   const [timeframe, setTimeframe] = useState<"all" | "today" | "7d" | "30d">("all");
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [purging, setPurging] = useState(false);
 
   useEffect(() => {
     fetchAnalytics();
@@ -75,6 +77,25 @@ export default function AdminAnalyticsView() {
       console.error("Failed to fetch analytics:", err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handlePurgeSpam = async () => {
+    if (!confirm("Are you sure you want to clean up historical bot probes and spam URLs from the database?")) {
+      return;
+    }
+    setPurging(true);
+    try {
+      const res = await fetch("/api/admin/analytics", { method: "DELETE" });
+      if (res.ok) {
+        const json = await res.json();
+        alert(`Successfully removed ${json.count || 0} spam records!`);
+        fetchAnalytics();
+      }
+    } catch (err) {
+      console.error("Failed to purge spam analytics:", err);
+    } finally {
+      setPurging(false);
     }
   };
 
@@ -128,6 +149,17 @@ export default function AdminAnalyticsView() {
             title="Refresh Analytics"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
+          </Button>
+
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handlePurgeSpam}
+            disabled={purging}
+            className="p-2 h-8 w-8 min-w-0 text-rose-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 cursor-pointer"
+            title="Clean Bot & Spam Data"
+          >
+            <Trash2 className={`w-3.5 h-3.5 ${purging ? "animate-pulse" : ""}`} />
           </Button>
         </div>
       </div>
