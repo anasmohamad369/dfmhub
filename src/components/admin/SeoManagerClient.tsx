@@ -49,7 +49,9 @@ const DEFAULT_PRESET_PAGES = [
   { path: "/contact-us", name: "Contact Us", defaultTitle: "Contact Us | DFMHUB Customer Support & Sales" },
   { path: "/lightning-protection-system", name: "Lightning Protection", defaultTitle: "Lightning Protection Systems | DFMHUB" },
   { path: "/structural-earthing", name: "Structural Earthing", defaultTitle: "Structural Earthing Systems | DFMHUB" },
+  { path: "/solar", name: "Solar Earthing & Protection", defaultTitle: "Solar Earthing & Lightning Protection Accessories | ARK Make DFMHUB" },
   { path: "/installation-services", name: "Installation Services", defaultTitle: "Professional Installation Services | DFMHUB" },
+  { path: "/certification", name: "Certifications", defaultTitle: "Certifications & Test Reports | CPRI, ISO 9001, UL, MSME | DFMHUB" },
   { path: "/product", name: "Products Catalog", defaultTitle: "Products & Components Catalog | DFMHUB" },
   { path: "/blog", name: "Engineering Blog", defaultTitle: "Earthing & Protection Blog | DFMHUB" },
 ];

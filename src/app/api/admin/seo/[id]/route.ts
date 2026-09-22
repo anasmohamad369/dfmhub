@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 
 // GET /api/admin/seo/[id] - Get single record
@@ -61,6 +62,15 @@ export async function PUT(
       },
     });
 
+    try {
+      if (normalizedPath) revalidatePath(normalizedPath);
+      if (updatedRecord.path && updatedRecord.path !== normalizedPath) {
+        revalidatePath(updatedRecord.path);
+      }
+    } catch (e) {
+      console.warn("Failed to revalidate path on update:", e);
+    }
+
     return NextResponse.json(updatedRecord);
   } catch (error: any) {
     return NextResponse.json({ error: error.message || "Failed to update record" }, { status: 500 });
@@ -74,9 +84,22 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
+    const existing = await prisma.seoMetadata.findUnique({
+      where: { id },
+      select: { path: true },
+    });
+
     await prisma.seoMetadata.delete({
       where: { id },
     });
+
+    if (existing?.path) {
+      try {
+        revalidatePath(existing.path);
+      } catch (e) {
+        console.warn("Failed to revalidate path on delete:", existing.path, e);
+      }
+    }
 
     return NextResponse.json({ success: true, message: "SEO Record deleted" });
   } catch (error: any) {

@@ -1,1 +1,1 @@
-export { default, metadata } from "../solar/page";
+export { default, generateMetadata } from "../solar/page";

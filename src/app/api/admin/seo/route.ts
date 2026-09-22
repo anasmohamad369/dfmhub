@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 
 // GET /api/admin/seo - List all SEO metadata records or query by path
@@ -74,6 +75,12 @@ export async function POST(request: Request) {
         structuredData: structuredData || null,
       },
     });
+
+    try {
+      revalidatePath(normalizedPath);
+    } catch (e) {
+      console.warn("Failed to revalidate path:", normalizedPath, e);
+    }
 
     return NextResponse.json(upsertedRecord);
   } catch (error: any) {

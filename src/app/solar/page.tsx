@@ -32,11 +32,12 @@ import ContactForm from "@/components/ContactForm";
 import FAQAccordion from "@/components/FAQAccordion";
 import ProductCarousel from "@/components/ProductCarousel";
 import { getProductsByCategory, getAllProducts } from "@/lib/products";
+import { getDynamicMetadata, getDynamicHeroImage } from "@/lib/seo";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.dfmhub.com";
 const pageUrl = `${siteUrl}/solar`;
 
-export const metadata: Metadata = {
+const defaultMetadata: Metadata = {
   title: "Solar Earthing & Lightning Protection Accessories | ARK Make DFMHUB",
   description:
     "DFMHUB manufactures ARK solar earthing and lightning protection accessories for solar farms, rooftop and floating solar projects across India. Get a project quote.",
@@ -71,7 +72,13 @@ export const metadata: Metadata = {
   },
 };
 
+export async function generateMetadata(): Promise<Metadata> {
+  return await getDynamicMetadata("/solar", defaultMetadata);
+}
+
 export default async function SolarEarthingLpsPage() {
+  const heroImage = await getDynamicHeroImage("/solar", "/images/solar-earthing-hero.jpg");
+
   // Fetch real products from DB for the interactive carousel
   let products = await getProductsByCategory("LIGHTNING_PROTECTION", 8);
   if (!products || products.length === 0) {
@@ -414,7 +421,7 @@ export default async function SolarEarthingLpsPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#070d19] via-[#091325]/90 to-slate-900/60 z-10" />
         <div className="absolute inset-0 z-0 opacity-40">
           <Image
-            src="/images/solar-earthing-hero.jpg"
+            src={heroImage}
             alt="ARK Solar Earthing and Lightning Protection Accessories on utility scale solar farm"
             fill
             className="object-cover object-center"
