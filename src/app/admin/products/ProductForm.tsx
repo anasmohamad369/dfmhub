@@ -405,8 +405,10 @@ export default function ProductForm({
                         value={field.value} 
                         onChange={field.onChange} 
                         disabled={readonly} 
-                        rows={5} 
-                        placeholder="Write a compelling description for this product. Use the toolbar to bold, highlight key features, or add line breaks..." 
+                        rows={6}
+                        minHeight="220px"
+                        mode="product"
+                        placeholder="Write a compelling description for this product. Use the visual toolbar to bold, highlight key specs, create bullet feature lists, or add line breaks..." 
                       />
                     </FormControl>
                     <FormMessage />

@@ -21,6 +21,7 @@ import {
 import { useBlogDetailQuery } from "../../application/use-cases/useBlogQueries";
 import ContactForm from "@/components/ContactForm";
 import { CATEGORY_OPTIONS } from "../../domain/validation/blog.schema";
+import { RichDescription } from "@/components/product/RichDescription";
 
 interface BlogDetailClientProps {
   slug: string;
@@ -75,6 +76,17 @@ export default function BlogDetailClient({ slug }: BlogDetailClientProps) {
 
   // Extract headings for Table of Contents
   const extractHeadings = (content: string) => {
+    if (!content) return [];
+    
+    // Check for HTML <h2> tags first
+    const h2Matches = content.match(/<h2[^>]*>(.*?)<\/h2>/gi);
+    if (h2Matches && h2Matches.length > 0) {
+      return h2Matches
+        .map((h) => h.replace(/<[^>]+>/g, "").trim())
+        .filter((text) => text.length > 0 && text.length < 100);
+    }
+
+    // Fallback for plain-text blocks
     const blocks = content.split("\n\n").filter((b) => b.trim() !== "");
     const headings: string[] = [];
 
@@ -340,7 +352,14 @@ export default function BlogDetailClient({ slug }: BlogDetailClientProps) {
 
             {/* Article Content */}
             <div className="space-y-6">
-              {renderFormattedContent(post.content)}
+              {/<[a-z][\s\S]*>/i.test(post.content) ? (
+                <RichDescription
+                  content={post.content}
+                  className="text-base sm:text-lg leading-relaxed font-normal text-slate-700 dark:text-slate-300 [&_h2]:text-2xl sm:[&_h2]:text-3xl [&_h2]:font-extrabold [&_h2]:text-slate-900 dark:[&_h2]:text-white [&_h2]:pt-6 [&_h2]:pb-2 [&_h2]:tracking-tight [&_h3]:text-xl sm:[&_h3]:text-2xl [&_h3]:font-bold [&_h3]:text-slate-900 dark:[&_h3]:text-white [&_h3]:pt-4 [&_h3]:pb-1 [&_blockquote]:border-l-4 [&_blockquote]:border-emerald-600 [&_blockquote]:bg-emerald-50/70 dark:[&_blockquote]:bg-emerald-950/20 [&_blockquote]:p-5 [&_blockquote]:rounded-r-2xl [&_blockquote]:text-slate-800 dark:[&_blockquote]:text-emerald-200 [&_blockquote]:italic [&_blockquote]:my-6 [&_ul]:space-y-3 [&_ol]:space-y-3 [&_li]:text-slate-700 dark:[&_li]:text-slate-300 [&_p]:text-slate-700 dark:[&_p]:text-slate-300 [&_p]:mb-4"
+                />
+              ) : (
+                renderFormattedContent(post.content)
+              )}
             </div>
 
             {/* Bottom SEO Tags Box */}

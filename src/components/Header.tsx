@@ -67,7 +67,7 @@ export default function Header() {
       name: "Products",
       href: "/product",
       dropdown: [
-    
+
         {
           name: "Lightning Protection System",
           state: "ESE Terminals, Conductors & SPDs",
@@ -78,6 +78,7 @@ export default function Header() {
           state: "Chemical Electrodes & Copper Rods",
           url: "/product?category=STRUCTURAL_EARTHING",
         },
+      
       ],
     },
     {
@@ -132,9 +133,9 @@ export default function Header() {
         },
       ],
     },
+    { name: "Solar", href: "/solar" },
     { name: "Installation", href: "/installation-services" },
     // { name: "Certification", href: "/certification" },
-    { name: "Blog", href: "/blog" },
     { name: "Contact Us", href: "/contact-us" },
   ];
 
@@ -146,11 +147,10 @@ export default function Header() {
 
   return (
     <header
-      className={`w-full sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-md border-b border-slate-200/80 dark:border-slate-800/80"
-          : "bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800"
-      }`}
+      className={`w-full sticky top-0 z-50 transition-all duration-300 ${isScrolled
+        ? "bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-md border-b border-slate-200/80 dark:border-slate-800/80"
+        : "bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800"
+        }`}
     >
       {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -175,11 +175,10 @@ export default function Header() {
               <div key={link.name} className="relative group">
                 <Link
                   href={link.href}
-                  className={`px-3 py-2 rounded-full text-xs xl:text-sm font-semibold transition-all inline-flex items-center gap-1 ${
-                    isActive(link.href)
-                      ? "text-amber-700 dark:text-amber-400 bg-amber-500/10 font-bold"
-                      : "text-slate-700 dark:text-slate-200 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800/60"
-                  }`}
+                  className={`px-3 py-2 rounded-full text-xs xl:text-sm font-semibold transition-all inline-flex items-center gap-1 ${isActive(link.href)
+                    ? "text-amber-700 dark:text-amber-400 bg-amber-500/10 font-bold"
+                    : "text-slate-700 dark:text-slate-200 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800/60"
+                    }`}
                 >
                   <span>{link.name}</span>
                 </Link>
@@ -264,11 +263,10 @@ export default function Header() {
               <Link
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block px-3 py-2.5 rounded-md text-base font-semibold ${
-                  isActive(link.href)
-                    ? "text-amber-700 dark:text-amber-400 bg-slate-200 dark:bg-slate-800 font-bold border border-slate-300 dark:border-slate-700"
-                    : "text-slate-800 dark:text-slate-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-slate-200/60 dark:hover:bg-slate-800"
-                }`}
+                className={`block px-3 py-2.5 rounded-md text-base font-semibold ${isActive(link.href)
+                  ? "text-amber-700 dark:text-amber-400 bg-slate-200 dark:bg-slate-800 font-bold border border-slate-300 dark:border-slate-700"
+                  : "text-slate-800 dark:text-slate-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-slate-200/60 dark:hover:bg-slate-800"
+                  }`}
               >
                 {link.name}
               </Link>

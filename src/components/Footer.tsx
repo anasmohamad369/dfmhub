@@ -2,8 +2,82 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Zap, Phone, Mail, MapPin, Clock, ShieldCheck } from "lucide-react";
+
+// Custom SVG Brand Icons
+function YoutubeIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+    </svg>
+  );
+}
+
+function LinkedinIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+    </svg>
+  );
+}
+
+function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  );
+}
+
+// Official IndiaMART logo emblem icon
+function IndiaMartIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <span className={`relative inline-flex items-center justify-center ${className}`}>
+      <Image
+        src="/images/indiamart-icon.png"
+        alt="IndiaMART"
+        width={18}
+        height={18}
+        className="w-full h-full object-contain"
+      />
+    </span>
+  );
+}
+
+const SOCIAL_LINKS = [
+  {
+    name: "YouTube",
+    href: "https://www.youtube.com/@dfmhuboffical",
+    icon: YoutubeIcon,
+    hoverClass: "hover:text-red-500 hover:border-red-500/40 hover:bg-red-500/10",
+    ariaLabel: "Visit our YouTube channel",
+  },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/company/dfmhub/?viewAsMember=true",
+    icon: LinkedinIcon,
+    hoverClass: "hover:text-sky-400 hover:border-sky-500/40 hover:bg-sky-500/10",
+    ariaLabel: "Connect with us on LinkedIn",
+  },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/dfmhub.arklps/",
+    icon: InstagramIcon,
+    hoverClass: "hover:text-pink-400 hover:border-pink-500/40 hover:bg-pink-500/10",
+    ariaLabel: "Follow us on Instagram",
+  },
+  {
+    name: "IndiaMART",
+    href: "https://www.indiamart.com/dfmhub-bengaluru/",
+    icon: IndiaMartIcon,
+    hoverClass: "hover:border-red-500/40 hover:bg-red-500/10",
+    ariaLabel: "Find us on IndiaMART",
+  },
+];
 
 export default function Footer() {
   const pathname = usePathname();
@@ -38,6 +112,31 @@ export default function Footer() {
               <ShieldCheck className="w-4 h-4 text-amber-500" />
               <span>IS/IEC 62305 & IS 3043 Certified</span>
             </div>
+
+            {/* Social Media Links */}
+            <div className="pt-2">
+              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2.5">
+                Connect With Us
+              </span>
+              <div className="flex items-center space-x-2">
+                {SOCIAL_LINKS.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={item.name}
+                      aria-label={item.ariaLabel}
+                      className={`w-9 h-9 rounded-xl bg-slate-900/90 dark:bg-slate-900 border border-slate-800 text-slate-400 flex items-center justify-center transition-all duration-200 cursor-pointer shadow-xs ${item.hoverClass}`}
+                    >
+                      <Icon className="w-4 h-4" />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
           </div>
 
           {/* Column 2: Systems */}
@@ -62,6 +161,15 @@ export default function Footer() {
                 >
                   <span className="text-amber-500 mr-2">›</span>
                   Structural Earthing
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/solar"
+                  className="hover:text-amber-400 transition-colors flex items-center"
+                >
+                  <span className="text-amber-500 mr-2">›</span>
+                  Solar Earthing &amp; LPS
                 </Link>
               </li>
               <li>
@@ -196,12 +304,27 @@ export default function Footer() {
           <div>
             © {new Date().getFullYear()} DFMHUB Engineering. All rights reserved.
           </div>
+
+          <div className="flex items-center space-x-2">
+            {SOCIAL_LINKS.map((item) => {
+              const Icon = item.icon;
+              return (
+                <a
+                  key={`bottom-${item.name}`}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={item.name}
+                  aria-label={item.ariaLabel}
+                  className={`w-7 h-7 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 flex items-center justify-center transition-all duration-200 cursor-pointer shadow-xs ${item.hoverClass}`}
+                >
+                  <Icon className="w-3.5 h-3.5" />
+                </a>
+              );
+            })}
+          </div>
+
           <div className="flex flex-wrap items-center justify-center gap-3 text-[11px] font-medium text-slate-400">
-            {/* <Link href="/admin/login" className="text-slate-400 hover:text-amber-400 transition-colors font-semibold flex items-center gap-1">
-              <ShieldCheck className="w-3 h-3 text-amber-500" />
-              <span>Admin Portal</span>
-            </Link> */}
-            <span>·</span>
             <span className="bg-slate-800/80 px-2.5 py-1 rounded text-amber-400 border border-slate-700">ARK Make</span>
             <span>·</span>
             <span>IS/IEC 62305</span>

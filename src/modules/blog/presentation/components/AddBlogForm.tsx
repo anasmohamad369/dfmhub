@@ -23,6 +23,7 @@ import { CheckCircle2, AlertCircle, Send, Edit3, ArrowLeft } from "lucide-react"
 import { useRouter } from "next/navigation";
 
 import ImageUploader from "@/components/ImageUploader";
+import RichDescriptionEditor from "@/components/admin/RichDescriptionEditor";
 
 export interface AddBlogFormProps {
   initialData?: BlogRecord;
@@ -325,12 +326,14 @@ export default function AddBlogForm({
                   Full Article Content
                 </FormLabel>
                 <FormControl>
-                  <Textarea
-                    {...field}
+                  <RichDescriptionEditor
+                    value={field.value}
+                    onChange={field.onChange}
                     disabled={readonly}
-                    rows={8}
-                    placeholder="Full article content..."
-                    className="min-h-[160px] text-xs"
+                    rows={12}
+                    minHeight="320px"
+                    mode="blog"
+                    placeholder="Draft technical guide or blog article content. Use the rich toolbar to add headings, key takeaway callout boxes, pro tips, bullet lists, or links..."
                   />
                 </FormControl>
                 <FormMessage />

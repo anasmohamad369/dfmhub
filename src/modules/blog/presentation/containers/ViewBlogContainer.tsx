@@ -9,6 +9,7 @@ import { useBlogDetailQuery } from "../../application/use-cases/useBlogQueries";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { CATEGORY_OPTIONS } from "../../domain/validation/blog.schema";
+import { RichDescription } from "@/components/product/RichDescription";
 
 interface ViewBlogContainerProps {
   slug: string;
@@ -161,8 +162,8 @@ export default function ViewBlogContainer({ slug }: ViewBlogContainerProps) {
               <div className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 mb-3">
                 Full Article Content
               </div>
-              <div className="prose dark:prose-invert max-w-none text-sm text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 whitespace-pre-wrap font-sans">
-                {blog.content}
+              <div className="prose dark:prose-invert max-w-none">
+                <RichDescription content={blog.content} className="text-sm leading-relaxed" />
               </div>
             </div>
           </Card>
