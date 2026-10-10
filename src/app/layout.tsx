@@ -29,7 +29,7 @@ const poppins = Poppins({
   display: "swap",
 });
 
-const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-DFMHUB2026";
+const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-2G0QFXHNZH";
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "AOrlXezKqvAGUSWGFniVzI5sqYBBOU1ymtAEf5PEt0U";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.dfmhub.com";
