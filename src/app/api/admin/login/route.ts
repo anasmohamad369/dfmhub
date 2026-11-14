@@ -5,17 +5,23 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { username, password } = body;
 
-    const envUser = process.env.ADMIN_USERNAME || "admin";
-    const envPass = process.env.ADMIN_PASSWORD || "admin123";
+    const envUser = process.env.ADMIN_USERNAME;
+    const envPass = process.env.ADMIN_PASSWORD;
+
+    // No fallback credentials: login is disabled until both are set in the environment.
+    if (!envUser || !envPass) {
+      console.error("[Admin Login] ADMIN_USERNAME / ADMIN_PASSWORD are not set");
+      return NextResponse.json(
+        { success: false, error: "Admin login is not configured" },
+        { status: 503 }
+      );
+    }
 
     const isUserValid =
-      username &&
-      (username.trim().toLowerCase() === envUser.toLowerCase() ||
-        username.trim().toLowerCase() === "admin@dfmhub.com");
+      typeof username === "string" &&
+      username.trim().toLowerCase() === envUser.toLowerCase();
 
-    const isPassValid =
-      password &&
-      (password === envPass || password === "dfmhub2026" || password === "admin123");
+    const isPassValid = typeof password === "string" && password === envPass;
 
     if (isUserValid && isPassValid) {
       return NextResponse.json({
