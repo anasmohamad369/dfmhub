@@ -62,12 +62,6 @@ export default function AdminLoginPage() {
     }
   };
 
-  const handleQuickDemoFill = () => {
-    setUsername("admin");
-    setPassword("admin123");
-    setErrorMsg("");
-  };
-
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-slate-50 dark:bg-[#070d19] text-slate-900 dark:text-slate-100 font-poppins transition-colors duration-200 relative">
       {/* Top Bar Navigation Actions */}
@@ -172,22 +166,6 @@ export default function AdminLoginPage() {
             <ArrowRight className="w-4 h-4" />
           </Button>
         </form>
-
-        {/* Demo Credentials Hint */}
-        <div className="pt-2 border-t border-slate-200 dark:border-slate-800 text-center">
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={handleQuickDemoFill}
-            className="text-[11px]  text-slate-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors inline-flex items-center gap-1 cursor-pointer lowercase"
-          >
-            <span>Auto-fill demo credentials</span>
-            <span className="text-[10px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-amber-700 dark:text-amber-300 border border-slate-300 dark:border-slate-700 ">
-              admin / admin123
-            </span>
-          </Button>
-        </div>
       </Card>
     </div>
   );
